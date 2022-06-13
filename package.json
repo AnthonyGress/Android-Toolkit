@@ -1,5 +1,5 @@
 {
-  "name": "FireTV Toolkit",
+  "name": "firetv-toolkit",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Fast Refresh for rapid application development",
   "scripts": {
     "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",
@@ -87,26 +87,18 @@
     },
     "extraResources": [
       "./assets/**"
-    ],
-    "publish": {
-      "provider": "github",
-      "owner": "electron-react-boilerplate",
-      "repo": "electron-react-boilerplate"
-    }
+    ]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
+    "url": "git+https://github.com/AnthonyGress/FireTV-Toolkit.git"
   },
   "author": {
-    "name": "Techx Guy",
+    "name": "Anthony Gress",
     "email": "the.techx.guy@gmail.com",
-    "url": "https://techxguy.com"
+    "url": "https://anthonygress.dev"
   },
   "license": "MIT",
-  "bugs": {
-    "url": ""
-  },
   "keywords": [
     "electron",
     "boilerplate",
@@ -118,7 +110,7 @@
     "hot",
     "reload"
   ],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+  "homepage": "https://anthonygress.dev",
   "jest": {
     "testURL": "http://localhost/",
     "testEnvironment": "jsdom",

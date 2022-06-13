@@ -16,8 +16,6 @@ ipcRenderer.on('adbResponse', async (event, arg) => {
     // We use regular window.postMessage to transfer the port from the isolated
     // world to the main world.
     window.postMessage(arg, '*');
-
-    // outputTerminal.textContent = `${JSON.stringify(arg)}`;
 });
 
 // window.api

@@ -8,6 +8,8 @@ const Main = () => {
     const outputRef = React.useRef(null);
 
     const [ipAddress, setIpAddress] = React.useState('');
+    const [terminalOutput, setTerminalOutput] =
+        React.useState('$ Command Output ');
     const [selectedFile, setSelectedFile] = React.useState<string>('');
 
     const getIp = () => {
@@ -22,7 +24,14 @@ const Main = () => {
         }
         if (event.source === window && typeof event.data === 'string') {
             // console.log('from preload:', event.data);
-            outputRef.current.textContent = `$ ${event.data}`;
+            // outputRef.current.textContent = `$ ${JSON.stringify(event.data)}`;
+            let stringData = JSON.stringify(event.data);
+            // console.log(stringData);
+
+            stringData = stringData.replace(new RegExp('\\\\n', 'g'), '');
+            stringData = stringData.slice(1);
+            stringData = stringData.slice(0, -1);
+            setTerminalOutput(`$ ${stringData}`);
         }
     });
 
@@ -38,7 +47,7 @@ const Main = () => {
 
     const sideload = (file: string) => {
         console.log(`Selected file - ${file}`);
-        adbCommand(`adb sideload ${file}`);
+        adbCommand(`/usr/local/bin/adb sideload ${file}`);
     };
 
     // const ip = '192.168.7.173';
@@ -58,7 +67,7 @@ const Main = () => {
                 <div className="output-terminal">
                     <div className="output-text-box">
                         <p className="output-text" ref={outputRef}>
-                            {'$ Command Output '}
+                            {`${terminalOutput}`}
                         </p>
                     </div>
                 </div>
@@ -80,7 +89,9 @@ const Main = () => {
                             className="connect-btn"
                             type="button"
                             onClick={() =>
-                                adbCommand(`adb connect ${ipAddress}`)
+                                adbCommand(
+                                    `/usr/local/bin/adb connect ${ipAddress}`
+                                )
                             }
                         >
                             Connect
@@ -89,16 +100,46 @@ const Main = () => {
                     <div className="button-group group1">
                         <button
                             type="button"
-                            onClick={() => adbCommand('adb disconnect')}
+                            onClick={() =>
+                                adbCommand('/usr/local/bin/adb disconnect')
+                            }
                         >
                             Disconnect
                         </button>
                         <button
                             type="button"
-                            onClick={() => adbCommand('adb devices')}
+                            onClick={() =>
+                                adbCommand('/usr/local/bin/adb devices')
+                            }
                         >
                             Connected Devices
                         </button>
+                    </div>
+                </div>
+                <div className="install">
+                    <div className="center">
+                        <h2>Install Tools (Mac)</h2>
+                    </div>
+                    <div className="button-group">
+                        <div className="group1">
+                            <a
+                                href="https://brew.sh/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <button type="button">Install Homebrew</button>
+                            </a>
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    adbCommand(
+                                        'brew install android-platform-tools'
+                                    )
+                                }
+                            >
+                                Install ADB
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div className="screensaver vcenter">
@@ -111,7 +152,7 @@ const Main = () => {
                                 type="button"
                                 onClick={() =>
                                     adbCommand(
-                                        'adb shell settings get secure screensaver_components'
+                                        '/usr/local/bin/adb shell settings get secure screensaver_components'
                                     )
                                 }
                             >
@@ -121,7 +162,7 @@ const Main = () => {
                                 type="button"
                                 onClick={() =>
                                     adbCommand(
-                                        'adb shell settings get secure sleep_timeout'
+                                        '/usr/local/bin/adb shell settings get secure sleep_timeout'
                                     )
                                 }
                             >
@@ -131,7 +172,7 @@ const Main = () => {
                                 type="button"
                                 onClick={() =>
                                     adbCommand(
-                                        'adb shell settings get system screen_off_timeout'
+                                        '/usr/local/bin/adb shell settings get system screen_off_timeout'
                                     )
                                 }
                             >
@@ -143,10 +184,10 @@ const Main = () => {
                                 type="button"
                                 onClick={() => {
                                     adbCommand(
-                                        'adb shell settings put secure screensaver_components uk.co.liamnewmarch.daydream/uk.co.liamnewmarch.daydream.WebsiteDaydreamService '
+                                        '/usr/local/bin/adb shell settings put secure screensaver_components uk.co.liamnewmarch.daydream/uk.co.liamnewmarch.daydream.WebsiteDaydreamService '
                                     );
                                     adbCommand(
-                                        'sleep 1 & adb shell settings get secure screensaver_components'
+                                        'sleep 1 & /usr/local/bin/adb shell settings get secure screensaver_components'
                                     );
                                     //  setTimeout(adbCommand('adb shell settings get secure screensaver_components'), 2000)
                                 }}
@@ -157,10 +198,10 @@ const Main = () => {
                                 type="button"
                                 onClick={() => {
                                     adbCommand(
-                                        'adb shell settings put secure screensaver_components com.amazon.bueller.photos/.daydream.ScreenSaverService'
+                                        '/usr/local/bin/adb shell settings put secure screensaver_components com.amazon.bueller.photos/.daydream.ScreenSaverService'
                                     );
                                     adbCommand(
-                                        'sleep 1 & adb shell settings get secure screensaver_components'
+                                        'sleep 1 & /usr/local/bin/adb shell settings get secure screensaver_components'
                                     );
                                 }}
                             >
@@ -212,19 +253,25 @@ const Main = () => {
                         <div className="group1">
                             <button
                                 type="button"
-                                onClick={() =>
+                                onClick={() => {
                                     adbCommand(
                                         'osascript -e \'tell application "Terminal" to activate\''
                                         // -e 'tell application "Terminal" to do script "ls"'
-                                    )
-                                }
+                                    );
+                                    // adbCommand(
+                                    //     `osascript -e \'do script "/bin/bash -c '$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)'" with administrator privileges without altering line endings\'`
+                                    //     // -e 'tell application "Terminal" to do script "ls"'
+                                    // );
+                                }}
                             >
                                 Shell
                             </button>
                             <button
                                 type="button"
                                 onClick={() =>
-                                    adbCommand('adb shell dumpsys diskstats')
+                                    adbCommand(
+                                        '/usr/local/bin/adb shell dumpsys diskstats'
+                                    )
                                 }
                             >
                                 Disk Info
@@ -232,7 +279,9 @@ const Main = () => {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    adbCommand('adb shell dumpsys wifi')
+                                    adbCommand(
+                                        '/usr/local/bin/adb shell dumpsys wifi'
+                                    )
                                 }
                             >
                                 WiFi Info
@@ -242,7 +291,9 @@ const Main = () => {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    adbCommand('adb shell dumpsys cpuinfo')
+                                    adbCommand(
+                                        '/usr/local/bin/adb shell dumpsys cpuinfo'
+                                    )
                                 }
                             >
                                 CPU Info
@@ -250,7 +301,9 @@ const Main = () => {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    adbCommand('adb shell dumpsys usagestats')
+                                    adbCommand(
+                                        '/usr/local/bin/adb shell dumpsys usagestats'
+                                    )
                                 }
                             >
                                 Usage Info
@@ -258,7 +311,9 @@ const Main = () => {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    adbCommand('adb shell dumpsys meminfo')
+                                    adbCommand(
+                                        '/usr/local/bin/adb shell dumpsys meminfo'
+                                    )
                                 }
                             >
                                 Memory Info
@@ -269,7 +324,7 @@ const Main = () => {
                                 type="button"
                                 onClick={() =>
                                     adbCommand(
-                                        'adb shell cat /system/build.prop'
+                                        '/usr/local/bin/adb shell cat /system/build.prop'
                                     )
                                 }
                             >
@@ -279,7 +334,7 @@ const Main = () => {
                                 type="button"
                                 onClick={() =>
                                     adbCommand(
-                                        'adb shell getprop ro.build.version.release'
+                                        '/usr/local/bin/adb shell getprop ro.build.version.release'
                                     )
                                 }
                             >
@@ -289,12 +344,18 @@ const Main = () => {
                                 type="button"
                                 onClick={() =>
                                     adbCommand(
-                                        'adb shell screencap -p "/sdcard/screenshot.png"'
+                                        '/usr/local/bin/adb shell screencap -p "/sdcard/screenshot.png"'
                                     )
                                 }
                             >
                                 Screenshot on Device
                             </button>
+                            {/* <button
+                                type="button"
+                                onClick={() => adbCommand('pwd')}
+                            >
+                                pwd
+                            </button> */}
                         </div>
                     </div>
                 </div>
