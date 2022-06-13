@@ -9,12 +9,12 @@ const Main = () => {
 
     const [ipAddress, setIpAddress] = React.useState('');
     const [terminalOutput, setTerminalOutput] =
-        React.useState('$ Command Output ');
+        React.useState('Command Output ');
     const [selectedFile, setSelectedFile] = React.useState<string>('');
 
-    const getIp = () => {
-        window.api.ipAddress('Hello from the front');
-    };
+    // const getIp = () => {
+    //     window.api.ipAddress('Hello from the front');
+    // };
 
     window.addEventListener('message', (event) => {
         // event.source === window means the message is coming from the preload
@@ -28,14 +28,11 @@ const Main = () => {
             let stringData = JSON.stringify(event.data);
             // console.log(stringData);
 
-            stringData = stringData.replace(new RegExp('\\\\n', 'g'), '');
-            stringData = stringData.slice(1);
-            stringData = stringData.slice(0, -1);
-            setTerminalOutput(`$ ${stringData}`);
+            stringData = stringData.replace(new RegExp('\\\\n', 'g'), '\n');
+            stringData = stringData.slice(1, -1);
+            setTerminalOutput(stringData);
         }
     });
-
-    // getIp();
 
     const adbCommand = (command: string) => {
         window.api.adbCommand(command);
@@ -50,7 +47,6 @@ const Main = () => {
         adbCommand(`/usr/local/bin/adb sideload ${file}`);
     };
 
-    // const ip = '192.168.7.173';
     console.log(ipAddress);
 
     const updateIp = (event: any) => {
@@ -66,9 +62,10 @@ const Main = () => {
             <div className="terminal-wrapper center">
                 <div className="output-terminal">
                     <div className="output-text-box">
-                        <p className="output-text" ref={outputRef}>
-                            {`${terminalOutput}`}
-                        </p>
+                        <pre className="output-text" ref={outputRef}>
+                            $ {terminalOutput}
+                            {/* testing <br /> testing */}
+                        </pre>
                     </div>
                 </div>
             </div>
