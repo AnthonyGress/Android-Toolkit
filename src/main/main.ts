@@ -30,20 +30,41 @@ let mainWindow: BrowserWindow | null = null;
 ipcMain.on('ipAddress', (event, args) => {
   console.log(args);
 });
+
+const userOS: string = process.platform;
+let adbPath: string;
+switch(userOS) {
+  case 'darwin':
+      console.log("MacOS");
+      adbPath = 'src/platform-tools/mac/platform-tools/'
+      break;
+  case 'linux':
+      console.log("Linux operating system");
+      adbPath = 'src/platform-tools/linux/platform-tools/'
+      break;
+  case 'win32':
+      console.log("Windows operating system");
+      adbPath = 'src/platform-tools/windows/platform-tools/'
+      break;
+  default:
+      console.log("other operating system");
+}
+
 // listen for message from renderer
 ipcMain.on('adbChannel', async (event, args) => {
-  console.log(args);
-  const command = args;
+  const command = `${adbPath}${args}`;
+  console.log(command);
+
   const { exec } = require('child_process');
   exec(command, (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`);
-      event.reply('adbResponse', `error: ${error.message}`);
+      event.reply('adbResponse', `Error: ${error.message}`);
       return;
     }
     if (stderr) {
       console.log(`stderr: ${stderr}`);
-      event.reply('adbResponse', `stderr: ${stderr}`);
+      event.reply('adbResponse', `Error: ${stderr}`);
       return;
     }
     if (stdout) {
