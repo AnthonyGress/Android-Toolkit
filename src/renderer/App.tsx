@@ -42,9 +42,25 @@ const Main = () => {
         debloatCommands.map((command) => adbCommand(command));
     };
 
+    const setScreensaver = () => {
+        adbCommand(
+            'adb shell settings put secure screensaver_components uk.co.liamnewmarch.daydream/uk.co.liamnewmarch.daydream.WebsiteDaydreamService '
+        );
+        // adbCommand(
+        //     'adb shell settings get secure screensaver_components'
+        // );
+        setTimeout(
+            () =>
+                adbCommand(
+                    'adb shell settings get secure screensaver_components'
+                ),
+            2000
+        );
+    };
+
     const sideload = (file: string) => {
         console.log(`Selected file - ${file}`);
-        adbCommand(`./adb sideload ${file}`);
+        adbCommand(`adb sideload ${file}`);
     };
 
     console.log(ipAddress);
@@ -86,7 +102,7 @@ const Main = () => {
                             className="connect-btn"
                             type="button"
                             onClick={() =>
-                                adbCommand(`./adb connect ${ipAddress}`)
+                                adbCommand(`adb connect ${ipAddress}`)
                             }
                         >
                             Connect
@@ -95,19 +111,19 @@ const Main = () => {
                     <div className="button-group group1">
                         <button
                             type="button"
-                            onClick={() => adbCommand('./adb disconnect')}
+                            onClick={() => adbCommand('adb disconnect')}
                         >
                             Disconnect
                         </button>
                         <button
                             type="button"
-                            onClick={() => adbCommand('./adb devices')}
+                            onClick={() => adbCommand('adb devices')}
                         >
                             Connected Devices
                         </button>
                     </div>
                 </div>
-                <div className="install">
+                {/* <div className="install">
                     <div className="center">
                         <h2>Install Tools (Mac)</h2>
                     </div>
@@ -132,7 +148,7 @@ const Main = () => {
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="screensaver vcenter">
                     <div className="center">
                         <h2>Screensaver Tools</h2>
@@ -143,7 +159,7 @@ const Main = () => {
                                 type="button"
                                 onClick={() =>
                                     adbCommand(
-                                        './adb shell settings get secure screensaver_components'
+                                        'adb shell settings get secure screensaver_components'
                                     )
                                 }
                             >
@@ -153,7 +169,7 @@ const Main = () => {
                                 type="button"
                                 onClick={() =>
                                     adbCommand(
-                                        './adb shell settings get secure sleep_timeout'
+                                        'adb shell settings get secure sleep_timeout'
                                     )
                                 }
                             >
@@ -163,7 +179,7 @@ const Main = () => {
                                 type="button"
                                 onClick={() =>
                                     adbCommand(
-                                        './adb shell settings get system screen_off_timeout'
+                                        'adb shell settings get system screen_off_timeout'
                                     )
                                 }
                             >
@@ -174,13 +190,7 @@ const Main = () => {
                             <button
                                 type="button"
                                 onClick={() => {
-                                    adbCommand(
-                                        './adb shell settings put secure screensaver_components uk.co.liamnewmarch.daydream/uk.co.liamnewmarch.daydream.WebsiteDaydreamService '
-                                    );
-                                    adbCommand(
-                                        'sleep 1 & ./adb shell settings get secure screensaver_components'
-                                    );
-                                    //  setTimeout(adbCommand('adb shell settings get secure screensaver_components'), 2000)
+                                    setScreensaver();
                                 }}
                             >
                                 Set Screensaver
@@ -189,10 +199,10 @@ const Main = () => {
                                 type="button"
                                 onClick={() => {
                                     adbCommand(
-                                        './adb shell settings put secure screensaver_components com.amazon.bueller.photos/.daydream.ScreenSaverService'
+                                        'adb shell settings put secure screensaver_components com.amazon.bueller.photos/.daydream.ScreenSaverService'
                                     );
                                     adbCommand(
-                                        'sleep 1 & ./adb shell settings get secure screensaver_components'
+                                        'sleep 1 & adb shell settings get secure screensaver_components'
                                     );
                                 }}
                             >
@@ -260,7 +270,7 @@ const Main = () => {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    adbCommand('./adb shell dumpsys diskstats')
+                                    adbCommand('adb shell dumpsys diskstats')
                                 }
                             >
                                 Disk Info
@@ -268,7 +278,7 @@ const Main = () => {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    adbCommand('./adb shell dumpsys wifi')
+                                    adbCommand('adb shell dumpsys wifi')
                                 }
                             >
                                 WiFi Info
@@ -278,7 +288,7 @@ const Main = () => {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    adbCommand('./adb shell dumpsys cpuinfo')
+                                    adbCommand('adb shell dumpsys cpuinfo')
                                 }
                             >
                                 CPU Info
@@ -286,7 +296,7 @@ const Main = () => {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    adbCommand('./adb shell dumpsys usagestats')
+                                    adbCommand('adb shell dumpsys usagestats')
                                 }
                             >
                                 Usage Info
@@ -294,7 +304,7 @@ const Main = () => {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    adbCommand('./adb shell dumpsys meminfo')
+                                    adbCommand('adb shell dumpsys meminfo')
                                 }
                             >
                                 Memory Info
@@ -305,7 +315,7 @@ const Main = () => {
                                 type="button"
                                 onClick={() =>
                                     adbCommand(
-                                        './adb shell cat /system/build.prop'
+                                        'adb shell cat /system/build.prop'
                                     )
                                 }
                             >
@@ -315,7 +325,7 @@ const Main = () => {
                                 type="button"
                                 onClick={() =>
                                     adbCommand(
-                                        './adb shell getprop ro.build.version.release'
+                                        'adb shell getprop ro.build.version.release'
                                     )
                                 }
                             >
@@ -325,7 +335,7 @@ const Main = () => {
                                 type="button"
                                 onClick={() =>
                                     adbCommand(
-                                        './adb shell screencap -p "/sdcard/screenshot.png"'
+                                        'adb shell screencap -p "/sdcard/screenshot.png"'
                                     )
                                 }
                             >

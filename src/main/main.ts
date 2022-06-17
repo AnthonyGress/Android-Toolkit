@@ -31,20 +31,25 @@ ipcMain.on('ipAddress', (event, args) => {
   console.log(args);
 });
 
-const userOS: string = process.platform;
-let adbPath: string;
+const userOS: string = `${process.platform}`;
+let adbPath: any;
+let adbPathCmd: any;
+
 switch(userOS) {
   case 'darwin':
       console.log("MacOS");
-      adbPath = 'src/platform-tools/mac/platform-tools/'
+      adbPath = ('/Applications/FireTV-Toolkit.app/Contents/platform-tools/');
+
       break;
   case 'linux':
       console.log("Linux operating system");
-      adbPath = 'src/platform-tools/linux/platform-tools/'
-      break;
+      adbPath = ('/Applications/FireTV-Toolkit.app/Contents/platform-tools/');
+
+    break;
   case 'win32':
       console.log("Windows operating system");
-      adbPath = 'src/platform-tools/windows/platform-tools/'
+      adbPath = path.join(__dirname, '\\platform-tools\\windows\\platform-tools\\');
+
       break;
   default:
       console.log("other operating system");
