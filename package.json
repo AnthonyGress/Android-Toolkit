@@ -137,6 +137,8 @@
       "release/app/node_modules"
     ],
     "testPathIgnorePatterns": [
+      "node_modules",
+      "release/app/node_modules",
       "release/app/dist"
     ],
     "setupFiles": [
