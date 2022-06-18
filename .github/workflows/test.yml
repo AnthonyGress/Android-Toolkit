@@ -25,9 +25,8 @@ jobs:
 
       - name: npm test
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
         run: |
           npm run package
           npm run lint
-          npm exec tsc
           npm test
