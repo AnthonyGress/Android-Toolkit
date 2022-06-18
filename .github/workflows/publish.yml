@@ -38,4 +38,5 @@ jobs:
         run: |
           npm run postinstall
           npm run build
+          NODE_ENV=development
           npm exec electron-builder -- --publish always --win --mac --linux
