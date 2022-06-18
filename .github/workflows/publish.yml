@@ -37,5 +37,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         run: |
           npm run postinstall
-          npm run build
-          npm exec electron-builder -- --publish always --win --mac --linux
+          npm run release
