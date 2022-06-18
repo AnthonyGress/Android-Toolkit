@@ -4,7 +4,14 @@ import icon from '../../assets/techx.png';
 import debloatCommands from '../../assets/debloatCommands';
 import './App.css';
 
+declare global {
+    interface Window {
+      api?: any;
+    }
+  }
+
 const Main = () => {
+
     const outputRef = React.useRef(null);
 
     const [ipAddress, setIpAddress] = React.useState('');
@@ -16,7 +23,7 @@ const Main = () => {
     //     window.api.ipAddress('Hello from the front');
     // };
 
-    window.addEventListener('message', (event) => {
+    window.addEventListener('message', (event: MessageEvent) => {
         // event.source === window means the message is coming from the preload
         // script, as opposed to from an <iframe> or other source.
         if (event.source === window) {
@@ -65,10 +72,8 @@ const Main = () => {
         console.log(`Selected file - ${filePath}`);
         adbCommand(`adb sideload ${filePath}`);
     };
-
-    console.log(ipAddress);
-
-    const updateIp = (event: any) => {
+    
+    const updateIp = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setIpAddress(event.target.value);
     };
 
@@ -206,8 +211,8 @@ const Main = () => {
                     <h2>Sideload Files</h2>
                     <div className="button-group">
                         <input
-                            onChange={(e) =>
-                                setSelectedFile(e.target.files[0].path)
+                            onChange={(e: any ) =>
+                                setSelectedFile(e.currentTarget.files[0].path)
                             }
                             type="file"
                             id="files"
