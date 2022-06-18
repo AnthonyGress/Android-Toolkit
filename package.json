@@ -36,8 +36,7 @@
     "appId": "com.techx.firetv-toolkit",
     "asar": true,
     "asarUnpack": [
-      "**\\*.{node,dll}",
-      "platform-tools/*"
+      "**\\*.{node,dll}"
     ],
     "files": [
       "dist",
@@ -57,7 +56,8 @@
       "hardenedRuntime": true,
       "entitlements": "assets/entitlements.mac.plist",
       "entitlementsInherit": "assets/entitlements.mac.plist",
-      "gatekeeperAssess": false
+      "gatekeeperAssess": false,
+      "publish": "github"
     },
     "dmg": {
       "contents": [
@@ -76,13 +76,15 @@
     "win": {
       "target": [
         "nsis"
-      ]
+      ],
+      "publish": "github"
     },
     "linux": {
       "target": [
         "AppImage"
       ],
-      "category": "Development"
+      "category": "Development",
+      "publish": "github"
     },
     "directories": {
       "app": "release/app",
