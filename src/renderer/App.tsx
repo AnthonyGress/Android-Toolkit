@@ -24,7 +24,6 @@ const Main = () => {
         }
         if (event.source === window && typeof event.data === 'string') {
             // console.log('from preload:', event.data);
-            // outputRef.current.textContent = `$ ${JSON.stringify(event.data)}`;
             let stringData = JSON.stringify(event.data);
             // console.log(stringData);
 
@@ -36,6 +35,10 @@ const Main = () => {
 
     const adbCommand = (command: string) => {
         window.api.adbCommand(command);
+    };
+
+    const shellCommand = (command: string) => {
+        window.api.shellCommand(command);
     };
 
     const debloat = () => {
@@ -58,9 +61,9 @@ const Main = () => {
         );
     };
 
-    const sideload = (file: string) => {
-        console.log(`Selected file - ${file}`);
-        adbCommand(`adb sideload ${file}`);
+    const sideload = (filePath: string) => {
+        console.log(`Selected file - ${filePath}`);
+        adbCommand(`adb sideload ${filePath}`);
     };
 
     console.log(ipAddress);
@@ -80,7 +83,6 @@ const Main = () => {
                     <div className="output-text-box">
                         <pre className="output-text" ref={outputRef}>
                             $ {terminalOutput}
-                            {/* testing <br /> testing */}
                         </pre>
                     </div>
                 </div>
@@ -123,32 +125,6 @@ const Main = () => {
                         </button>
                     </div>
                 </div>
-                {/* <div className="install">
-                    <div className="center">
-                        <h2>Install Tools (Mac)</h2>
-                    </div>
-                    <div className="button-group">
-                        <div className="group1">
-                            <a
-                                href="https://brew.sh/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <button type="button">Install Homebrew</button>
-                            </a>
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    adbCommand(
-                                        '/opt/homebrew/bin/brew install android-platform-tools'
-                                    )
-                                }
-                            >
-                                Install ADB
-                            </button>
-                        </div>
-                    </div>
-                </div> */}
                 <div className="screensaver vcenter">
                     <div className="center">
                         <h2>Screensaver Tools</h2>
@@ -255,14 +231,13 @@ const Main = () => {
                             <button
                                 type="button"
                                 onClick={() => {
-                                    adbCommand(
-                                        'osascript -e \'tell application "Terminal" to activate\''
+                                    shellCommand(
+                                        'open -a Terminal'
+                                        // `open -a Terminal && osascript -e 'tell application "Terminal" to do script "ls"'`
+
+                                        // 'osascript -e \'tell application "Terminal" to activate\''
                                         // -e 'tell application "Terminal" to do script "ls"'
                                     );
-                                    // adbCommand(
-                                    //     `osascript -e \'do script "/bin/bash -c '$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)'" with administrator privileges without altering line endings\'`
-                                    //     // -e 'tell application "Terminal" to do script "ls"'
-                                    // );
                                 }}
                             >
                                 Shell

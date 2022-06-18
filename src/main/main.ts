@@ -27,23 +27,41 @@ export default class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 
-ipcMain.on('ipAddress', (event, args) => {
-  console.log(args);
+ipcMain.on('shellChannel', (event, args) => {
+    const command = `${args}`;
+  console.log(command);
+
+  const { exec } = require('child_process');
+  exec(command, (error: Error, stdout: string, stderr: Error) => {
+    if (error) {
+      console.log(`error: ${error.message}`);
+      event.reply('shellResponse', `Error: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.log(`stderr: ${stderr}`);
+      event.reply('shellResponse', `Error: ${stderr}`);
+      return;
+    }
+    if (stdout) {
+      console.log(`${stdout}`);
+      event.reply('shellResponse', `${stdout}`);
+    }
+  });
 });
 
 const userOS: string = `${process.platform}`;
-let adbPath: any;
-let adbPathCmd: any;
+let adbPath: string;
 
 switch(userOS) {
   case 'darwin':
       console.log("MacOS");
-      adbPath = ('/Applications/FireTV-Toolkit.app/Contents/platform-tools/');
+      adbPath = '/Applications/FireTV-Toolkit.app/Contents/platform-tools/';
 
       break;
   case 'linux':
       console.log("Linux operating system");
-      adbPath = ('/Applications/FireTV-Toolkit.app/Contents/platform-tools/');
+      adbPath = '/usr/bin/FireTV-Toolkit/platform-tools/';
 
     break;
   case 'win32':
@@ -58,6 +76,29 @@ switch(userOS) {
 // listen for message from renderer
 ipcMain.on('adbChannel', async (event, args) => {
   const command = `${adbPath}${args}`;
+  console.log(command);
+
+  const { exec } = require('child_process');
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.log(`error: ${error.message}`);
+      event.reply('adbResponse', `Error: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.log(`stderr: ${stderr}`);
+      event.reply('adbResponse', `Error: ${stderr}`);
+      return;
+    }
+    if (stdout) {
+      console.log(`${stdout}`);
+      event.reply('adbResponse', `${stdout}`);
+    }
+  });
+});
+
+ipcMain.on('shellChannel', async (event, args) => {
+  const command = `${args}`;
   console.log(command);
 
   const { exec } = require('child_process');
