@@ -11,13 +11,13 @@ install_app() {
     if [[ "$USER_PLATFORM" == "Darwin arm64" ]]
     then
         curl -sL https://github.com/AnthonyGress/FireTV-Toolkit/releases/download/v${LATEST_VERSION}/FireTV-Toolkit-${LATEST_VERSION}-arm64-mac.zip --output ~/Downloads/FireTV-Toolkit.zip && unzip -qo ~/Downloads/FireTV-Toolkit.zip -d /Applications
-    elif [[ "$USER_PLATFORM" == "Darwin x86_x64" ]]
+    elif [[ "$USER_PLATFORM" == "Darwin x86_64" ]]
     then
         curl -sL https://github.com/AnthonyGress/FireTV-Toolkit/releases/download/v${LATEST_VERSION}/FireTV-Toolkit-${LATEST_VERSION}-mac.zip --output ~/Downloads/FireTV-Toolkit.zip && unzip -qo ~/Downloads/FireTV-Toolkit.zip -d /Applications
     elif [[ "$USER_PLATFORM" == "Linux arm64" ]]
     then
          curl -sL https://github.com/AnthonyGress/FireTV-Toolkit/releases/download/v${LATEST_VERSION}/FireTV-Toolkit-${LATEST_VERSION}-arm64.AppImage --output ~/Desktop/FireTV-Toolkit-arm64.AppImage && chmod +x ~/Desktop/FireTV-Toolkit-arm64.AppImage
-    elif [[ "$USER_PLATFORM" == "Linux x86_x64" ]]
+    elif [[ "$USER_PLATFORM" == "Linux x86_64" ]]
     then
          curl -sL https://github.com/AnthonyGress/FireTV-Toolkit/releases/download/v${LATEST_VERSION}/FireTV-Toolkit-${LATEST_VERSION}.AppImage --output ~/Desktop/FireTV-Toolkit.AppImage && chmod +x ~/Desktop/FireTV-Toolkit.AppImage
     else
