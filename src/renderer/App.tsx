@@ -50,7 +50,7 @@ const Main = () => {
         debloatCommands.map((command) => adbCommand(command));
     };
 
-    const onSubmit = (e) => {
+    const onSubmit = (e: any) => {
         e.preventDefault();
         adbCommand(`adb connect ${ipAddress}`);
     };
