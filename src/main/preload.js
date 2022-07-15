@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { contextBridge, ipcRenderer, app } = require('electron');
+const { contextBridge, ipcRenderer } = require('electron');
 // sends message to main
 const WINDOW_API = {
     shellCommand: (command) => ipcRenderer.send('shellChannel', command),
