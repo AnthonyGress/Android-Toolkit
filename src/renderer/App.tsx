@@ -1,22 +1,20 @@
 import React from 'react';
 import { MemoryRouter as Router, Switch, Route } from 'react-router-dom';
-import icon from '../../assets/techx.png';
+import icon from '../../assets/icons/logo.png';
 import debloatCommands from '../../assets/debloatCommands';
 import './App.css';
 
 declare global {
     interface Window {
-      api?: any;
+        api?: any;
     }
-  }
+}
 
 const Main = () => {
-
     const outputRef = React.useRef(null);
 
     const [ipAddress, setIpAddress] = React.useState('');
-    const [terminalOutput, setTerminalOutput] =
-        React.useState('Command Output ');
+    const [terminalOutput, setTerminalOutput] = React.useState('');
     const [selectedFile, setSelectedFile] = React.useState<string>('');
 
     // const getIp = () => {
@@ -52,6 +50,11 @@ const Main = () => {
         debloatCommands.map((command) => adbCommand(command));
     };
 
+    const onSubmit = (e) => {
+        e.preventDefault();
+        adbCommand(`adb connect ${ipAddress}`);
+    };
+
     const setScreensaver = () => {
         adbCommand(
             'adb shell settings put secure screensaver_components uk.co.liamnewmarch.daydream/uk.co.liamnewmarch.daydream.WebsiteDaydreamService '
@@ -70,24 +73,28 @@ const Main = () => {
 
     const sideload = (filePath: string) => {
         console.log(`Selected file - ${filePath}`);
-        adbCommand(`adb sideload ${filePath}`);
+        adbCommand(`adb install ${filePath}`);
     };
-    
-    const updateIp = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+
+    const updateIp = (
+        event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+    ) => {
         setIpAddress(event.target.value);
     };
 
     return (
         <main>
             <div className="splash">
-                <img width="200px" alt="icon" src={icon} />
+                <img width="200px" alt="icon" src={icon} className="spin" />
                 <h1>FireTV Toolkit</h1>
             </div>
             <div className="terminal-wrapper center">
                 <div className="output-terminal">
                     <div className="output-text-box">
                         <pre className="output-text" ref={outputRef}>
-                            $ {terminalOutput}
+                            <span className="dollar">$</span>
+                            {terminalOutput}
+                            {/* <span className="blinking">_</span> */}
                         </pre>
                     </div>
                 </div>
@@ -97,7 +104,7 @@ const Main = () => {
                     <div className="center">
                         <h2>ADB Connection Tools</h2>
                     </div>
-                    <div className="connect-ip">
+                    <form className="connect-ip" onSubmit={onSubmit}>
                         <input
                             type="text"
                             value={ipAddress}
@@ -107,14 +114,14 @@ const Main = () => {
                         />
                         <button
                             className="connect-btn"
-                            type="button"
+                            type="submit"
                             onClick={() =>
                                 adbCommand(`adb connect ${ipAddress}`)
                             }
                         >
                             Connect
                         </button>
-                    </div>
+                    </form>
                     <div className="button-group group1">
                         <button
                             type="button"
@@ -211,7 +218,7 @@ const Main = () => {
                     <h2>Sideload Files</h2>
                     <div className="button-group">
                         <input
-                            onChange={(e: any ) =>
+                            onChange={(e: any) =>
                                 setSelectedFile(e.currentTarget.files[0].path)
                             }
                             type="file"

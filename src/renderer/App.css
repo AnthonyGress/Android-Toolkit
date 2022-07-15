@@ -71,6 +71,14 @@ a:hover {
     margin-bottom: 1rem;
 }
 
+.blinking {
+    /* animation: fadein infinite 1s linear; */
+    animation: fadeout infinite 1.5s 1.4s ease-in-out;
+    animation: name duration timing-function delay iteration-count direction
+        fill-mode;
+    font-weight: bolder;
+}
+
 .center {
     display: flex;
     justify-content: center;
@@ -95,6 +103,11 @@ a:hover {
     align-items: center;
 }
 
+.dollar {
+    font-size: 0.95rem;
+    margin-right: 0.25rem;
+}
+
 .dashboard {
     align-items: center;
 }
@@ -114,6 +127,10 @@ a:hover {
     margin-top: 1vh;
 }
 
+.spin {
+    animation: App-logo-spin infinite 16s linear;
+}
+
 .ip-input {
     height: 2rem;
     min-width: 40vw;
@@ -127,7 +144,7 @@ a:hover {
 
 .output-terminal {
     background-color: black;
-    height: 25vh;
+    height: 28vh;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -136,6 +153,7 @@ a:hover {
     z-index: 1;
     max-width: 60vw;
     flex: 1;
+    overflow-y: scroll !important;
 }
 
 .output-text {
@@ -145,6 +163,8 @@ a:hover {
     max-width: 56vw !important;
     overflow-wrap: break-word;
     font-family: monospace;
+    font-weight: 500;
+    font-size: 0.8rem;
 }
 
 .terminal-wrapper {
@@ -168,4 +188,31 @@ a:hover {
     flex-direction: column;
     align-items: center;
     height: 100%;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }

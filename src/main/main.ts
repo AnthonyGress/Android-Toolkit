@@ -26,6 +26,7 @@ export default class AppUpdater {
     }
 }
 
+
 let mainWindow: BrowserWindow | null = null;
 
 ipcMain.on('shellChannel', (event, args) => {
@@ -76,23 +77,21 @@ ipcMain.on('adbChannel', async (event, args) => {
 });
 
 const userOS = `${process.platform}`;
+// const userOS = 'win32';
 let adbPath: string;
 
 switch(userOS) {
 case 'darwin':
     console.log('MacOS');
     adbPath = '/Applications/FireTV-Toolkit.app/Contents/platform-tools/';
-
     break;
 case 'linux':
     console.log('Linux operating system');
     adbPath = '/usr/bin/FireTV-Toolkit/platform-tools/';
-
     break;
 case 'win32':
     console.log('Windows operating system');
-    adbPath = path.join(__dirname, '\\platform-tools\\windows\\platform-tools\\');
-
+    adbPath = '%appdata%\\FireTV-Toolkit\\platform-tools\\';
     break;
 default:
     console.log('other operating system');
@@ -163,6 +162,7 @@ const createWindow = async () => {
             mainWindow.minimize();
         } else {
             mainWindow.show();
+            mainWindow.webContents.send('startup', `Welcome to FireTV-Toolkit version ${app.getVersion()}`)
         }
     });
 
@@ -181,7 +181,7 @@ const createWindow = async () => {
 
     // Remove this if your app does not use auto updates
     // eslint-disable-next-line
-  new AppUpdater();
+//   new AppUpdater();
 };
 
 /**
