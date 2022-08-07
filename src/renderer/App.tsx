@@ -73,7 +73,7 @@ const Main = () => {
 
     const sideload = (filePath: string) => {
         console.log(`Selected file - ${filePath}`);
-        adbCommand(`adb install ${filePath}`);
+        adbCommand(`adb install "${filePath}"`);
     };
 
     const updateIp = (
