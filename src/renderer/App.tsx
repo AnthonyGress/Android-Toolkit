@@ -85,8 +85,10 @@ const Main = () => {
     return (
         <main>
             <div className="splash">
-                <img width="200px" alt="icon" src={icon} className="spin" />
-                <h1>FireTV Toolkit</h1>
+                <img height="100px" alt="icon" src={icon} className="spin" />
+                <div style={{marginLeft: '10px'}}>
+                    <h1>FireTV Toolkit</h1>
+                </div>
             </div>
             <div className="terminal-wrapper center">
                 <div className="output-terminal">
@@ -134,6 +136,26 @@ const Main = () => {
                             onClick={() => adbCommand('adb devices')}
                         >
                             Connected Devices
+                        </button>
+                    </div>
+                </div>
+                <div className="vcenter">
+                    <h2>Sideload Files</h2>
+                    <div className="button-group">
+                        <input
+                            onChange={(e: any) =>
+                                setSelectedFile(e.currentTarget.files[0].path)
+                            }
+                            type="file"
+                            id="files"
+                            name="files"
+                            className="form-control"
+                        />
+                        <button
+                            type="submit"
+                            onClick={() => sideload(selectedFile)}
+                        >
+                            Sideload
                         </button>
                     </div>
                 </div>
@@ -213,26 +235,6 @@ const Main = () => {
                     <button type="button" onClick={() => debloat()}>
                         Run Debloat Commands
                     </button>
-                </div>
-                <div className="vcenter">
-                    <h2>Sideload Files</h2>
-                    <div className="button-group">
-                        <input
-                            onChange={(e: any) =>
-                                setSelectedFile(e.currentTarget.files[0].path)
-                            }
-                            type="file"
-                            id="files"
-                            name="files"
-                            className="form-control"
-                        />
-                        <button
-                            type="submit"
-                            onClick={() => sideload(selectedFile)}
-                        >
-                            Sideload
-                        </button>
-                    </div>
                 </div>
                 <div className="system-info">
                     <div className="center">

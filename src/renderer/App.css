@@ -121,9 +121,10 @@ a:hover {
 
 .splash {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
+    margin-bottom: 2vh;
     margin-top: 1vh;
 }
 
