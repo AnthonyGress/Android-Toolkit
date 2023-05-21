@@ -83,15 +83,15 @@ let adbPath: string;
 switch(userOS) {
 case 'darwin':
     console.log('MacOS');
-    adbPath = '/Applications/FireTV-Toolkit.app/Contents/platform-tools/';
+    adbPath = '/Applications/Android-Toolkit.app/Contents/platform-tools/';
     break;
 case 'linux':
     console.log('Linux operating system');
-    adbPath = '/usr/bin/FireTV-Toolkit/platform-tools/';
+    adbPath = '/usr/bin/Android-Toolkit/platform-tools/';
     break;
 case 'win32':
     console.log('Windows operating system');
-    adbPath = '%appdata%\\FireTV-Toolkit\\platform-tools\\';
+    adbPath = '%appdata%\\Android-Toolkit\\platform-tools\\';
     break;
 default:
     console.log('other operating system');
@@ -162,7 +162,7 @@ const createWindow = async () => {
             mainWindow.minimize();
         } else {
             mainWindow.show();
-            mainWindow.webContents.send('startup', `Welcome to FireTV-Toolkit version ${app.getVersion()}`)
+            mainWindow.webContents.send('startup', `Welcome to Android-Toolkit version ${app.getVersion()}`)
         }
     });
 

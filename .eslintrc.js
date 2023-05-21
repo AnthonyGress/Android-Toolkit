@@ -16,6 +16,7 @@ module.exports = {
         indent: ['warn', 4],
         quotes: ['warn', 'single'],
         'prettier/prettier': 0,
+        '@typescript-eslint/ban-types': 'off'
     },
     parserOptions: {
         ecmaVersion: 2021,

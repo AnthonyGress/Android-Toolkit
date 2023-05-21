@@ -54,17 +54,17 @@ export default class MenuBuilder {
 
     buildDarwinTemplate(): MenuItemConstructorOptions[] {
         const subMenuAbout: DarwinMenuItemConstructorOptions = {
-            label: 'FireTV Toolkit',
+            label: 'Android Toolkit',
             submenu: [
                 {
-                    label: 'About FireTV Toolkit',
+                    label: 'About Android Toolkit',
                     selector: 'orderFrontStandardAboutPanel:',
                 },
                 { type: 'separator' },
                 { label: 'Services', submenu: [] },
                 { type: 'separator' },
                 {
-                    label: 'Hide FireTV Toolkit',
+                    label: 'Hide Android Toolkit',
                     accelerator: 'Command+H',
                     selector: 'hide:',
                 },

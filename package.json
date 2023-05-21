@@ -1,5 +1,5 @@
 {
-  "name": "firetv-toolkit",
+  "name": "android-toolkit",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Fast Refresh for rapid application development",
   "scripts": {
     "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",
@@ -33,8 +33,8 @@
     ]
   },
   "build": {
-    "productName": "FireTV-Toolkit",
-    "appId": "com.techx.firetv-toolkit",
+    "productName": "Android-Toolkit",
+    "appId": "com.techx.Android-toolkit",
     "asar": true,
     "asarUnpack": [
       "**\\*.{node,dll}"
@@ -98,7 +98,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AnthonyGress/FireTV-Toolkit.git"
+    "url": "git+https://github.com/AnthonyGress/Android-Toolkit.git"
   },
   "author": {
     "name": "Anthony Gress",
@@ -214,6 +214,9 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.13.1",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.1",
     "electron-updater": "^4.6.1",
