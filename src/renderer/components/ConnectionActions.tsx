@@ -21,7 +21,7 @@ export const ConnectionActions = ({adbCommand}: {adbCommand: Function}) => {
                     type="text"
                     value={ipAddress}
                     onChange={updateIp}
-                    placeholder="Enter your Firestick's ip address"
+                    placeholder="Enter your Device's ip address"
                     className="ip-input"
                 />
                 <button
