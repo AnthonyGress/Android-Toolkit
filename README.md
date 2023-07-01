@@ -1,9 +1,6 @@
 # Android-Toolkit
 
-<img width="1392" src="https://user-images.githubusercontent.com/70029654/184623019-c22dee1b-8d22-44bc-93ab-1c174f38aeaf.png">
-<img width="1392" src="https://user-images.githubusercontent.com/70029654/184623012-971bfcbc-eaa1-4ef8-ae37-3c7cb538efbb.png">
-</p>
-
+![AndroidToolkit](https://github.com/AnthonyGress/Android-Toolkit/assets/70029654/cd805568-3a8a-4d77-8330-acdca90521b8)
 
 # Install
 
