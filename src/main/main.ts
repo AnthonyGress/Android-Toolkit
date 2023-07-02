@@ -22,21 +22,7 @@ let username: any;
 import fs from 'fs';
 let downloadPathWin;
 
-if (isWin){
-    username = process.env.USERNAME;
-    downloadPathWin = `C:\\Users\\${username}\\AppData\\Local\\Programs\\Android-Toolkit\\resources`
-
-    const { exec } = require('child_process');
-    console.log('windows setup');
-
-    if (!fs.existsSync(downloadPathWin)) {
-        exec(`mkdir ${downloadPathWin} && curl -L https://dl.google.com/android/repository/platform-tools-latest-windows.zip -o ${downloadPathWin}\\platform-tools.zip && tar -xf platform-tools.zip`, (err: string, stdout: string, stderr: string) => {
-            console.log(`stdout: ${stdout}`);
-            console.log(`stderr: ${stderr}`);
-        })
-    }
-
-}
+let mainWindow: BrowserWindow | null = null;
 
 export default class AppUpdater {
     constructor() {
@@ -47,7 +33,6 @@ export default class AppUpdater {
 }
 
 
-let mainWindow: BrowserWindow | null = null;
 
 ipcMain.on('shellChannel', (event, args) => {
     const command = `${args}`;
@@ -183,6 +168,25 @@ const createWindow = async () => {
         } else {
             mainWindow.show();
             mainWindow.webContents.send('startup', `Welcome to Android-Toolkit version ${app.getVersion()}`)
+
+            if (isWin){
+                username = process.env.USERNAME;
+                downloadPathWin = `C:\\Users\\${username}\\AppData\\Local\\Programs\\Android-Toolkit\\resources`
+
+                const { exec } = require('child_process');
+                console.log('windows setup');
+
+                if (!fs.existsSync(downloadPathWin)) {
+                    exec(`mkdir ${downloadPathWin} && curl -L https://dl.google.com/android/repository/platform-tools-latest-windows.zip -o ${downloadPathWin}\\platform-tools.zip && tar -xf platform-tools.zip`, (err: string, stdout: string, stderr: string) => {
+                        if (mainWindow){
+                            mainWindow.webContents.send('startup', `Welcome to Android-Toolkit version ${app.getVersion()}`)
+                        }
+                        console.log(`stdout: ${stdout}`);
+                        console.log(`stderr: ${stderr}`);
+                    })
+                }
+
+            }
         }
     });
 
