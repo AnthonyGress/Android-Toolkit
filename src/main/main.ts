@@ -20,9 +20,36 @@ import { resolveHtmlPath } from './util';
 const isWin = process.platform === 'win32';
 let username: any;
 import fs from 'fs';
-let downloadPathWin;
+let downloadPathWin: string;
+
 
 let mainWindow: BrowserWindow | null = null;
+
+if (isWin){
+    username = process.env.USERNAME;
+    console.log(username);
+
+    downloadPathWin = `C:\\Users\\${username}\\AppData\\Local\\Programs\\android-toolkit\\resources`
+    const adbPath =  `C:\\Users\\${username}\\AppData\\Local\\Programs\\android-toolkit\\platform-tools`
+
+    const { exec } = require('child_process');
+    console.log('windows setup');
+
+    if (!fs.existsSync(adbPath)) {
+        console.log('creating dir');
+        console.log('###########################', adbPath);
+
+        exec(`curl -L https://dl.google.com/android/repository/platform-tools-latest-windows.zip -o ${downloadPathWin}\\platform-tools.zip && tar -xf "${path.join(__dirname, '../../../platform-tools.zip')}`, (err: string, stdout: string, stderr: string) => {
+            if (mainWindow){
+                mainWindow.webContents.send('startup', `stdout: ${stdout}`)
+                mainWindow.webContents.send('startup', `stderr: ${stderr}`)
+            }
+
+            console.log(`stdout: ${stdout}`);
+            console.log(`stderr: ${stderr}`);
+        })
+    }
+}
 
 export default class AppUpdater {
     constructor() {
@@ -96,18 +123,15 @@ case 'linux':
     break;
 case 'win32':
     console.log('Windows operating system');
-    adbPath = `${downloadPathWin}\\platform-tools\\`;
+    username = process.env.USERNAME;
+    console.log(username);
+
+    downloadPathWin = `C:\\Users\\${username}\\AppData\\Local\\Programs\\android-toolkit\\resources`
+    adbPath = `C:\\Users\\${username}\\AppData\\Local\\Programs\\android-toolkit\\platform-tools\\`;
     break;
 default:
     console.log('other operating system');
 }
-
-
-// ipcMain.on('ipc-example', async (event, arg) => {
-//   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-//   console.log(msgTemplate(arg));
-//   event.reply('ipc-example', msgTemplate('pong'));
-// });
 
 if (process.env.NODE_ENV === 'production') {
     const sourceMapSupport = require('source-map-support');
@@ -168,27 +192,6 @@ const createWindow = async () => {
         } else {
             mainWindow.show();
             mainWindow.webContents.send('startup', `Welcome to Android-Toolkit version ${app.getVersion()}`)
-
-            if (isWin){
-                username = process.env.USERNAME;
-                downloadPathWin = `C:\\Users\\${username}\\AppData\\Local\\Programs\\Android-Toolkit\\resources`
-
-                const { exec } = require('child_process');
-                console.log('windows setup');
-
-                if (!fs.existsSync(downloadPathWin)) {
-                    exec(`mkdir ${downloadPathWin} && curl -L https://dl.google.com/android/repository/platform-tools-latest-windows.zip -o ${downloadPathWin}\\platform-tools.zip && tar -xf platform-tools.zip`, (err: string, stdout: string, stderr: string) => {
-                        if (mainWindow){
-                            mainWindow.webContents.send('startup', `stdout: ${stdout}`)
-                            mainWindow.webContents.send('startup', `stderr: ${stderr}`)
-                        }
-
-                        console.log(`stdout: ${stdout}`);
-                        console.log(`stderr: ${stderr}`);
-                    })
-                }
-
-            }
         }
     });
 
