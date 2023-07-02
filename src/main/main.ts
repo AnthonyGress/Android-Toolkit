@@ -17,6 +17,26 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+const isWin = process.platform === 'win32';
+let username: any;
+import fs from 'fs';
+let downloadPathWin;
+
+if (isWin){
+    username = process.env.USERNAME;
+    downloadPathWin = `C:\\Users\\${username}\\AppData\\Local\\Programs\\Android-Toolkit\\resources`
+
+    const { exec } = require('child_process');
+    console.log('windows setup');
+
+    if (!fs.existsSync(downloadPathWin)) {
+        exec(`mkdir ${downloadPathWin} && curl -L https://dl.google.com/android/repository/platform-tools-latest-windows.zip -o ${downloadPathWin}\\platform-tools.zip && tar -xf platform-tools.zip`, (err: string, stdout: string, stderr: string) => {
+            console.log(`stdout: ${stdout}`);
+            console.log(`stderr: ${stderr}`);
+        })
+    }
+
+}
 
 export default class AppUpdater {
     constructor() {
@@ -91,7 +111,7 @@ case 'linux':
     break;
 case 'win32':
     console.log('Windows operating system');
-    adbPath = '%appdata%\\Android-Toolkit\\platform-tools\\';
+    adbPath = `${downloadPathWin}\\platform-tools\\`;
     break;
 default:
     console.log('other operating system');
