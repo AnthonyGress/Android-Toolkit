@@ -179,8 +179,10 @@ const createWindow = async () => {
                 if (!fs.existsSync(downloadPathWin)) {
                     exec(`mkdir ${downloadPathWin} && curl -L https://dl.google.com/android/repository/platform-tools-latest-windows.zip -o ${downloadPathWin}\\platform-tools.zip && tar -xf platform-tools.zip`, (err: string, stdout: string, stderr: string) => {
                         if (mainWindow){
-                            mainWindow.webContents.send('startup', `Welcome to Android-Toolkit version ${app.getVersion()}`)
+                            mainWindow.webContents.send('startup', `stdout: ${stdout}`)
+                            mainWindow.webContents.send('startup', `stderr: ${stderr}`)
                         }
+
                         console.log(`stdout: ${stdout}`);
                         console.log(`stderr: ${stderr}`);
                     })
