@@ -16,7 +16,9 @@ module.exports = {
         indent: ['warn', 4],
         quotes: ['warn', 'single'],
         'prettier/prettier': 0,
-        '@typescript-eslint/ban-types': 'off'
+        '@typescript-eslint/ban-types': 'off',
+        'object-curly-spacing': ['warn', 'always'],
+
     },
     parserOptions: {
         ecmaVersion: 2021,

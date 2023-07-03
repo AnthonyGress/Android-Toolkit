@@ -58,8 +58,6 @@ export default class AppUpdater {
     }
 }
 
-
-
 ipcMain.on('shellChannel', (event, args) => {
     let command = `${args}`;
     console.log(command);

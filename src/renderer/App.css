@@ -5,7 +5,6 @@
 body {
     position: relative;
     color: white;
-    /* height: 100vh; */
     background: linear-gradient(
         200.96deg,
         #fedc2a -29.09%,
@@ -13,6 +12,8 @@ body {
         #7a2c9e 129.35%
     );
     font-family: sans-serif;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     /* overflow-y: hidden; */
 }
 
@@ -21,6 +22,7 @@ main {
 }
 
 button {
+    position: relative;
     background-color: white;
     padding: 10px 20px;
     border-radius: 10px;
@@ -93,8 +95,8 @@ a:hover {
 }
 
 .connect-btn {
-    min-width: 20vw;
-    min-height: 5vh;
+    margin-left: 1.5rem;
+    width: 8rem;
 }
 
 .connect-ip {
@@ -110,6 +112,14 @@ a:hover {
 
 .dashboard {
     align-items: center;
+}
+
+.footer-btns {
+    position:fixed;
+    display: flex;
+    justify-content: space-between;
+    top: 96vh;
+    width: 98%;
 }
 
 .group1 button,
@@ -150,11 +160,15 @@ a:hover {
     justify-content: flex-start;
     align-items: flex-start;
     border-radius: 8px;
-    opacity: 0.8;
-    z-index: 1;
-    max-width: 60vw;
+    opacity: .95;
+    z-index: 999 !important;
+    max-width: 65vw;
     flex: 1;
     overflow-y: scroll !important;
+}
+
+.output-terminal::-webkit-scrollbar, body::-webkit-scrollbar{
+    display: none;
 }
 
 .output-text {
@@ -168,8 +182,17 @@ a:hover {
     font-size: 0.8rem;
 }
 
+.transparent-bg {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
 .terminal-wrapper {
     width: 100%;
+    position: sticky;
+    position: -webkit-sticky;
+    z-index: 999 !important;
+    top: 0
 }
 
 #files {
