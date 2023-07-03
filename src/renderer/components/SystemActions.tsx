@@ -5,13 +5,19 @@ export const SystemActions = ({adbCommand, shellCommand}: {adbCommand: Function,
                 <button
                     type="button"
                     onClick={() => {
-                        shellCommand(
-                            'open -a Terminal'
-                            // `open -a Terminal && osascript -e 'tell application "Terminal" to do script "ls"'`
+                        console.log(navigator.platform);
+                        if (navigator.platform.includes('Win')) {
+                            shellCommand('powershell')
+                        } else {
+                            shellCommand(
+                                'open -a Terminal'
+                                // `open -a Terminal && osascript -e 'tell application "Terminal" to do script "ls"'`
 
-                            // 'osascript -e \'tell application "Terminal" to activate\''
-                            // -e 'tell application "Terminal" to do script "ls"'
-                        );
+                                // 'osascript -e \'tell application "Terminal" to activate\''
+                                // -e 'tell application "Terminal" to do script "ls"'
+                            );
+                        }
+
                     }}
                 >
                                 Shell

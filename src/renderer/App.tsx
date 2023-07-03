@@ -27,6 +27,7 @@ const Main = () => {
         if (event.source === window && typeof event.data === 'string') {
             let stringData = JSON.stringify(event.data);
             stringData = stringData.replace(new RegExp('\\\\n', 'g'), '\n');
+            stringData = stringData.replace(new RegExp('\\\\r', 'g'), '\n');
             stringData = stringData.slice(1, -1);
             setTerminalOutput(stringData);
         }
