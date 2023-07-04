@@ -39,6 +39,7 @@ const Main = () => {
             let stringData = JSON.stringify(event.data);
             stringData = stringData.replace(new RegExp('\\\\n', 'g'), '\n');
             stringData = stringData.replace(new RegExp('\\\\r', 'g'), '\n');
+            stringData = stringData.replace(new RegExp('\\\\t', 'g'), '    ');
             stringData = stringData.slice(1, -1);
             terminal.setTerminalOutput(stringData);
         }
