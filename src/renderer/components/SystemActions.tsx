@@ -1,98 +1,32 @@
-export const SystemActions = ({adbCommand, shellCommand}: {adbCommand: Function, shellCommand: Function}) => {
-    return (
-        <div className="button-group">
-            <div className="group1">
-                <button
-                    type="button"
-                    onClick={() => {
-                        shellCommand(
-                            'open -a Terminal'
-                            // `open -a Terminal && osascript -e 'tell application "Terminal" to do script "ls"'`
+import { Box, Grid } from '@mui/material';
+import { FixedWidthBtn } from './FixedWidthBtn';
 
-                            // 'osascript -e \'tell application "Terminal" to activate\''
-                            // -e 'tell application "Terminal" to do script "ls"'
-                        );
-                    }}
-                >
-                                Shell
-                </button>
-                <button
-                    type="button"
-                    onClick={() =>
-                        adbCommand('adb shell dumpsys diskstats')
-                    }
-                >
-                                Disk Info
-                </button>
-                <button
-                    type="button"
-                    onClick={() =>
-                        adbCommand('adb shell dumpsys wifi')
-                    }
-                >
-                                WiFi Info
-                </button>
-            </div>
-            <div className="group2">
-                <button
-                    type="button"
-                    onClick={() =>
-                        adbCommand('adb shell dumpsys cpuinfo')
-                    }
-                >
-                                CPU Info
-                </button>
-                <button
-                    type="button"
-                    onClick={() =>
-                        adbCommand('adb shell dumpsys usagestats')
-                    }
-                >
-                                Usage Info
-                </button>
-                <button
-                    type="button"
-                    onClick={() =>
-                        adbCommand('adb shell dumpsys meminfo')
-                    }
-                >
-                                Memory Info
-                </button>
-            </div>
-            <div className="group3">
-                <button
-                    type="button"
-                    onClick={() =>
-                        adbCommand(
-                            'adb shell cat /system/build.prop'
-                        )
-                    }
-                >
-                                Hardware Info
-                </button>
-                <button
-                    type="button"
-                    onClick={() =>
-                        adbCommand(
-                            'adb shell getprop ro.build.version.release'
-                        )
-                    }
-                >
-                                OS Version
-                </button>
-                <button
-                    type="button"
-                    onClick={() =>
-                        adbCommand(
-                            'adb shell screencap -p "/sdcard/screenshot.png"'
-                        )
-                    }
-                >
-                                Screenshot on Device
-                </button>
-            </div>
-        </div>
+export const SystemActions = ({ adbCommand, shellCommand }: {adbCommand: (command: string) => void, shellCommand: (command: string) => void}) => {
+    return (
+        <Grid container spacing={2} justifyContent={'center'}>
+            <Grid item sm={12} md={12} lg={4} mt={2}>
+                <Box className='vcenter' gap={2}>
+                    <FixedWidthBtn adb={shellCommand} command={navigator.platform.includes('Win') ? 'powershell' : 'open -a Terminal'} title='Terminal'/>
+                    <FixedWidthBtn adb={adbCommand} command={'adb shell dumpsys diskstats'} title='Disk Info'/>
+                    <FixedWidthBtn adb={adbCommand} command={'adb shell dumpsys wifi'} title='WiFi Info'/>
+                </Box>
+            </Grid>
+
+            <Grid item sm={12} md={12} lg={4} mt={2}>
+                <Box className="vcenter" gap={2}>
+                    <FixedWidthBtn adb={adbCommand} command={'adb shell dumpsys cpuinfo'} title='CPU Info'/>
+                    <FixedWidthBtn adb={adbCommand} command={'adb shell dumpsys usagestats'} title='Usage Info'/>
+                    <FixedWidthBtn adb={adbCommand} command={'adb shell dumpsys meminfo'} title='Memory Info'/>
+                </Box>
+            </Grid>
+
+            <Grid item sm={12} md={12} lg={4} mt={2}>
+                <Box className="vcenter" gap={2}>
+                    <FixedWidthBtn adb={adbCommand} command={'adb shell cat /system/build.prop'} title='Hardware Info'/>
+                    <FixedWidthBtn adb={adbCommand} command={'adb shell getprop ro.build.version.release'} title='OS Version'/>
+                    <FixedWidthBtn adb={adbCommand} command={'adb shell screencap -p "/sdcard/screenshot.png"'} title='Device Screenshot'/>
+                </Box>
+            </Grid>
+        </Grid>
     )
 }
-
-export default SystemActions

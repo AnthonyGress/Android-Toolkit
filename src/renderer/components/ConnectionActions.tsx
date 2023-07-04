@@ -1,12 +1,19 @@
 import React from 'react'
+import { FixedWidthBtn } from './FixedWidthBtn';
+import { AdbCommand } from 'renderer/types/types';
+import { Box } from '@mui/material';
 
-export const ConnectionActions = ({adbCommand}: {adbCommand: Function}) => {
+export const ConnectionActions = ({ adbCommand }: {adbCommand: AdbCommand}) => {
     const [ipAddress, setIpAddress] = React.useState('');
 
     const onSubmit = (e: any) => {
         e.preventDefault();
         adbCommand(`adb connect ${ipAddress}`);
     };
+
+    const connectAdb = () => {
+        adbCommand(`adb connect ${ipAddress}`)
+    }
 
     const updateIp = (
         event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -16,38 +23,22 @@ export const ConnectionActions = ({adbCommand}: {adbCommand: Function}) => {
 
     return (
         <>
-            <form className="connect-ip" onSubmit={onSubmit}>
-                <input
-                    type="text"
-                    value={ipAddress}
-                    onChange={updateIp}
-                    placeholder="Enter your Device's ip address"
-                    className="ip-input"
-                />
-                <button
-                    className="connect-btn"
-                    type="submit"
-                    onClick={() =>
-                        adbCommand(`adb connect ${ipAddress}`)
-                    }
-                >
-                            Connect
-                </button>
-            </form>
-            <div className="button-group group1">
-                <button
-                    type="button"
-                    onClick={() => adbCommand('adb disconnect')}
-                >
-                            Disconnect
-                </button>
-                <button
-                    type="button"
-                    onClick={() => adbCommand('adb devices')}
-                >
-                            Connected Devices
-                </button>
-            </div>
+            <Box mt={2}>
+                <form className="connect-ip" onSubmit={onSubmit}>
+                    <input
+                        type="text"
+                        value={ipAddress}
+                        onChange={updateIp}
+                        placeholder="Enter your Device's ip address"
+                        className="ip-input"
+                    />
+                    <FixedWidthBtn title='Connect' customAction={connectAdb}/>
+                </form>
+            </Box>
+            <Box className="center" mt={2} gap={2}>
+                <FixedWidthBtn adb={adbCommand} command={'adb disconnect'} title='Disconnect'/>
+                <FixedWidthBtn adb={adbCommand} command={'adb devices'} title='List Devices'/>
+            </Box>
         </>
     )
 }

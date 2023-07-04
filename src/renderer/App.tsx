@@ -1,11 +1,18 @@
-import React from 'react';
+import { useState, useRef } from 'react';
 import { MemoryRouter as Router, Switch, Route } from 'react-router-dom';
 import icon from '../../assets/icons/logo.png';
 import './App.css';
-import SystemActions from './components/SystemActions';
-import FireStickActions from './components/FireStickActions';
-import SideloadAction from './components/SideloadAction';
+import { SystemActions } from './components/SystemActions';
+import { FireStickActions } from './components/FireStickActions';
+import { SideloadAction } from './components/SideloadAction';
+import { AccordionDropdown } from './components/AccordionDropwdown';
 import { ConnectionActions } from './components/ConnectionActions';
+import { Box, Typography } from '@mui/material';
+import packageJson from '../../release/app/package.json';
+import InfoIcon from '@mui/icons-material/Info';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import { TerminalProvider } from './context/TerminalProvider';
+import { useTerminalContext } from './context/useTerminalContext';
 
 declare global {
     interface Window {
@@ -14,23 +21,17 @@ declare global {
 }
 
 const Main = () => {
-    const [terminalOutput, setTerminalOutput] = React.useState('');
-    const [showFirestickTools, setShowFirestickTools] = React.useState<boolean>();
-    const [showSystemTools, setShowSystemTools] = React.useState<boolean>();
-    const outputRef = React.useRef(null);
+    const [showInfoPage, setShowInfoPage] = useState(false);
+    const terminal: any = useTerminalContext();
+    const outputRef = useRef(null);
 
     window.addEventListener('message', (event: MessageEvent) => {
-        // event.source === window means the message is coming from the preload
-        if (event.source === window) {
-            console.log('from preload:', event.data);
-        }
         if (event.source === window && typeof event.data === 'string') {
             let stringData = JSON.stringify(event.data);
             stringData = stringData.replace(new RegExp('\\\\n', 'g'), '\n');
             stringData = stringData.replace(new RegExp('\\\\r', 'g'), '\n');
-
             stringData = stringData.slice(1, -1);
-            setTerminalOutput(stringData);
+            terminal.setTerminalOutput(stringData)
         }
     });
 
@@ -44,50 +45,79 @@ const Main = () => {
 
     return (
         <main>
-            <div className="splash">
-                <img width="120px" alt="icon" src={icon} className="spin" style={{marginRight: '20px'}} />
-                <h1>Android Toolkit</h1>
-            </div>
-            <div className="terminal-wrapper center">
-                <div className="output-terminal">
-                    <div className="output-text-box">
+            <Box className="splash">
+                <img width="120px" alt="icon" src={icon} className="spin" style={{ marginRight: '20px' }} />
+                <Typography variant='h3'>Android Toolkit</Typography>
+            </Box>
+            <Box className="terminal-wrapper center">
+                <Box className="output-terminal">
+                    <Box className="output-text-box">
                         <pre className="output-text" ref={outputRef}>
                             <span className="dollar">$</span>
-                            {terminalOutput}
-                            {/* <span className="blinking">_</span> */}
+                            {/* {terminalOutput} */}
+                            {terminal.terminalOutput}
                         </pre>
-                    </div>
-                </div>
-            </div>
-            <div className="dashboard">
-                <div className="connect">
-                    <div className="center">
-                        <h2>ADB Connection Tools</h2>
-                    </div>
+                    </Box>
+                </Box>
+            </Box>
+            <Box>
+                <AccordionDropdown title='ADB Connection Tools'>
                     <ConnectionActions adbCommand={adbCommand}/>
-                </div>
+                </AccordionDropdown>
 
-                <SideloadAction adbCommand={adbCommand} />
+                <AccordionDropdown title='Sideload Tools'>
+                    <SideloadAction adbCommand={adbCommand} />
+                </AccordionDropdown>
 
-                <h2 align='center' onClick={() => setShowFirestickTools(!showFirestickTools)} style={{cursor: 'pointer'}}>Firestick Tools</h2>
-                { showFirestickTools && <FireStickActions adbCommand={adbCommand} /> }
+                <AccordionDropdown title='FireStick Tools'>
+                    <FireStickActions adbCommand={adbCommand} />
+                </AccordionDropdown>
 
-                <div className="system-info">
-                    <div className="center" onClick={() => setShowSystemTools(!showSystemTools)}>
-                        <h2 style={{cursor: 'pointer'}}>System Tools</h2>
-                    </div>
-                    { showSystemTools &&<SystemActions adbCommand={adbCommand} shellCommand={shellCommand} /> }
-                </div>
-            </div>
+                <AccordionDropdown title='System Tools'>
+                    <SystemActions adbCommand={adbCommand} shellCommand={shellCommand} />
+                </AccordionDropdown>
+            </Box>
+            {showInfoPage ? (
+                <Box id="info-page">
+                    <Box className="button-group">
+                        <Box className="center">{`Version: ${packageJson.version}`}</Box>
+                        <a
+                            href="https://anthonygress.dev"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <Box
+                                className="center"
+                                style={{
+                                    marginTop: '10px',
+                                    marginBottom: '10px',
+                                }}
+                                ml={2}
+                            >
+                                <button>{'Built By Anthony'}</button>
+                            </Box>
+                        </a>
+                    </Box>
+                </Box>
+            ) : null}
+            <Box className="footer-btns">
+
+                <InfoIcon sx={{ cursor: 'pointer' }} onClick={() => setShowInfoPage(!showInfoPage)}/>
+                <RefreshIcon sx={{ cursor: 'pointer' }} onClick={() => location.reload()}/>
+
+            </Box>
         </main>
     );
 };
 
 export default function App() {
+
     return (
         <Router>
             <Switch>
-                <Route path="/" component={Main} />
+                <TerminalProvider>
+                    <Route path="/" component={Main} />
+                </TerminalProvider>
             </Switch>
         </Router>
     );

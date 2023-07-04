@@ -12,6 +12,7 @@
     "package-all": "npm run package -- --win --x64 && npm run package -- --linux && npm run package -- --linux --x64 && npm run package",
     "postinstall": "ts-node .erb/scripts/check-native-dep.js && electron-builder install-app-deps && cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.ts",
     "start": "ts-node ./.erb/scripts/check-port-in-use.js && npm run start:renderer",
+    "dev": "ts-node ./.erb/scripts/check-port-in-use.js && npm run start:renderer",
     "start:main": "cross-env NODE_ENV=development electron -r ts-node/register/transpile-only ./src/main/main.ts",
     "start:renderer": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack serve --config ./.erb/configs/webpack.config.renderer.dev.ts",
     "test": "jest",
@@ -33,7 +34,7 @@
     ]
   },
   "build": {
-    "productName": "Android-Toolkit",
+    "productName": "Android Toolkit",
     "appId": "com.techx.Android-toolkit",
     "asar": true,
     "asarUnpack": [
@@ -59,20 +60,6 @@
       "entitlementsInherit": "assets/entitlements.mac.plist",
       "gatekeeperAssess": false,
       "publish": "github"
-    },
-    "dmg": {
-      "contents": [
-        {
-          "x": 130,
-          "y": 220
-        },
-        {
-          "x": 410,
-          "y": 220,
-          "type": "link",
-          "path": "/Applications"
-        }
-      ]
     },
     "win": {
       "target": [
@@ -177,9 +164,9 @@
     "electron-rebuild": "^3.2.7",
     "enzyme": "^3.11.0",
     "enzyme-to-json": "^3.6.2",
-    "eslint": "^8.18.0",
-    "eslint-config-erb": "^4.0.3",
-    "eslint-plugin-compat": "^4.0.2",
+    "eslint": "^8.44.0",
+    "eslint-config-erb": "^4.0.6",
+    "eslint-plugin-compat": "^4.1.4",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-jest": "^25.2.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
@@ -216,6 +203,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.1",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.1",

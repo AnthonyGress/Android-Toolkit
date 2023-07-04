@@ -22,7 +22,6 @@ let username: any;
 import fs from 'fs';
 let downloadPathWin: string;
 
-
 let mainWindow: BrowserWindow | null = null;
 
 if (isWin){
@@ -59,13 +58,14 @@ export default class AppUpdater {
     }
 }
 
-
-
 ipcMain.on('shellChannel', (event, args) => {
-    const command = `${args}`;
+    let command = `${args}`;
     console.log(command);
 
     const { exec } = require('child_process');
+    if (command.includes('powershell')) {
+        command = 'start powershell -noexit -command "[console]::windowwidth=80; [console]::windowheight=35; [console]::bufferwidth=[console]::windowwidth; cd ../../; Get-Content -Raw ../assets/art.txt; Write-Host "Run ADB commands here" -nonewline; Write-Host "`n";Write-Host "Ex: .\\adb COMMAND"; Write-Host "`n""'
+    }
     exec(command, (error: Error, stdout: string, stderr: Error) => {
         if (error) {
             console.log(`error: ${error.message}`);
