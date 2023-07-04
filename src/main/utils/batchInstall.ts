@@ -9,8 +9,10 @@ export const batchInstall = (adbPath: string, event: IpcMainEvent) => {
     const dir = dialog.showOpenDialogSync({
         properties: [
             'openFile',
-            'multiSelections',
-            'openDirectory']
+            'openDirectory'],
+        filters: [
+            { name: 'Android Application', extensions: ['apk'] },
+        ]
     });
 
     if (dir) {

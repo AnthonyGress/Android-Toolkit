@@ -14,7 +14,7 @@ export const executeCmd = (
             console.log(`error: ${error.message}`);
             const errArr = error.message.split(/\r?\n/);
             const formattedError = errArr.filter((e) => e).at(-1);
-            console.log('###############',formattedError);
+            console.log('###############',errArr);
 
 
             event.reply(callbackChannel, `Error: ${formattedError}`);

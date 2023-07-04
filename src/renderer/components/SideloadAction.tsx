@@ -22,7 +22,7 @@ export const SideloadAction = ({ adbCommand }: AdbProps ) => {
     const sideload = () => {
         if (selectedFile) {
             console.log(`Selected file - ${selectedFile.path}`);
-            terminal?.setTerminalOutput(`Sideloading ${selectedFile.name}....`);
+            terminal?.setTerminalOutput(`Installing ${selectedFile.name}....`);
             adbCommand(`adb install -r "${selectedFile.path}"`);
         }
     };
