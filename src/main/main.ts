@@ -13,7 +13,7 @@ import fs from 'fs';
 import path from 'path';
 import MenuBuilder from './menu';
 import { app, BrowserWindow, shell } from 'electron';
-import { installExtensions, resolveHtmlPath } from './utils';
+import { resolveHtmlPath } from './utils';
 import { routeHandler } from './api/ipcHandler';
 import { MainWindow } from './types';
 
@@ -32,16 +32,12 @@ const setupWinAdb = () => {
     const { exec } = require('child_process');
     username = process.env.USERNAME;
 
-    console.log(username);
-
     downloadPathWin = `C:\\Users\\${username}\\AppData\\Local\\Programs\\android-toolkit\\resources`;
     const adbPath = `C:\\Users\\${username}\\AppData\\Local\\Programs\\android-toolkit\\platform-tools`;
 
-    console.log('windows setup');
-
     if (!fs.existsSync(adbPath)) {
 
-        exec(`curl -L https://dl.google.com/android/repository/platform-tools-latest-windows.zip -o ${downloadPathWin}\\platform-tools.zip && tar -xf "${path.join(__dirname, '../../../platform-tools.zip')}`, (error: Error, stdout: string, stderr: Error) => {
+        exec(`curl -L https://dl.google.com/android/repository/platform-tools-latest-windows.zip -o ${downloadPathWin}\\platform-tools.zip && tar -xf "${path.join(__dirname, '../../../platform-tools.zip')}`, (_error: Error, stdout: string, stderr: Error) => {
             if (mainWindow){
                 mainWindow.webContents.send('startup', `stdout: ${stdout}`)
                 mainWindow.webContents.send('startup', `stderr: ${stderr}`)

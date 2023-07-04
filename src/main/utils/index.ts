@@ -1,4 +1,5 @@
-import { installExtensions } from './utils';
-import { resolveHtmlPath } from './utils';
+import { installExtensions } from './installExtensions';
+import { resolveHtmlPath } from './resolveHtmlPath';
+import { executeCmd } from './executeCmd';
 
-export { installExtensions, resolveHtmlPath }
+export { installExtensions, resolveHtmlPath, executeCmd }
