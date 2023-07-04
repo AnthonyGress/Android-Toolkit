@@ -1,6 +1,6 @@
 import React from 'react'
 import { FixedWidthBtn } from './FixedWidthBtn';
-import { AdbCommand } from 'renderer/types/types';
+import { AdbCommand } from 'renderer/types';
 import { Box } from '@mui/material';
 
 export const ConnectionActions = ({ adbCommand }: {adbCommand: AdbCommand}) => {

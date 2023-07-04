@@ -43,7 +43,6 @@ labels: 'bug'
 
 <!--- Include as many relevant details about the environment you experienced the bug in -->
 
--   Node version :
 -   App version :
 -   Operating System and version :
 -   Link to your project :

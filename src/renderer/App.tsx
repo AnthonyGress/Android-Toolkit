@@ -13,6 +13,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { TerminalProvider } from './context/TerminalProvider';
 import { useTerminalContext } from './context/useTerminalContext';
+import { TerminalContextType } from './context/TerminalContext';
 
 declare global {
     interface Window {
@@ -22,7 +23,7 @@ declare global {
 
 const Main = () => {
     const [showInfoPage, setShowInfoPage] = useState(false);
-    const terminal: any = useTerminalContext();
+    const terminal: TerminalContextType = useTerminalContext();
     const outputRef = useRef(null);
 
     window.addEventListener('message', (event: MessageEvent) => {
@@ -44,7 +45,7 @@ const Main = () => {
     };
 
     return (
-        <main>
+        <>
             <Box className="splash">
                 <img width="120px" alt="icon" src={icon} className="spin" style={{ marginRight: '20px' }} />
                 <Typography variant='h3'>Android Toolkit</Typography>
@@ -54,14 +55,13 @@ const Main = () => {
                     <Box className="output-text-box">
                         <pre className="output-text" ref={outputRef}>
                             <span className="dollar">$</span>
-                            {/* {terminalOutput} */}
                             {terminal.terminalOutput}
                         </pre>
                     </Box>
                 </Box>
             </Box>
             <Box>
-                <AccordionDropdown title='ADB Connection Tools'>
+                <AccordionDropdown title='ADB Connection Tools' defaultExpanded>
                     <ConnectionActions adbCommand={adbCommand}/>
                 </AccordionDropdown>
 
@@ -106,7 +106,7 @@ const Main = () => {
                 <RefreshIcon sx={{ cursor: 'pointer' }} onClick={() => location.reload()}/>
 
             </Box>
-        </main>
+        </>
     );
 };
 

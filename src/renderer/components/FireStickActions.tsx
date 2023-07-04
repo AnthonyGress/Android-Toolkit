@@ -1,7 +1,7 @@
 import { Box, Grid, Typography } from '@mui/material';
 import debloatCommands from '../../../assets/debloatCommands';
 import { FixedWidthBtn } from './FixedWidthBtn';
-import { AdbCommand } from 'renderer/types/types';
+import { AdbCommand } from 'renderer/types';
 
 export const FireStickActions = ({ adbCommand }: {adbCommand: AdbCommand}) => {
 

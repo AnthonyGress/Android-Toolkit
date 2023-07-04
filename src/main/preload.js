@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const { contextBridge, ipcRenderer } = require('electron');
+
 // sends message to main
 const WINDOW_API = {
     shellCommand: (command) => ipcRenderer.send('shellChannel', command),
@@ -11,27 +11,20 @@ const windowLoaded = new Promise((resolve) => {
 });
 
 ipcRenderer.on('startup', async (event, arg) => {
-    // console.log(arg); // logs response from adbConnect
     await windowLoaded;
-    // We use regular window.postMessage to transfer the port from the isolated
-    // world to the main world.
     window.postMessage(arg, '*');
 });
 
 // listens for messages from main
 ipcRenderer.on('adbResponse', async (event, arg) => {
-    // console.log(arg); // logs response from adbConnect
+    // console.log(arg); // logs response from adbCommand
     await windowLoaded;
-    // We use regular window.postMessage to transfer the port from the isolated
-    // world to the main world.
     window.postMessage(arg, '*');
 });
 
 ipcRenderer.on('shellResponse', async (event, arg) => {
-    // console.log(arg); // logs response from adbConnect
+    // console.log(arg); // logs response from shellCommand
     await windowLoaded;
-    // We use regular window.postMessage to transfer the port from the isolated
-    // world to the main world.
     window.postMessage(arg, '*');
 });
 

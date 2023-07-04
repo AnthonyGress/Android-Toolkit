@@ -5,4 +5,4 @@ export interface TerminalContextType {
     setTerminalOutput: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const TerminalContext = createContext<TerminalContextType | null>(null);
+export const TerminalContext = createContext<TerminalContextType>(null!);
