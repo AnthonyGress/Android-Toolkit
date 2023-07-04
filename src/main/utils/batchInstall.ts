@@ -3,12 +3,13 @@ import fs from 'fs';
 import path from 'path';
 import { executeCmd } from './executeCmd';
 
-export const batchInstall = (event: IpcMainEvent) => {
+export const batchInstall = (adbPath: string, event: IpcMainEvent) => {
     let files: string[];
     const extension = '.apk';
     const dir = dialog.showOpenDialogSync({
         properties: [
             'openFile',
+            'multiSelections',
             'openDirectory']
     });
 
@@ -40,7 +41,7 @@ export const batchInstall = (event: IpcMainEvent) => {
                     files.forEach((file) => {
                         const filePath = path.join(dir[0], file);
 
-                        executeCmd(`adb install -r "${filePath}"`, event, 'adbResponse', file, total);
+                        executeCmd(`${adbPath}adb install -r "${filePath}"`, event, 'adbResponse', file, total);
                     });
                 }
 

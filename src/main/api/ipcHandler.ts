@@ -25,7 +25,7 @@ export const routeHandler = (adbPath: string) => {
         if (args === 'batchInstall') {
             console.log('batchInstall');
 
-            batchInstall(event);
+            batchInstall(adbPath, event);
         } else {
             executeCmd(command, event, 'adbResponse');
         }
