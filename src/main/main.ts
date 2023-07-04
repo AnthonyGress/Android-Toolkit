@@ -1,12 +1,3 @@
-/**
- * This module executes inside of electron's main process. You can start
- * electron renderer process from here and communicate with the other processes
- * through IPC.
- *
- * When running `npm run build` or `npm run build:main`, this file is compiled to
- * `./src/main.js` using webpack. This gives us some performance wins.
- */
-
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import fs from 'fs';
@@ -39,15 +30,15 @@ const setupWinAdb = () => {
 
         exec(`curl -L https://dl.google.com/android/repository/platform-tools-latest-windows.zip -o ${downloadPathWin}\\platform-tools.zip && tar -xf "${path.join(__dirname, '../../../platform-tools.zip')}`, (_error: Error, stdout: string, stderr: Error) => {
             if (mainWindow){
-                mainWindow.webContents.send('startup', `stdout: ${stdout}`)
-                mainWindow.webContents.send('startup', `stderr: ${stderr}`)
+                mainWindow.webContents.send('startup', `stdout: ${stdout}`);
+                mainWindow.webContents.send('startup', `stderr: ${stderr}`);
             }
 
             console.log(`stdout: ${stdout}`);
             console.log(`stderr: ${stderr}`);
         });
     }
-}
+};
 
 const initialize = () => {
     switch(userOS) {
@@ -64,7 +55,7 @@ const initialize = () => {
         username = process.env.USERNAME;
         console.log(username);
 
-        downloadPathWin = `C:\\Users\\${username}\\AppData\\Local\\Programs\\android-toolkit\\resources`
+        downloadPathWin = `C:\\Users\\${username}\\AppData\\Local\\Programs\\android-toolkit\\resources`;
         adbPath = `C:\\Users\\${username}\\AppData\\Local\\Programs\\android-toolkit\\platform-tools\\`;
         setupWinAdb();
 
@@ -74,7 +65,7 @@ const initialize = () => {
     }
 
     routeHandler(adbPath);
-}
+};
 
 initialize();
 
@@ -116,7 +107,7 @@ const createWindow = async () => {
             mainWindow.minimize();
         } else {
             mainWindow.show();
-            mainWindow.webContents.send('startup', `Welcome to Android-Toolkit version ${app.getVersion()}`)
+            mainWindow.webContents.send('startup', `Welcome to Android-Toolkit version ${app.getVersion()}`);
         }
     });
 

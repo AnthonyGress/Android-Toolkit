@@ -1,19 +1,31 @@
-import { useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { FixedWidthBtn } from './FixedWidthBtn';
-import ClearIcon from '@mui/icons-material/Clear';
 import { useTerminalContext } from 'renderer/context/useTerminalContext';
+import { AdbProps } from '../types';
+import ClearIcon from '@mui/icons-material/Clear';
 
-export const SideloadAction = ({ adbCommand }: {adbCommand: Function}) => {
-    const [selectedFile, setSelectedFile] = useState<any>('');
-    const inputRef = useRef<any>();
+export const SideloadAction = ({ adbCommand }: AdbProps) => {
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const terminal = useTerminalContext();
+    const inputRef = useRef<any>();
+
+    const handleChange =(e: ChangeEvent<HTMLInputElement>) => {
+        const target = e.target as HTMLInputElement;
+        const files = target.files;
+
+        if (files) {
+            setSelectedFile(files[0]);
+        }
+    };
 
 
     const sideload = () => {
-        console.log(`Selected file - ${selectedFile.path}`);
-        terminal?.setTerminalOutput(`Sideloading ${selectedFile.name}....`)
-        adbCommand(`adb install "${selectedFile.path}"`);
+        if (selectedFile) {
+            console.log(`Selected file - ${selectedFile.path}`);
+            terminal?.setTerminalOutput(`Sideloading ${selectedFile.name}....`);
+            adbCommand(`adb install "${selectedFile.path}"`);
+        }
     };
 
     return (
@@ -22,11 +34,8 @@ export const SideloadAction = ({ adbCommand }: {adbCommand: Function}) => {
                 <Box>
                     <Box>
                         <input
-                            onChange={(e: any) =>
-                                setSelectedFile(e.currentTarget.files[0])
-                            }
+                            onChange={(e) => handleChange(e)}
                             type="file"
-                            id="files"
                             name="files"
                             className="form-control"
                             ref={inputRef}
@@ -43,7 +52,7 @@ export const SideloadAction = ({ adbCommand }: {adbCommand: Function}) => {
                                 <Box className='center' ml={1}>
                                     <ClearIcon sx={{ color: 'white', cursor: 'pointer' }} onClick={() => {
                                         inputRef.current.value = null;
-                                        setSelectedFile('');
+                                        setSelectedFile(null);
                                     }}/>
                                 </Box>
                             </Box>
@@ -55,5 +64,5 @@ export const SideloadAction = ({ adbCommand }: {adbCommand: Function}) => {
                 </Box>
             </Grid>
         </Grid>
-    )
-}
+    );
+};

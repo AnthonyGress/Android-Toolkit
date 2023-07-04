@@ -1,19 +1,19 @@
-import React from 'react'
+import React, { FormEvent } from 'react';
 import { FixedWidthBtn } from './FixedWidthBtn';
-import { AdbCommand } from 'renderer/types';
+import { AdbProps } from '../types';
 import { Box } from '@mui/material';
 
-export const ConnectionActions = ({ adbCommand }: {adbCommand: AdbCommand}) => {
+export const ConnectionActions = ({ adbCommand }: AdbProps) => {
     const [ipAddress, setIpAddress] = React.useState('');
 
-    const onSubmit = (e: any) => {
+    const onSubmit = (e: FormEvent) => {
         e.preventDefault();
         adbCommand(`adb connect ${ipAddress}`);
     };
 
     const connectAdb = () => {
-        adbCommand(`adb connect ${ipAddress}`)
-    }
+        adbCommand(`adb connect ${ipAddress}`);
+    };
 
     const updateIp = (
         event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -24,7 +24,7 @@ export const ConnectionActions = ({ adbCommand }: {adbCommand: AdbCommand}) => {
     return (
         <>
             <Box mt={2}>
-                <form className="connect-ip" onSubmit={onSubmit}>
+                <form className="center" onSubmit={onSubmit}>
                     <input
                         type="text"
                         value={ipAddress}
@@ -40,5 +40,5 @@ export const ConnectionActions = ({ adbCommand }: {adbCommand: AdbCommand}) => {
                 <FixedWidthBtn adb={adbCommand} command={'adb devices'} title='List Devices'/>
             </Box>
         </>
-    )
-}
+    );
+};

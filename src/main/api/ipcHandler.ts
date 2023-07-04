@@ -10,17 +10,17 @@ export const routeHandler = (adbPath: string) => {
         console.log(command);
 
         if (command === 'powershell') {
-            command = POWERSHELL_CMD
+            command = POWERSHELL_CMD;
         }
 
-        executeCmd(command, event, 'shellResponse')
+        executeCmd(command, event, 'shellResponse');
     });
 
     ipcMain.on('adbChannel', async (event, args: string) => {
         const command = `${adbPath}${args}`;
         console.log(command);
 
-        executeCmd(command, event, 'adbResponse')
+        executeCmd(command, event, 'adbResponse');
     });
-}
+};
 

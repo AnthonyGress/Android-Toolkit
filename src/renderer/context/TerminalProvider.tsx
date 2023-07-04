@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { TerminalContext } from './TerminalContext';
 
-export const TerminalProvider = ({ children }: any) => {
+type Props = {
+    children: React.ReactNode
+};
+
+export const TerminalProvider: React.FC<Props>= ({ children } ) => {
     const [terminalOutput, setTerminalOutput] = useState<string>('');
 
     const { Provider } = TerminalContext;
@@ -10,5 +14,5 @@ export const TerminalProvider = ({ children }: any) => {
         <Provider value={{ terminalOutput, setTerminalOutput }}>
             {children}
         </Provider>
-    )
-}
+    );
+};

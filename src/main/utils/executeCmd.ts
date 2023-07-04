@@ -21,4 +21,4 @@ export const executeCmd = (
             event.reply(callbackChannel, `${stdout}`);
         }
     });
-}
+};

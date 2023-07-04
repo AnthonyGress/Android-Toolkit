@@ -5,6 +5,7 @@ module.exports = {
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended',
     ],
+    plugins: ['import', 'react'],
     rules: {
         'import/no-extraneous-dependencies': 'off',
         'react/react-in-jsx-scope': 'off',
@@ -17,7 +18,8 @@ module.exports = {
         'object-curly-spacing': ['warn', 'always'],
         '@typescript-eslint/ban-types': 'off',
         '@typescript-eslint/no-var-requires': 'off',
-        '@typescript-eslint/no-non-null-assertion': 'off'
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        'semi': 'warn'
     },
     parserOptions: {
         ecmaVersion: 2021,

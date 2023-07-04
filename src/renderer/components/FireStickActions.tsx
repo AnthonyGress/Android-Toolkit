@@ -1,9 +1,9 @@
 import { Box, Grid, Typography } from '@mui/material';
-import debloatCommands from '../../../assets/debloatCommands';
 import { FixedWidthBtn } from './FixedWidthBtn';
-import { AdbCommand } from 'renderer/types';
+import { AdbProps } from '../types';
+import { debloatCommands } from '../constants/debloatCommands';
 
-export const FireStickActions = ({ adbCommand }: {adbCommand: AdbCommand}) => {
+export const FireStickActions = ({ adbCommand }: AdbProps) => {
 
     const setScreensaver = () => {
         adbCommand(
@@ -26,11 +26,11 @@ export const FireStickActions = ({ adbCommand }: {adbCommand: AdbCommand}) => {
         adbCommand(
             'sleep 1 & adb shell settings get secure screensaver_components'
         );
-    }
+    };
 
     const screensaverDemo = () => {
         window.open('https://clients3.google.com/cast/chromecast/home/v/c9541b08');
-    }
+    };
 
     const debloat = () => {
         debloatCommands.map((command) => adbCommand(command));
@@ -69,5 +69,5 @@ export const FireStickActions = ({ adbCommand }: {adbCommand: AdbCommand}) => {
             </Box>
 
         </>
-    )
-}
+    );
+};

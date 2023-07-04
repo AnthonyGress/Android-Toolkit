@@ -1,7 +1,17 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-export const AccordionDropdown = ({ title, children, defaultExpanded=false }: {title: string, children?: any, defaultExpanded?: boolean}) => {
+interface Props {
+    title: string,
+    children?: React.ReactNode,
+    defaultExpanded?: boolean
+}
+
+export const AccordionDropdown = ({
+    title,
+    children,
+    defaultExpanded=false
+}: Props) => {
     return (
         <Box className='vcenter' mt={2}>
             <Accordion defaultExpanded={defaultExpanded} className='transparent-bg' sx={{ width: '64vw' }}>
@@ -22,6 +32,6 @@ export const AccordionDropdown = ({ title, children, defaultExpanded=false }: {t
                 </AccordionDetails>
             </Accordion>
         </Box>
-    )
-}
+    );
+};
 
