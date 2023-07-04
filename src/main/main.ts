@@ -115,7 +115,7 @@ let adbPath: string;
 switch(userOS) {
 case 'darwin':
     console.log('MacOS');
-    adbPath = '/Applications/Android-Toolkit.app/Contents/platform-tools/';
+    adbPath = '/Applications/"Android Toolkit.app"/Contents/platform-tools/';
     break;
 case 'linux':
     console.log('Linux operating system');
