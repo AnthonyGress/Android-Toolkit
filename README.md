@@ -8,15 +8,15 @@
 
 ## Mac & Linux
 
-<hr>
-
 Copy and paste this into the Terminal App
 
 `/bin/bash -c "$(curl -sL https://raw.githubusercontent.com/AnthonyGress/Android-Toolkit/main/install.sh)"`
 <br><br>
 
-## Windows (Experimental)
-
-<hr>
+## Windows
 
 Use the installer under the _Releases_ tab named `Android-Toolkit-Setup-${VERSION}.exe`
+
+## Usage
+
+You have to enable ADB debugging or USB debugging on your android device. Usually found in developer settings (accessed by tapping the build number many times on most devices). On your first time connecting, you will have to allow the connection on your android device, it will ask about a fingerprint which you need to accept. This only happens on the first connection and is an adb security measure.
