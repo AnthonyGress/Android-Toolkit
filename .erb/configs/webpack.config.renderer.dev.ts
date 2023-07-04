@@ -157,6 +157,9 @@ export default merge(baseConfig, {
     static: {
       publicPath: '/',
     },
+    client: {
+      logging: 'none'
+    },
     historyApiFallback: {
       verbose: true,
       disableDotRule: false,
