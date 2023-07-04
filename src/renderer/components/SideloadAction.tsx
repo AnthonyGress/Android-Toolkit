@@ -5,12 +5,12 @@ import { useTerminalContext } from 'renderer/context/useTerminalContext';
 import { AdbProps } from '../types';
 import ClearIcon from '@mui/icons-material/Clear';
 
-export const SideloadAction = ({ adbCommand }: AdbProps) => {
+export const SideloadAction = ({ adbCommand }: AdbProps ) => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const terminal = useTerminalContext();
-    const inputRef = useRef<any>();
+    const fileRef = useRef<any>();
 
-    const handleChange =(e: ChangeEvent<HTMLInputElement>) => {
+    const handleChangeFile =(e: ChangeEvent<HTMLInputElement>) => {
         const target = e.target as HTMLInputElement;
         const files = target.files;
 
@@ -19,39 +19,42 @@ export const SideloadAction = ({ adbCommand }: AdbProps) => {
         }
     };
 
-
     const sideload = () => {
         if (selectedFile) {
             console.log(`Selected file - ${selectedFile.path}`);
-            terminal?.setTerminalOutput(`Sideloading ${selectedFile.name}....`);
-            adbCommand(`adb install "${selectedFile.path}"`);
+            terminal?.setTerminalOutput(`Installing ${selectedFile.name}....`);
+            adbCommand(`adb install -r "${selectedFile.path}"`);
         }
     };
 
     return (
         <Grid container spacing={2} justifyContent={'center'} >
-            <Grid item xs={12} mt={2}>
+            <Grid item xs={12} mt={2} mb={2}>
+                <Box className="center" mt={2} mb={1}>
+                    <Typography fontSize={24} color='white'>Install Single APK</Typography>
+                </Box>
                 <Box>
                     <Box>
                         <input
-                            onChange={(e) => handleChange(e)}
+                            onChange={(e) => handleChangeFile(e)}
                             type="file"
                             name="files"
+                            accept='.apk'
                             className="form-control"
-                            ref={inputRef}
+                            ref={fileRef}
                             style={{ display: 'none' }}
                         />
                         <Box sx={{ display: 'flex', flexDirection:{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }, justifyContent: 'center' }}>
                             <Box className='vcenter'>
-                                <FixedWidthBtn customAction={() => inputRef.current.click()} title='Select File'/>
+                                <FixedWidthBtn customAction={() => fileRef.current.click()} title='Select APK File'/>
                             </Box>
-                            <Box alignItems={'center'} display={'flex'} justifyContent={'center'} sx={{ marginLeft: { lg: 2 } }}>
+                            <Box alignItems={'center'} display={'flex'} justifyContent={'center'} sx={{ marginLeft: { lg: 2 }, marginTop: { md: 1, lg: 0 } }}>
                                 <Typography noWrap color={'white'}>
                                     {selectedFile ? `${selectedFile.name}` : 'No File Selected'}
                                 </Typography>
                                 <Box className='center' ml={1}>
                                     <ClearIcon sx={{ color: 'white', cursor: 'pointer' }} onClick={() => {
-                                        inputRef.current.value = null;
+                                        fileRef.current.value = null;
                                         setSelectedFile(null);
                                     }}/>
                                 </Box>
@@ -60,6 +63,21 @@ export const SideloadAction = ({ adbCommand }: AdbProps) => {
                     </Box>
                     <Box className='center' mt={2}>
                         <FixedWidthBtn customAction={sideload} title='Sideload' disabled={!selectedFile}/>
+                    </Box>
+                </Box>
+            </Grid>
+
+            <Grid item xs={12} mt={2} mb={2}>
+                <Box className="center" mt={2} mb={1}>
+                    <Typography fontSize={24} color='white'>Batch Install APKs</Typography>
+                </Box>
+                <Box>
+                    <Box>
+                        <Box sx={{ display: 'flex', flexDirection:{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }, justifyContent: 'center' }}>
+                            <Box className='vcenter'>
+                                <FixedWidthBtn customAction={() => adbCommand('batchInstall')} title='Select APK Folder'/>
+                            </Box>
+                        </Box>
                     </Box>
                 </Box>
             </Grid>

@@ -24,15 +24,19 @@ export const ConnectionActions = ({ adbCommand }: AdbProps) => {
     return (
         <>
             <Box mt={2}>
-                <form className="center" onSubmit={onSubmit}>
-                    <input
-                        type="text"
-                        value={ipAddress}
-                        onChange={updateIp}
-                        placeholder="Enter your Device's ip address"
-                        className="ip-input"
-                    />
-                    <FixedWidthBtn title='Connect' customAction={connectAdb}/>
+                <form onSubmit={onSubmit}>
+                    <Box display={'flex'} justifyContent={'center'} sx={{ flexDirection: { xs: 'column', sm: 'column', md: 'row', lg: 'row' } }} >
+                        <input
+                            type="text"
+                            value={ipAddress}
+                            onChange={updateIp}
+                            placeholder="Enter your Device's ip address"
+                            className="ip-input"
+                        />
+                        <Box ml={1} sx={{ marginTop: { xs: 2, sm: 2, md: 0 } }} display={'flex'} justifyContent={'center'}>
+                            <FixedWidthBtn title='Connect' customAction={connectAdb}/>
+                        </Box>
+                    </Box>
                 </form>
             </Box>
             <Box className="center" mt={2} gap={2}>
