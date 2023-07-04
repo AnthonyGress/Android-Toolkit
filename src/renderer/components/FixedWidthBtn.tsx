@@ -1,14 +1,15 @@
 import { useTerminalContext } from 'renderer/context/useTerminalContext';
+import { AdbCommand } from '../types';
 
-interface FixedWidthBtnProps {
-    adb?: (command: string) => void,
+interface Props {
+    adb?: AdbCommand,
     command?: string,
     title: string,
-    customAction?: any,
+    customAction?: () => unknown,
     disabled?: boolean
 }
 
-export const FixedWidthBtn = ({ adb, command, title, customAction, disabled=false }: FixedWidthBtnProps) => {
+export const FixedWidthBtn = ({ adb, command, title, customAction, disabled=false }: Props) => {
     const terminal = useTerminalContext();
 
     const terminalFeedback = (actionTitle: string) => {
@@ -19,10 +20,10 @@ export const FixedWidthBtn = ({ adb, command, title, customAction, disabled=fals
             break;
 
         default:
-            terminal?.setTerminalOutput(`Running Command for ${title}....`)
+            terminal?.setTerminalOutput(`Running Command for ${title}....`);
             break;
         }
-    }
+    };
 
     return (
         <button
@@ -34,7 +35,7 @@ export const FixedWidthBtn = ({ adb, command, title, customAction, disabled=fals
                     customAction();
                 } else {
                     if (adb && command){
-                        adb(command)
+                        adb(command);
                     }
                 }
             }
@@ -42,6 +43,6 @@ export const FixedWidthBtn = ({ adb, command, title, customAction, disabled=fals
         >
             {title}
         </button>
-    )
-}
+    );
+};
 

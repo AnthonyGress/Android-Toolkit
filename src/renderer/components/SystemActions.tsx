@@ -1,7 +1,12 @@
 import { Box, Grid } from '@mui/material';
 import { FixedWidthBtn } from './FixedWidthBtn';
+import { AdbProps } from '../types';
 
-export const SystemActions = ({ adbCommand, shellCommand }: {adbCommand: (command: string) => void, shellCommand: (command: string) => void}) => {
+interface Props extends AdbProps{
+    shellCommand: (command: string) => void
+}
+
+export const SystemActions = ({ adbCommand, shellCommand }: Props) => {
     return (
         <Grid container spacing={2} justifyContent={'center'}>
             <Grid item sm={12} md={12} lg={4} mt={2}>
@@ -28,5 +33,5 @@ export const SystemActions = ({ adbCommand, shellCommand }: {adbCommand: (comman
                 </Box>
             </Grid>
         </Grid>
-    )
-}
+    );
+};

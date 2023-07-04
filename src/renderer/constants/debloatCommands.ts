@@ -1,4 +1,4 @@
-const debloatCommands = [
+export const debloatCommands = [
     'adb shell pm disable-user com.amazon.recess',
     'adb shell pm disable-user com.amazon.platform.fdrw',
     'adb shell pm disable-user com.amazon.ssmsys',
@@ -60,5 +60,3 @@ const debloatCommands = [
     'adb shell pm disable-user com.amazon.hedwig',
     'adb shell pm disable-user com.amazon.application.compatibility.enforcer.sdk.library',
 ];
-
-export default debloatCommands;

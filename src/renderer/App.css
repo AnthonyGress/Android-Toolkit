@@ -1,7 +1,9 @@
-/*
- * @NOTE: Prepend a `~` to css file paths that are in your node_modules
- *        See https://github.com/webpack-contrib/sass-loader#imports
- */
+@import url('https://fonts.cdnfonts.com/css/earth-orbiter');
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     position: relative;
     color: white;
@@ -14,7 +16,6 @@ body {
     font-family: sans-serif;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    /* overflow-y: hidden; */
 }
 
 main {
@@ -34,10 +35,13 @@ button {
     transition: all ease-in 0.1s;
     cursor: pointer;
     opacity: 0.9;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 button:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
     opacity: 1;
 }
 
@@ -73,33 +77,7 @@ a:hover {
     margin-bottom: 1rem;
 }
 
-.blinking {
-    /* animation: fadein infinite 1s linear; */
-    animation: fadeout infinite 1.5s 1.4s ease-in-out;
-    animation: name duration timing-function delay iteration-count direction
-        fill-mode;
-    font-weight: bolder;
-}
-
 .center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.connect {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.connect-btn {
-    margin-left: 1.5rem;
-    width: 8rem;
-}
-
-.connect-ip {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -122,24 +100,29 @@ a:hover {
     width: 98%;
 }
 
-.group1 button,
-.group2 button,
-.group3 button {
-    min-width: 30vw;
-    min-height: 6vh;
+.signature {
+    font-family: 'Earth Orbiter';
+    font-size: 1.2rem;
+    color: #000;
 }
 
 .splash {
     display: flex;
-    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     margin-bottom: 2vh;
     margin-top: 1vh;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    user-select: none;
+
 }
 
 .spin {
     animation: App-logo-spin infinite 16s linear;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .ip-input {
@@ -195,23 +178,23 @@ a:hover {
     top: 0
 }
 
-#files {
-    min-width: 30vw;
-    padding-top: 0.4rem;
-    padding-bottom: 0.4rem;
-    border-radius: 8px;
-    border-color: transparent;
-    appearance: none;
-    font-size: 1rem;
-    background-color: white;
-    color: black;
-}
-
 .vcenter {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100%;
+}
+
+.visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .75s ease-in-out;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s .75s, opacity .75s ease-in-out;
 }
 
 @keyframes App-logo-spin {
