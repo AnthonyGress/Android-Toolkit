@@ -64,7 +64,7 @@ ipcMain.on('shellChannel', (event, args) => {
 
     const { exec } = require('child_process');
     if (command.includes('powershell')) {
-        command = 'start powershell -noexit -command "[console]::windowwidth=80; [console]::windowheight=35; [console]::bufferwidth=[console]::windowwidth; cd ../../; Get-Content -Raw ../assets/art.txt; Write-Host "Run ADB commands here" -nonewline; Write-Host "`n";Write-Host "Ex: .\\adb COMMAND"; Write-Host "`n""'
+        command = 'start powershell -noexit -command "[console]::windowwidth=80; [console]::windowheight=35; [console]::bufferwidth=[console]::windowwidth; cd .\\platform-tools; Get-Content -Raw ..\\resources\\assets\\art.txt; Write-Host "Run ADB commands here" -nonewline; Write-Host "`n";Write-Host "Ex: .\\adb COMMAND"; Write-Host "`n""'
     }
     exec(command, (error: Error, stdout: string, stderr: Error) => {
         if (error) {

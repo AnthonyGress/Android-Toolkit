@@ -15,10 +15,11 @@ export const FixedWidthBtn = ({ adb, command, title, customAction, disabled=fals
         switch (actionTitle) {
         case 'Connect':
             console.log('Connecting....');
-            terminal?.setTerminalOutput('Attempting to Connect....')
+            terminal?.setTerminalOutput('Attempting to Connect....');
             break;
 
         default:
+            terminal?.setTerminalOutput(`Running Command for ${title}....`)
             break;
         }
     }
