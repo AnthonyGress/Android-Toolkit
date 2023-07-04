@@ -1,10 +1,8 @@
 # Android-Toolkit
 
-![AndroidToolkit](https://github.com/AnthonyGress/Android-Toolkit/assets/70029654/cd805568-3a8a-4d77-8330-acdca90521b8)
+![AndroidToolkit](https://github.com/AnthonyGress/Android-Toolkit/assets/70029654/290f4fd7-083d-4fb4-a343-462f09f59a5a)
 
 # Install
-
-<br>
 
 ## Mac & Linux
 
@@ -15,7 +13,9 @@ Copy and paste this into the Terminal App
 
 ## Windows
 
-Use the installer under the _Releases_ tab named `Android-Toolkit-Setup-${VERSION}.exe`
+Use the installer under the Releases tab named `Android-Toolkit-Setup-${VERSION}.exe`
+
+Click [here](https://github.com/AnthonyGress/Android-Toolkit/releases/latest) to install the latest version.
 
 ## Usage
 
