@@ -5,6 +5,7 @@ import {
     BrowserWindow,
     MenuItemConstructorOptions,
 } from 'electron';
+import { updateWindows } from './utils/appUpdater';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;
@@ -206,6 +207,13 @@ export default class MenuBuilder {
                         accelerator: 'Ctrl+W',
                         click: () => {
                             this.mainWindow.close();
+                        },
+                    },
+                    {
+                        label: '&Update',
+                        // accelerator: 'Ctrl+W',
+                        click: () => {
+                            updateWindows();
                         },
                     },
                 ],
