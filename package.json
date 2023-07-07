@@ -47,9 +47,11 @@
     ],
     "afterSign": ".erb/scripts/notarize.js",
     "nsis": {
-      "differentialPackage": false
+      "differentialPackage": false,
+      "artifactName": "Android-Toolkit-Setup.${ext}"
     },
     "mac": {
+      "artifactName": "Android-Toolkit-${arch}.${ext}",
       "target": {
         "target": "zip",
         "arch": [
@@ -71,6 +73,7 @@
       "publish": "github"
     },
     "linux": {
+      "artifactName": "Android-Toolkit.${ext}",
       "target": [
         "AppImage"
       ],
