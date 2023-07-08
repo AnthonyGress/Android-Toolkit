@@ -1,16 +1,18 @@
 // import log from 'electron-log';
 // import { autoUpdater } from 'electron-updater';
+import { IpcMainEvent } from 'electron';
+import { spawn } from 'node:child_process';
+import { Octokit } from 'octokit';
 import { downloadFile } from './downloadFile';
-const { exec } = require('child_process');
 import packageJson from '../../../release/app/package.json';
 import semverCompare from 'semver/functions/compare';
-import { Octokit } from 'octokit';
 import util from 'node:util';
+import fs from 'fs';
+
+const { exec } = require('child_process');
 const execPromise = util.promisify(exec);
 const userOS = process.platform;
-import { spawn } from 'node:child_process';
-import fs from 'fs';
-import { IpcMainEvent } from 'electron';
+
 // Cannot use updater unless codesigning with paid credentials for macOS
 // export default class AppUpdater {
 //     constructor() {
@@ -64,7 +66,7 @@ export const updateWindows = (event: IpcMainEvent) => {
         if (err) console.log(err);
     });
 
-    downloadFile(`https://github.com/anthonygress/${packageJson.name}/releases/latest/download/${packageJson.name}-setup.exe`, `${downloadPathWin}\\Android-Toolkit-Update\\Android-Toolkit-Setup.exe`).then(() => {
+    downloadFile(`https://github.com/anthonygress/${packageJson.name}/releases/latest/download/${packageJson.name}-setup.exe`, `${downloadPathWin}\\Android-Toolkit-Update\\Android-Toolkit-Update.exe`).then(() => {
         event.reply('shellResponse', 'win update downloaded');
         spawn('explorer', [`${downloadPathWin}\\Android-Toolkit-Update\\`], { detached: true }).unref();
     });
