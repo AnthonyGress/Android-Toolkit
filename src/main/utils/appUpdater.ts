@@ -2,6 +2,13 @@
 // import { autoUpdater } from 'electron-updater';
 import { downloadFile } from './downloadFile';
 const { exec } = require('child_process');
+import packageJson from '../../../release/app/package.json';
+import semverCompare from 'semver/functions/compare';
+import { Octokit } from 'octokit';
+import util from 'node:util';
+const execPromise = util.promisify(exec);
+const userOS = process.platform;
+
 
 // Cannot use updater unless codesigning with paid credentials for macOS
 // export default class AppUpdater {
@@ -12,9 +19,43 @@ const { exec } = require('child_process');
 //     }
 // }
 
+export const checkForUpdates = async () => {
+    let updateAvailable = false;
+    const octokit = new Octokit();
+
+    const res = await octokit.request('GET /repos/{owner}/{repo}/releases/latest', {
+        owner: 'AnthonyGress',
+        repo: packageJson.name,
+        headers: {
+            'X-GitHub-Api-Version': '2022-11-28'
+        }
+    });
+
+    const latestVersion = res.data.name;
+    const runningVersion = packageJson.version;
+
+    if (latestVersion){
+        const newVersionAvailable = semverCompare(latestVersion, runningVersion);
+
+        if (newVersionAvailable === 1) {
+            updateAvailable = true;
+        }
+    }
+    return updateAvailable;
+};
+
+
+export const startUpdate = async () => {
+    if (userOS === 'win32') {
+        updateWindows();
+    } else if (userOS === 'darwin' || userOS === 'linux') {
+        await nixUpdate();
+    }
+};
 
 export const updateWindows = () => {
-    downloadFile('https://github.com/AnthonyGress/Android-Toolkit/releases/download/v1.5.5/Android-Toolkit-Setup-1.5.5.exe', 'install.exe').then(() => {
+    console.log('running windows update');
+    downloadFile(`https://github.com/anthonygress/${packageJson.name}/releases/latest/download/${packageJson.name}-setup.exe`, 'install.exe').then(() => {
         exec('start install.exe', (error: Error, stdout: string, stderr: Error) => {
             if (error) {
                 console.log(`error: ${error.message}`);
@@ -33,4 +74,13 @@ export const updateWindows = () => {
             }
         });
     });
+};
+
+
+export const nixUpdate = async () => {
+    let updateCompleted = false;
+    console.log('running *nix update');
+    await execPromise('/bin/bash -c "$(curl -sL https://raw.githubusercontent.com/AnthonyGress/Android-Toolkit/main/install.sh)"');
+    updateCompleted = true;
+    return updateCompleted;
 };

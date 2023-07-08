@@ -165,6 +165,11 @@ a:hover {
     font-size: 0.8rem;
 }
 
+.swal2-confirm {
+    background-color: #cf3886 !important;
+    outline: none !important;
+}
+
 .transparent-bg {
     background-color: transparent !important;
     box-shadow: none !important;
@@ -197,6 +202,11 @@ a:hover {
     transition: visibility 0s .75s, opacity .75s ease-in-out;
 }
 
+.bounce {
+    animation: bounce 1s linear;
+    animation-iteration-count: 2;
+}
+
 @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);
@@ -223,3 +233,9 @@ a:hover {
         opacity: 0;
     }
 }
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-15px);}
+    60% {transform: translateY(-5px);}
+ }

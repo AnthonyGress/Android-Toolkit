@@ -1,6 +1,7 @@
-import { ipcMain } from 'electron';
+import { app, ipcMain } from 'electron';
 import { POWERSHELL_CMD } from '../constants/constant';
 import { executeCmd, batchInstall } from '../utils';
+import { startUpdate } from '../utils/appUpdater';
 
 
 export const routeHandler = (adbPath: string) => {
@@ -13,9 +14,16 @@ export const routeHandler = (adbPath: string) => {
 
         if (command === 'powershell') {
             command = POWERSHELL_CMD;
+            executeCmd(command, event, 'shellResponse');
+        } else if (command === 'update') {
+            event.reply('shellResponse', 'starting update');
+            startUpdate().then(() => {
+                event.reply('shellResponse', 'update complete');
+            });
+        } else {
+            executeCmd(command, event, 'shellResponse');
         }
 
-        executeCmd(command, event, 'shellResponse');
     });
 
     ipcMain.on('adbChannel', async (event, args: string) => {
@@ -30,6 +38,21 @@ export const routeHandler = (adbPath: string) => {
             executeCmd(command, event, 'adbResponse');
         }
 
+    });
+
+    ipcMain.on('communicationChannel', async (event, args) => {
+        console.log('hit coms');
+
+        try {
+            if (args.includes('restart')){
+                event.reply('messageResponse', 'restarting');
+                app.relaunch();
+                app.exit();
+            }
+        } catch (error: any) {
+            console.log(error);
+            event.reply('messageResponse', error.message);
+        }
     });
 };
 

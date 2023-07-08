@@ -6,6 +6,10 @@ import {
     MenuItemConstructorOptions,
 } from 'electron';
 import { updateWindows } from './utils/appUpdater';
+import { platform } from 'os';
+import { exec } from 'node:child_process';
+import util from 'node:util';
+const execPromise = util.promisify(exec);
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;
@@ -53,6 +57,22 @@ export default class MenuBuilder {
         });
     }
 
+    unixUpdate(): any {
+        const updateMenu = {
+            label: 'Update Android Toolkit',
+            click: async () => {
+                console.log('running update');
+                this.mainWindow.webContents.send('startup', 'starting update');
+                await execPromise('/bin/bash -c "$(curl -sL https://raw.githubusercontent.com/AnthonyGress/Android-Toolkit/main/install.sh)"');
+                this.mainWindow.webContents.send('startup', 'update complete');
+            }
+        };
+
+        if (platform() === 'darwin' || platform() === 'linux'){
+            return updateMenu;
+        }
+    }
+
     buildDarwinTemplate(): MenuItemConstructorOptions[] {
         const subMenuAbout: DarwinMenuItemConstructorOptions = {
             label: 'Android Toolkit',
@@ -61,6 +81,7 @@ export default class MenuBuilder {
                     label: 'About Android Toolkit',
                     selector: 'orderFrontStandardAboutPanel:',
                 },
+                this.unixUpdate(),
                 { type: 'separator' },
                 { type: 'separator' },
                 {

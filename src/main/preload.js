@@ -4,6 +4,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 const WINDOW_API = {
     shellCommand: (command) => ipcRenderer.send('shellChannel', command),
     adbCommand: (command) => ipcRenderer.send('adbChannel', command),
+    coms: (args) => ipcRenderer.send('communicationChannel', args),
 };
 
 const windowLoaded = new Promise((resolve) => {
