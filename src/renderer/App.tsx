@@ -26,7 +26,7 @@ declare global {
 
 const Main = () => {
     const [showInfoPage, setShowInfoPage] = useState(false);
-    const [updateAvailable, setUpdateAvailable] = useState(true);
+    const [updateAvailable, setUpdateAvailable] = useState(false);
     const terminal: ITerminalContext = useTerminalContext();
     const outputRef = useRef(null);
 
@@ -80,6 +80,18 @@ const Main = () => {
                     if (result.isConfirmed) {
                         window.api.coms('restart');
                     }
+                });
+            }
+
+            if (event.data.includes('win update downloaded')){
+                Swal.fire({
+                    customClass: {
+                        title: 'swal2-title',
+                    },
+                    title: 'Update Downloaded',
+                    text: 'Please run the installer by double clicking on it in your Downloads folder.',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
                 });
             }
         }

@@ -1,14 +1,17 @@
 // import log from 'electron-log';
 // import { autoUpdater } from 'electron-updater';
+import { IpcMainEvent } from 'electron';
+import { spawn } from 'node:child_process';
+import { Octokit } from 'octokit';
 import { downloadFile } from './downloadFile';
-const { exec } = require('child_process');
 import packageJson from '../../../release/app/package.json';
 import semverCompare from 'semver/functions/compare';
-import { Octokit } from 'octokit';
 import util from 'node:util';
+import fs from 'fs';
+
+const { exec } = require('child_process');
 const execPromise = util.promisify(exec);
 const userOS = process.platform;
-
 
 // Cannot use updater unless codesigning with paid credentials for macOS
 // export default class AppUpdater {
@@ -45,34 +48,27 @@ export const checkForUpdates = async () => {
 };
 
 
-export const startUpdate = async () => {
+export const startUpdate = async (event: IpcMainEvent) => {
     if (userOS === 'win32') {
-        updateWindows();
+        updateWindows(event);
     } else if (userOS === 'darwin' || userOS === 'linux') {
         await nixUpdate();
     }
 };
 
-export const updateWindows = () => {
+export const updateWindows = (event: IpcMainEvent) => {
+    const username = process.env.USERNAME;
+
+    const downloadPathWin = `C:\\Users\\${username}\\Downloads`;
     console.log('running windows update');
-    downloadFile(`https://github.com/anthonygress/${packageJson.name}/releases/latest/download/${packageJson.name}-setup.exe`, 'install.exe').then(() => {
-        exec('start install.exe', (error: Error, stdout: string, stderr: Error) => {
-            if (error) {
-                console.log(`error: ${error.message}`);
-                const errArr = error.message.split(/\r?\n/);
-                console.log('###############',errArr);
 
-                return;
-            }
-            if (stderr) {
-                console.log(`stderr: ${stderr}`);
-                return;
-            }
-            if (stdout) {
-                console.log(`${stdout}`);
+    fs.mkdir(`${downloadPathWin}\\Android-Toolkit-Update\\`, (err) => {
+        if (err) console.log(err);
+    });
 
-            }
-        });
+    downloadFile(`https://github.com/anthonygress/${packageJson.name}/releases/latest/download/${packageJson.name}-setup.exe`, `${downloadPathWin}\\Android-Toolkit-Update\\Android-Toolkit-Update.exe`).then(() => {
+        event.reply('shellResponse', 'win update downloaded');
+        spawn('explorer', [`${downloadPathWin}\\Android-Toolkit-Update\\`], { detached: true }).unref();
     });
 };
 

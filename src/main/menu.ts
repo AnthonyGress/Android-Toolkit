@@ -229,14 +229,7 @@ export default class MenuBuilder {
                         click: () => {
                             this.mainWindow.close();
                         },
-                    },
-                    {
-                        label: '&Update',
-                        // accelerator: 'Ctrl+W',
-                        click: () => {
-                            updateWindows();
-                        },
-                    },
+                    }
                 ],
             },
             {
