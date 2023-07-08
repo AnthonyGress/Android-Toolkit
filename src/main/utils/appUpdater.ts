@@ -61,12 +61,9 @@ export const updateWindows = () => {
     const { execFile } = require('child_process');
 
 
-    downloadFile(`https://github.com/anthonygress/${packageJson.name}/releases/latest/download/${packageJson.name}-setup.exe`, `${downloadPathWin}\\Android-Toolkit-Setup.exe`).then(() => {
-        execFile(`${downloadPathWin}\\Android-Toolkit-Setup.exe`, [], (error: any, stdout: any, stderr: any) => {
-            if (error) {
-                throw error;
-            }
-            console.log(stdout);
+    downloadFile(`https://github.com/anthonygress/${packageJson.name}/releases/latest/download/${packageJson.name}-setup.exe`, `${downloadPathWin}\\Android-Toolkit-Update\\Android-Toolkit-Setup.exe`).then(() => {
+        fs.opendir(`${downloadPathWin}\\Android-Toolkit-Update\\`, (err) => {
+            if (err) console.log('Error:', err);
         });
     });
 };
