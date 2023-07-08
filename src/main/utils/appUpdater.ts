@@ -58,14 +58,15 @@ export const updateWindows = () => {
 
     const downloadPathWin = `C:\\Users\\${username}\\Downloads`;
     console.log('running windows update');
-    downloadFile(`https://github.com/anthonygress/${packageJson.name}/releases/latest/download/${packageJson.name}-setup.exe`, `${downloadPathWin}\\Android-Toolkit-Setup.exe`).then(() => {
-        fs.open(`${downloadPathWin}\\Android-Toolkit-Setup.exe`, 'r+', (err) => {
-            if (!err) {
-                console.log('done');
-            } else {
-                console.log(err);
+    const { execFile } = require('child_process');
 
+
+    downloadFile(`https://github.com/anthonygress/${packageJson.name}/releases/latest/download/${packageJson.name}-setup.exe`, `${downloadPathWin}\\Android-Toolkit-Setup.exe`).then(() => {
+        execFile(`${downloadPathWin}\\Android-Toolkit-Setup.exe`, [], (error: any, stdout: any, stderr: any) => {
+            if (error) {
+                throw error;
             }
+            console.log(stdout);
         });
     });
 };

@@ -18,7 +18,8 @@ export const routeHandler = (adbPath: string) => {
         } else if (command === 'update') {
             event.reply('shellResponse', 'starting update');
             startUpdate().then(() => {
-                event.reply('shellResponse', 'update complete');
+                if (process.platform !== 'win32')
+                    event.reply('shellResponse', 'update complete');
             });
         } else {
             executeCmd(command, event, 'shellResponse');
