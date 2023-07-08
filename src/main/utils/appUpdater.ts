@@ -10,6 +10,7 @@ const execPromise = util.promisify(exec);
 const userOS = process.platform;
 import { spawn } from 'node:child_process';
 import fs from 'fs';
+import { IpcMainEvent } from 'electron';
 // Cannot use updater unless codesigning with paid credentials for macOS
 // export default class AppUpdater {
 //     constructor() {
@@ -45,15 +46,15 @@ export const checkForUpdates = async () => {
 };
 
 
-export const startUpdate = async () => {
+export const startUpdate = async (event: IpcMainEvent) => {
     if (userOS === 'win32') {
-        updateWindows();
+        updateWindows(event);
     } else if (userOS === 'darwin' || userOS === 'linux') {
         await nixUpdate();
     }
 };
 
-export const updateWindows = () => {
+export const updateWindows = (event: IpcMainEvent) => {
     const username = process.env.USERNAME;
 
     const downloadPathWin = `C:\\Users\\${username}\\Downloads`;
@@ -64,6 +65,7 @@ export const updateWindows = () => {
     });
 
     downloadFile(`https://github.com/anthonygress/${packageJson.name}/releases/latest/download/${packageJson.name}-setup.exe`, `${downloadPathWin}\\Android-Toolkit-Update\\Android-Toolkit-Setup.exe`).then(() => {
+        event.reply('shellResponse', 'win update downloaded');
         spawn('explorer', [`${downloadPathWin}\\Android-Toolkit-Update\\`], { detached: true }).unref();
     });
 };

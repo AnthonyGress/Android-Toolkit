@@ -82,6 +82,18 @@ const Main = () => {
                     }
                 });
             }
+
+            if (event.data.includes('win update downloaded')){
+                Swal.fire({
+                    customClass: {
+                        title: 'swal2-title',
+                    },
+                    title: 'Update Downloaded',
+                    text: 'Please run the updater by double clicking on it in your Downloads folder.',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                });
+            }
         }
 
     });
