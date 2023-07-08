@@ -2,7 +2,6 @@
 OS="$(uname)"
 UNAME_MACHINE="$(/usr/bin/uname -m)"
 USER_PLATFORM="$OS $UNAME_MACHINE"
-LATEST_VERSION=$(curl -s -L https://api.github.com/repos/anthonygress/Android-Toolkit/tags | grep '"name":' | head -1 | cut -d: -f2 | cut -c4-8)
 
 install_app() {
     echo -e "\n---------------------- Installing Application ----------------------"
@@ -10,22 +9,17 @@ install_app() {
 
     if [[ "$USER_PLATFORM" == "Darwin arm64" ]]
     then
-        curl -sL https://github.com/AnthonyGress/Android-Toolkit/releases/download/v${LATEST_VERSION}/"Android-Toolkit-${LATEST_VERSION}"-arm64-mac.zip --output ~/Downloads/Android-Toolkit.zip && unzip -qo ~/Downloads/Android-Toolkit.zip -d /Applications
+        curl -sL https://github.com/anthonygress/Android-Toolkit/releases/latest/download/Android-Toolkit-arm64.zip --output ~/Downloads/Android-Toolkit.zip && unzip -qo ~/Downloads/Android-Toolkit.zip -d /Applications
     elif [[ "$USER_PLATFORM" == "Darwin x86_64" ]]
     then
-        curl -sL https://github.com/AnthonyGress/Android-Toolkit/releases/download/v${LATEST_VERSION}/"Android-Toolkit-${LATEST_VERSION}"-mac.zip --output ~/Downloads/Android-Toolkit.zip && unzip -qo ~/Downloads/Android-Toolkit.zip -d /Applications
-    elif [[ "$USER_PLATFORM" == "Linux arm64" ]]
+        curl -sL https://github.com/anthonygress/Android-Toolkit/releases/latest/download/Android-Toolkit-x64.zip --output ~/Downloads/Android-Toolkit.zip && unzip -qo ~/Downloads/Android-Toolkit.zip -d /Applications
+    elif [[ "$OS" == "Linux"  ]]
     then
-         curl -sL https://github.com/AnthonyGress/Android-Toolkit/releases/download/v${LATEST_VERSION}/"Android-Toolkit-${LATEST_VERSION}"-arm64.AppImage --output ~/Desktop/Android-Toolkit-arm64.AppImage && chmod +x ~/Desktop/Android-Toolkit-arm64.AppImage
-    elif [[ "$USER_PLATFORM" == "Linux x86_64" ]]
-    then
-         curl -sL https://github.com/AnthonyGress/Android-Toolkit/releases/download/v${LATEST_VERSION}/"Android-Toolkit-${LATEST_VERSION}".AppImage --output ~/Desktop/Android-Toolkit.AppImage && chmod +x ~/Desktop/Android-Toolkit.AppImage
+         curl -sL https://github.com/anthonygress/Android-Toolkit/releases/latest/download/Android-Toolkit.AppImage --output ~/Desktop/Android-Toolkit.AppImage && chmod +x ~/Desktop/Android-Toolkit.AppImage
     else
         echo "OS not supported - please check the readme for install and support instructions"
         exit 1
     fi
-
-
 }
 
 install_adb() {
@@ -59,7 +53,7 @@ then
     open -a /Applications/"Android Toolkit.app"
 elif [[ "$OS" == "Linux" ]]
 then
-    cd ~/Desktop && ./Android-Toolkit-arm64.AppImage
+    cd ~/Desktop && ./Android-Toolkit.AppImage
 fi
 echo
 }

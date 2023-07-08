@@ -15,7 +15,7 @@ Copy and paste this into the Terminal App
 
 Use the installer under the Releases tab named `Android-Toolkit-Setup-${VERSION}.exe`
 
-Click [here](https://github.com/AnthonyGress/Android-Toolkit/releases/latest) to install the latest version.
+Click [here](https://github.com/anthonygress/Android-Toolkit/releases/latest/download/Android-toolkit-setup.exe) to install the latest version.
 
 ## Usage
 

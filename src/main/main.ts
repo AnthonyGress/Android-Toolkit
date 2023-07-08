@@ -7,6 +7,8 @@ import { app, BrowserWindow, shell } from 'electron';
 import { resolveHtmlPath } from './utils';
 import { routeHandler } from './api/ipcHandler';
 import { MainWindow } from './types';
+import { checkForUpdates } from './utils/appUpdater';
+// import AppUpdater from './utils/appUpdater';
 
 const userOS = process.platform;
 const isDevelopment = process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
@@ -107,7 +109,13 @@ const createWindow = async () => {
             mainWindow.minimize();
         } else {
             mainWindow.show();
-            mainWindow.webContents.send('startup', `Welcome to Android-Toolkit version ${app.getVersion()}`);
+            checkForUpdates().then((result) => {
+                if (result) {
+                    mainWindow?.webContents.send('startup', `Welcome to Android-Toolkit version ${app.getVersion()} \n Update Available`);
+                } else {
+                    mainWindow?.webContents.send('startup', `Welcome to Android-Toolkit version ${app.getVersion()}`);
+                }
+            });
         }
     });
 
@@ -125,7 +133,7 @@ const createWindow = async () => {
     });
 
     // disable auto updates
-//   new AppUpdater();
+    // new AppUpdater();
 };
 
 /**

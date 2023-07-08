@@ -3,6 +3,7 @@ import icon from '../../assets/icons/logo.png';
 import packageJson from '../../release/app/package.json';
 import InfoIcon from '@mui/icons-material/Info';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import Swal from 'sweetalert2';
 import { Box, Typography } from '@mui/material';
 import { useRef, useState } from 'react';
 import { Route, MemoryRouter as Router, Switch } from 'react-router-dom';
@@ -14,6 +15,8 @@ import { SystemActions } from './components/SystemActions';
 import { ITerminalContext } from './context/TerminalContext';
 import { TerminalProvider } from './context/TerminalProvider';
 import { useTerminalContext } from './context/useTerminalContext';
+import { UpdateBtn } from './components/UpdateBtn';
+import { AdbCommand, ShellCommand } from './types';
 
 declare global {
     interface Window {
@@ -23,14 +26,15 @@ declare global {
 
 const Main = () => {
     const [showInfoPage, setShowInfoPage] = useState(false);
+    const [updateAvailable, setUpdateAvailable] = useState(true);
     const terminal: ITerminalContext = useTerminalContext();
     const outputRef = useRef(null);
 
-    const adbCommand = (command: string) => {
+    const adbCommand: AdbCommand = (command) => {
         window.api.adbCommand(command);
     };
 
-    const shellCommand = (command: string) => {
+    const shellCommand: ShellCommand = (command) => {
         window.api.shellCommand(command);
     };
 
@@ -45,7 +49,41 @@ const Main = () => {
 
             stringData = stringData.slice(1, -1);
             terminal.setTerminalOutput(stringData);
+
+            if (event.data.includes('Update Available')){
+                setUpdateAvailable(true);
+            }
+
+            if (event.data.includes('starting update')){
+                Swal.fire({
+                    customClass: {
+                        title: 'swal2-title',
+                    },
+                    title: 'Updating',
+                    text: 'The update is in progress, please wait...',
+                    icon: 'info',
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+            }
+
+            if (event.data.includes('update complete')){
+                Swal.fire({
+                    customClass: {
+                        title: 'swal2-title',
+                    },
+                    title: 'Done!',
+                    text: 'Update successful! Please restart the app.',
+                    icon: 'success',
+                    confirmButtonText: 'Restart',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.api.coms('restart');
+                    }
+                });
+            }
         }
+
     });
 
     return (
@@ -54,6 +92,7 @@ const Main = () => {
                 <img width="120px" alt="icon" src={icon} className="spin" style={{ marginRight: '20px' }} />
                 <Typography variant='h3'>Android Toolkit</Typography>
             </Box>
+            {updateAvailable && <UpdateBtn shellCommand={shellCommand}/>}
             <Box className="terminal-wrapper center">
                 <Box className="output-terminal">
                     <Box className="output-text-box">
