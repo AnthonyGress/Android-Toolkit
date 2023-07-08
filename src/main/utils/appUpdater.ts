@@ -8,7 +8,7 @@ import { Octokit } from 'octokit';
 import util from 'node:util';
 const execPromise = util.promisify(exec);
 const userOS = process.platform;
-
+import fs from 'fs';
 
 // Cannot use updater unless codesigning with paid credentials for macOS
 // export default class AppUpdater {
@@ -54,22 +54,16 @@ export const startUpdate = async () => {
 };
 
 export const updateWindows = () => {
-    console.log('running windows update');
-    downloadFile(`https://github.com/anthonygress/${packageJson.name}/releases/latest/download/${packageJson.name}-setup.exe`, 'install.exe').then(() => {
-        exec('start install.exe', (error: Error, stdout: string, stderr: Error) => {
-            if (error) {
-                console.log(`error: ${error.message}`);
-                const errArr = error.message.split(/\r?\n/);
-                console.log('###############',errArr);
+    const username = process.env.USERNAME;
 
-                return;
-            }
-            if (stderr) {
-                console.log(`stderr: ${stderr}`);
-                return;
-            }
-            if (stdout) {
-                console.log(`${stdout}`);
+    const downloadPathWin = `C:\\Users\\${username}\\Downloads`;
+    console.log('running windows update');
+    downloadFile(`https://github.com/anthonygress/${packageJson.name}/releases/latest/download/${packageJson.name}-setup.exe`, `${downloadPathWin}\\Android-Toolkit-Setup.exe`).then(() => {
+        fs.open(`${downloadPathWin}\\Android-Toolkit-Setup.exe`, 'r+', (err) => {
+            if (!err) {
+                console.log('done');
+            } else {
+                console.log(err);
 
             }
         });
