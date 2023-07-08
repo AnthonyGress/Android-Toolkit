@@ -8,7 +8,7 @@ import { Octokit } from 'octokit';
 import util from 'node:util';
 const execPromise = util.promisify(exec);
 const userOS = process.platform;
-import fs from 'fs';
+import { spawn } from 'node:child_process';
 
 // Cannot use updater unless codesigning with paid credentials for macOS
 // export default class AppUpdater {
@@ -58,13 +58,9 @@ export const updateWindows = () => {
 
     const downloadPathWin = `C:\\Users\\${username}\\Downloads`;
     console.log('running windows update');
-    const { execFile } = require('child_process');
-
 
     downloadFile(`https://github.com/anthonygress/${packageJson.name}/releases/latest/download/${packageJson.name}-setup.exe`, `${downloadPathWin}\\Android-Toolkit-Update\\Android-Toolkit-Setup.exe`).then(() => {
-        fs.opendir(`${downloadPathWin}\\Android-Toolkit-Update\\`, (err) => {
-            if (err) console.log('Error:', err);
-        });
+        spawn('explorer', [`${downloadPathWin}\\Android-Toolkit-Update\\`], { detached: true }).unref();
     });
 };
 
