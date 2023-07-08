@@ -15,11 +15,8 @@ Copy and paste this into the Terminal App
 
 Use the installer under the Releases tab named `Android-Toolkit-Setup-${VERSION}.exe`
 
-Click [here](https://github.com/AnthonyGress/Android-Toolkit/releases/latest) to install the latest version.
+Click [here](https://github.com/anthonygress/Android-Toolkit/releases/latest/download/Android-toolkit-setup.exe) to install the latest version.
 
 ## Usage
 
 You have to enable ADB debugging or USB debugging on your android device. Usually found in developer settings (accessed by tapping the build number many times on most devices). On your first time connecting, you will have to allow the connection on your android device, it will ask about a fingerprint which you need to accept. This only happens on the first connection and is an adb security measure.
-
-https://github.com/anthonygress/Android-Toolkit/releases/latest/download/Android-toolkit-setup.exe
-curl -O https://github.com/AnthonyGress/Android-Toolkit/releases/download/v1.5.5/"Android-Toolkit-Setup-1.5.5.exe"
