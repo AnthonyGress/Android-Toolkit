@@ -9,7 +9,7 @@ import util from 'node:util';
 const execPromise = util.promisify(exec);
 const userOS = process.platform;
 import { spawn } from 'node:child_process';
-
+import fs from 'fs';
 // Cannot use updater unless codesigning with paid credentials for macOS
 // export default class AppUpdater {
 //     constructor() {
@@ -58,6 +58,10 @@ export const updateWindows = () => {
 
     const downloadPathWin = `C:\\Users\\${username}\\Downloads`;
     console.log('running windows update');
+
+    fs.mkdir(`${downloadPathWin}\\Android-Toolkit-Update\\`, (err) => {
+        if (err) console.log(err);
+    });
 
     downloadFile(`https://github.com/anthonygress/${packageJson.name}/releases/latest/download/${packageJson.name}-setup.exe`, `${downloadPathWin}\\Android-Toolkit-Update\\Android-Toolkit-Setup.exe`).then(() => {
         spawn('explorer', [`${downloadPathWin}\\Android-Toolkit-Update\\`], { detached: true }).unref();
