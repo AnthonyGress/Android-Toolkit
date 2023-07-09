@@ -33,13 +33,13 @@ export const ConnectionActions = ({ adbCommand }: AdbProps) => {
                             placeholder="Enter your Device's ip address"
                             className="ip-input"
                         />
-                        <Box ml={1} sx={{ marginTop: { xs: 2, sm: 2, md: 0 } }} display={'flex'} justifyContent={'center'}>
+                        <Box ml={{ xs: 0, md:1 }} sx={{ marginTop: { xs: 2, sm: 2, md: 0 } }} display={'flex'} justifyContent={'center'}>
                             <FixedWidthBtn title='Connect' customAction={connectAdb}/>
                         </Box>
                     </Box>
                 </form>
             </Box>
-            <Box className="center" mt={2} gap={2}>
+            <Box mt={2} gap={2} display={'flex'} justifyContent={'center'} flexDirection={{ xs: 'column', md: 'row' }} alignItems={'center'}>
                 <FixedWidthBtn adb={adbCommand} command={'adb disconnect'} title='Disconnect'/>
                 <FixedWidthBtn adb={adbCommand} command={'adb devices'} title='List Devices'/>
             </Box>

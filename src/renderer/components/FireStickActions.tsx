@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FixedWidthBtn } from './FixedWidthBtn';
 import { AdbProps } from '../types';
 import { DEBLOAT_CMDS } from '../constants/debloatCommands';
@@ -43,7 +43,7 @@ export const FireStickActions = ({ adbCommand }: AdbProps) => {
                 <Typography fontSize={24} color='white'>Screensaver Tools</Typography>
             </Box>
 
-            <Grid container spacing={2} justifyContent={'center'}>
+            <Grid container spacing={2} justifyContent={'center'} mb={2}>
                 <Grid item sm={12} md={12} lg={6} mt={2}>
                     <Box className='vcenter' gap={2}>
                         <FixedWidthBtn adb={adbCommand} command={'adb shell settings get secure screensaver_components'} title='Check Screen Saver'/>
@@ -52,7 +52,7 @@ export const FireStickActions = ({ adbCommand }: AdbProps) => {
                     </Box>
                 </Grid>
 
-                <Grid item sm={12} md={12} lg={6} mt={2}>
+                <Grid item sm={12} md={12} lg={6} mt={2} >
                     <Box className='vcenter' gap={2}>
                         <FixedWidthBtn customAction={setScreensaver} title='Set Screensaver'/>
                         <FixedWidthBtn customAction={resetScreensaver} title='Reset Screensaver'/>
@@ -61,7 +61,9 @@ export const FireStickActions = ({ adbCommand }: AdbProps) => {
                 </Grid>
             </Grid>
 
-            <Box className="vcenter" mt={4}>
+            <Divider style={{ width:'100%', backgroundColor: 'white' }}/>
+
+            <Box className="vcenter" mt={2}>
                 <Typography fontSize={24} color='white'>Debloat Tools</Typography>
                 <Box mt={4}>
                     <FixedWidthBtn customAction={debloat} title='Run Debloat Commands'/>
