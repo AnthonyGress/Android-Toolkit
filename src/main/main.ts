@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import MenuBuilder from './menu';
 import { app, BrowserWindow, shell } from 'electron';
-import { executeCmd, resolveHtmlPath } from './utils';
+import { resolveHtmlPath } from './utils';
 import { routeHandler } from './api/ipcHandler';
 import { MainWindow } from './types';
 import { checkForUpdates } from './utils/appUpdater';

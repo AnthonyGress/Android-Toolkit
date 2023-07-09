@@ -38,13 +38,13 @@ You can install any APK file from your computer directly on to your android devi
 <br><br>
 
 ## Batch Install
-Installs ALL files with .apk extension in the current directory onto your firestick.
+Installs ALL files with .apk extension in the selected directory onto your device.
 <br><br>
 
 # Firestick Tools
 
 ## Set Screensaver
-Lets you set a custom screensaver app, custom time-on duration, and custom time-off. I have included a modified application in this repo called "Website Daydream" that changes the default wallpaper to the website https://clients3.google.com/cast/chromecast/home
+Lets you set a custom screensaver app. I have included a modified application in this repo called "Website Daydream" that changes the default wallpaper to the website https://clients3.google.com/cast/chromecast/home
   
 After installing Website Daydream, install the application called Activity launcher (https://www.f-droid.org/en/packages/de.szalkowski.activitylauncher/). Open it, and just touch the website daydream app in order for it to work.
 <br><br>
