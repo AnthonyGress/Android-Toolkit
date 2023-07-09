@@ -113,7 +113,7 @@ export const SideloadAction = ({ adbCommand }: AdbProps ) => {
                             <Box sx={{ display: 'flex', flexDirection:{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }, justifyContent: 'center' }}>
                                 <Box className='vcenter' gap={2}>
                                     <FixedWidthBtn adb={adbCommand} command={'spotube'} title='Spotube (Spotify)'/>
-                                    <FixedWidthBtn adb={adbCommand} command={'revanced'} title='Revanced (Youtube)'/>
+                                    {/* <FixedWidthBtn adb={adbCommand} command={'revanced'} title='Revanced (Youtube)'/> */}
 
                                 </Box>
                             </Box>
