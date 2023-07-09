@@ -1,9 +1,9 @@
+import path from 'path';
 import { app, ipcMain } from 'electron';
-import { LAUNCHER_MANAGER_URL, POWERSHELL_CMD, SMART_TUBE_URL, TERMINAL_CMD, WOLF_LAUNCHER_URL, apkPath } from '../constants/constant';
+import { LAUNCHER_MANAGER_URL, POWERSHELL_CMD, SMART_TUBE_URL, SPOTUBE_URL, TERMINAL_CMD, WOLF_LAUNCHER_URL, apkPath } from '../constants/constant';
 import { executeCmd, batchInstall } from '../utils';
 import { startUpdate } from '../utils/appUpdater';
 import { downloadFile } from '../utils/downloadFile';
-import path from 'path';
 import { execPromise } from '../utils/executeCmd';
 
 
@@ -56,6 +56,19 @@ export const routeHandler = (adbPath: string) => {
                 try {
                     await execPromise(`${adbPath}adb install -r "${apkPath}smartTube.apk"`);
                     event.reply('adbResponse', 'Installed Smart Tube');
+                } catch (error: any) {
+                    event.reply('adbResponse', error.message);
+                }
+
+            });
+            break;
+
+        case 'spotube':
+            console.log('install spotube');
+            downloadFile(SPOTUBE_URL, path.join(apkPath, 'spotube.apk')).then(async () => {
+                try {
+                    await execPromise(`${adbPath}adb install -r "${apkPath}spotube.apk"`);
+                    event.reply('adbResponse', 'Installed Spotube');
                 } catch (error: any) {
                     event.reply('adbResponse', error.message);
                 }

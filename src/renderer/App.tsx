@@ -124,7 +124,7 @@ const Main = () => {
                     <SideloadAction adbCommand={adbCommand} />
                 </AccordionDropdown>
 
-                <AccordionDropdown title='FireStick Tools'>
+                <AccordionDropdown title='FireTV Tools'>
                     <FireStickActions adbCommand={adbCommand} />
                 </AccordionDropdown>
 
