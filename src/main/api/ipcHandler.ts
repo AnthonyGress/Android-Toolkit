@@ -1,7 +1,10 @@
 import { app, ipcMain } from 'electron';
-import { POWERSHELL_CMD, TERMINAL_CMD } from '../constants/constant';
+import { LAUNCHER_MANAGER_URL, POWERSHELL_CMD, SMART_TUBE_URL, TERMINAL_CMD, WOLF_LAUNCHER_URL, apkPath } from '../constants/constant';
 import { executeCmd, batchInstall } from '../utils';
 import { startUpdate } from '../utils/appUpdater';
+import { downloadFile } from '../utils/downloadFile';
+import path from 'path';
+import { execPromise } from '../utils/executeCmd';
 
 
 export const routeHandler = (adbPath: string) => {
@@ -37,16 +40,57 @@ export const routeHandler = (adbPath: string) => {
         }
     });
 
-    ipcMain.on('adbChannel', async (event, args: string) => {
+    ipcMain.on('adbChannel', (event, args: string) => {
         const command = `${adbPath}${args}`;
         console.log(command);
 
-        if (args === 'batchInstall') {
+        switch (args) {
+        case 'batchInstall':
             console.log('batchInstall');
-
             batchInstall(adbPath, event);
-        } else {
+            break;
+
+        case 'smarttube':
+            console.log('install smarttube');
+            downloadFile(SMART_TUBE_URL, path.join(apkPath, 'smartTube.apk')).then(async () => {
+                try {
+                    await execPromise(`${adbPath}adb install -r "${apkPath}smartTube.apk"`);
+                    event.reply('adbResponse', 'Installed Smart Tube');
+                } catch (error: any) {
+                    event.reply('adbResponse', error.message);
+                }
+
+            });
+            break;
+
+        case 'launcher manager':
+            console.log('launcher manager');
+            downloadFile(LAUNCHER_MANAGER_URL, path.join(apkPath, 'launcherManager.apk')).then(async () => {
+                try {
+                    await execPromise(`${adbPath}adb install -r "${apkPath}launcherManager.apk"`);
+                    event.reply('adbResponse', 'Installed Launcher Manager');
+                } catch (error: any) {
+                    event.reply('adbResponse', error.message);
+                }
+            });
+            break;
+
+        case 'wolf launcher':
+            console.log('wolf launcher');
+            downloadFile(WOLF_LAUNCHER_URL, path.join(apkPath, 'wolfLauncher.apk')).then(async () => {
+                try {
+                    await execPromise(`${adbPath}adb install -r "${apkPath}wolfLauncher.apk"`);
+                    event.reply('adbResponse', 'Installed Wolf Launcher');
+                } catch (error: any) {
+                    event.reply('adbResponse', error.message);
+                }
+            });
+            break;
+
+        default:
+            console.log('default');
             executeCmd(command, event, 'adbResponse');
+            break;
         }
 
     });

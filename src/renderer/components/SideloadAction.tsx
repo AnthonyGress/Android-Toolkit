@@ -1,7 +1,7 @@
 import { ChangeEvent, useRef, useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { FixedWidthBtn } from './FixedWidthBtn';
-import { useTerminalContext } from 'renderer/context/useTerminalContext';
+import { useTerminalContext } from '../context/useTerminalContext';
 import { AdbProps } from '../types';
 import ClearIcon from '@mui/icons-material/Clear';
 
@@ -81,6 +81,23 @@ export const SideloadAction = ({ adbCommand }: AdbProps ) => {
                     </Box>
                 </Box>
             </Grid>
+
+
+            <Box className="center" mt={6} mb={1}>
+                <Typography fontSize={24} color='white'>Install Featured Apps</Typography>
+            </Box>
+            <Grid container spacing={2} justifyContent={'center'}>
+                <Box className="center" mt={2} mb={1}>
+                </Box>
+                <Grid item sm={12} md={12} lg={6} mt={2}>
+                    <Box className='vcenter' gap={2}>
+                        <FixedWidthBtn adb={adbCommand} command={'smarttube'} title='SmartTube'/>
+                        <FixedWidthBtn adb={adbCommand} command={'launcher manager'} title='Launcher Manager'/>
+                        <FixedWidthBtn adb={adbCommand} command={'wolf launcher'} title='Wolf Launcher'/>
+                    </Box>
+                </Grid>
+            </Grid>
+
         </Grid>
     );
 };

@@ -9,6 +9,7 @@ import { routeHandler } from './api/ipcHandler';
 import { MainWindow } from './types';
 import { checkForUpdates } from './utils/appUpdater';
 import { execPromise } from './utils/executeCmd';
+import { apkPath } from './constants/constant';
 // import AppUpdater from './utils/appUpdater';
 
 const userOS = process.platform;
@@ -44,6 +45,10 @@ const setupWinAdb = () => {
 };
 
 const initialize = () => {
+    !fs.existsSync(apkPath) && fs.mkdir(apkPath, (err) => {
+        if (err) console.log(err);
+    });
+
     switch(userOS) {
     case 'darwin':
         console.log('MacOS');
@@ -60,6 +65,7 @@ const initialize = () => {
 
         downloadPathWin = `C:\\Users\\${username}\\AppData\\Local\\Programs\\android-toolkit\\resources`;
         adbPath = `C:\\Users\\${username}\\AppData\\Local\\Programs\\android-toolkit\\platform-tools\\`;
+
         setupWinAdb();
 
         break;
@@ -79,7 +85,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const createWindow = async () => {
     // if (isDevelopment) {
-    //     await installExtensions();
+    //     await installExtensions()
     // }
 
     const RESOURCES_PATH = app.isPackaged
