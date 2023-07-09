@@ -67,7 +67,7 @@ export const SideloadAction = ({ adbCommand }: AdbProps ) => {
                         </Box>
                     </Box>
                 </Grid>
-                {/* <Divider style={{ width:'100%', backgroundColor: 'white' }} orientation='vertical'/> */}
+
                 <Grid item xs={12} md={6} mb={2} mt={2}>
                     <Box className="center" mb={1}>
                         <Typography fontSize={24} color='white'>Batch Install APKs</Typography>
@@ -104,13 +104,9 @@ export const SideloadAction = ({ adbCommand }: AdbProps ) => {
                     </Box>
                 </Grid>
 
-                {/* <Divider style={{ width:'100%', backgroundColor: 'white' }}/> */}
-
                 <Grid item xs={12} md={6} mb={2} mt={2}>
                     <Box className="center" mb={1}>
                         <Typography fontSize={24} color='white'>Quick Install Mobile Apps</Typography>
-
-
                     </Box>
                     <Box>
                         <Box>
@@ -124,8 +120,6 @@ export const SideloadAction = ({ adbCommand }: AdbProps ) => {
                         </Box>
                     </Box>
                 </Grid>
-
-                {/* <Divider style={{ width:'100%', backgroundColor: 'white' }}/> */}
             </Box>
         </Grid>
     );
