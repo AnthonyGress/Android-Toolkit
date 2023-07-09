@@ -8,8 +8,3 @@ labels: 'question'
 
 <!-- What do you need help with? -->
 
-<!---
-❗️❗️ Also, please consider donating ❗️❗️
-
-
- -->

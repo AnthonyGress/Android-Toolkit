@@ -41,7 +41,26 @@ You can install any APK file from your computer directly on to your android devi
 Installs ALL files with .apk extension in the selected directory onto your device.
 <br><br>
 
-# Firestick Tools
+## Quick Install Apps
+One click install for selected free apps. Click each link below to learn more about what the app does.
+
+<br>
+
+## TV Apps
+
+SmartTube - [https://github.com/yuliskov/SmartTubeNext/blob/master/README.md](https://github.com/yuliskov/SmartTubeNext/blob/master/README.md)  
+  
+Launcher Manager (FireTV) - [https://forum.xda-developers.com/t/app-firetv-noroot-launcher-manager-change-launcher-without-root.4176349/](https://forum.xda-developers.com/t/app-firetv-noroot-launcher-manager-change-launcher-without-root.4176349/)  
+  
+Wolf Launcher - [https://www.techdoctoruk.com/tutorials/block-android-tv-adverts-with-wolf-launcher/](https://www.techdoctoruk.com/tutorials/block-android-tv-adverts-with-wolf-launcher/)  
+<br>
+
+## Mobile Apps (phone/tables)
+Spotube - [https://github.com/KRTirtho/spotube/blob/master/README.md](https://github.com/KRTirtho/spotube/blob/master/README.md) 
+
+<br> 
+
+# FireTV Tools
 
 ## Set Screensaver
 Lets you set a custom screensaver app. I have included a modified application in this repo called "Website Daydream" that changes the default wallpaper to the website https://clients3.google.com/cast/chromecast/home
@@ -56,7 +75,7 @@ Gets the current values for your screensaver and returns them.
 
   
 ## Debloat
-Disables ALL unnecessary Amazon services that are not needed
+Disables ALL unnecessary Amazon services that are not needed (may break some amazon services)
 
 <br>
 
@@ -66,8 +85,10 @@ Each action is performed on the connected android device with the exception of t
   
 Ex. `./adb install test.apk`
 
-You can learn more about ADB commands on [https://developer.android.com/tools/adb](https://developer.android.com/tools/adb)
+You can learn more about ADB commands at [https://developer.android.com/tools/adb](https://developer.android.com/tools/adb)
 
 <br>
 
-> Note: You have to enable ADB debugging or USB debugging on your android device. Usually found in developer settings (accessed by tapping the build number many times on most devices). On your first time connecting, you will have to allow the connection on your android device, it will ask about a fingerprint which you need to accept. This only happens on the first connection and is an adb security measure.
+# Debugging
+
+If your device is showing connected but says offline when you list devices or you cannot perform some actions, simply turn off ADB debugging on your device and re-enable it. Then reconnect using the app and it should work again.

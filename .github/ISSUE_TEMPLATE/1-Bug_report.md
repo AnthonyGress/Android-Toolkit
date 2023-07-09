@@ -44,10 +44,6 @@ labels: 'bug'
 <!--- Include as many relevant details about the environment you experienced the bug in -->
 
 -   App version :
--   Operating System and version :
+-   Device (Phone, FireTV, AndroidTV) and Android version :
 -   Link to your project :
 
-<!---
-❗️❗️ Also, please consider donating ❗️❗️
-
- -->

@@ -1,4 +1,4 @@
-export const debloatCommands = [
+export const DEBLOAT_CMDS = [
     'adb shell pm disable-user com.amazon.recess',
     'adb shell pm disable-user com.amazon.platform.fdrw',
     'adb shell pm disable-user com.amazon.ssmsys',

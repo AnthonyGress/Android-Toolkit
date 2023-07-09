@@ -1,4 +1,5 @@
-import { useTerminalContext } from 'renderer/context/useTerminalContext';
+
+import { useTerminalContext } from '../context/useTerminalContext';
 import { AdbCommand } from '../types';
 
 interface Props {

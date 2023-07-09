@@ -1,7 +1,7 @@
 import { Box, Grid, Typography } from '@mui/material';
 import { FixedWidthBtn } from './FixedWidthBtn';
 import { AdbProps } from '../types';
-import { debloatCommands } from '../constants/debloatCommands';
+import { DEBLOAT_CMDS } from '../constants/debloatCommands';
 
 export const FireStickActions = ({ adbCommand }: AdbProps) => {
 
@@ -33,7 +33,7 @@ export const FireStickActions = ({ adbCommand }: AdbProps) => {
     };
 
     const debloat = () => {
-        debloatCommands.map((command) => adbCommand(command));
+        DEBLOAT_CMDS.map((command) => adbCommand(command));
     };
 
     return (

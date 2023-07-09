@@ -1,7 +1,7 @@
 import { ChangeEvent, useRef, useState } from 'react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FixedWidthBtn } from './FixedWidthBtn';
-import { useTerminalContext } from 'renderer/context/useTerminalContext';
+import { useTerminalContext } from '../context/useTerminalContext';
 import { AdbProps } from '../types';
 import ClearIcon from '@mui/icons-material/Clear';
 
@@ -29,7 +29,7 @@ export const SideloadAction = ({ adbCommand }: AdbProps ) => {
 
     return (
         <Grid container spacing={2} justifyContent={'center'} >
-            <Grid item xs={12} mt={2} mb={2}>
+            <Grid item xs={12} mb={2}>
                 <Box className="center" mt={2} mb={1}>
                     <Typography fontSize={24} color='white'>Install Single APK</Typography>
                 </Box>
@@ -62,13 +62,15 @@ export const SideloadAction = ({ adbCommand }: AdbProps ) => {
                         </Box>
                     </Box>
                     <Box className='center' mt={2}>
-                        <FixedWidthBtn customAction={sideload} title='Sideload' disabled={!selectedFile}/>
+                        <FixedWidthBtn customAction={sideload} title='Install' disabled={!selectedFile}/>
                     </Box>
                 </Box>
             </Grid>
 
-            <Grid item xs={12} mt={2} mb={2}>
-                <Box className="center" mt={2} mb={1}>
+            <Divider style={{ width:'100%', backgroundColor: 'white' }}/>
+
+            <Grid item xs={12} mb={2}>
+                <Box className="center" mb={1}>
                     <Typography fontSize={24} color='white'>Batch Install APKs</Typography>
                 </Box>
                 <Box>
@@ -81,6 +83,49 @@ export const SideloadAction = ({ adbCommand }: AdbProps ) => {
                     </Box>
                 </Box>
             </Grid>
+
+            <Divider style={{ width:'100%', backgroundColor: 'white' }}/>
+
+            <Grid item xs={12} mb={2}>
+                <Box className="center" mb={1}>
+                    <Typography fontSize={24} color='white'>Quick Install TV Apps</Typography>
+
+                </Box>
+                <Box>
+                    <Box>
+                        <Box sx={{ display: 'flex', flexDirection:{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }, justifyContent: 'center' }}>
+                            <Box className='vcenter' gap={2}>
+                                <FixedWidthBtn adb={adbCommand} command={'smarttube'} title='SmartTube (YouTube)'/>
+                                <FixedWidthBtn adb={adbCommand} command={'launcher manager'} title='Launcher Manager - FireTV'/>
+                                <FixedWidthBtn adb={adbCommand} command={'wolf launcher'} title='Wolf Launcher'/>
+                            </Box>
+                        </Box>
+                    </Box>
+                </Box>
+            </Grid>
+
+            <Divider style={{ width:'100%', backgroundColor: 'white' }}/>
+
+            <Grid item xs={12} mb={2}>
+                <Box className="center" mb={1}>
+                    <Typography fontSize={24} color='white'>Quick Install Mobile Apps</Typography>
+
+
+                </Box>
+                <Box>
+                    <Box>
+                        <Box sx={{ display: 'flex', flexDirection:{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }, justifyContent: 'center' }}>
+                            <Box className='vcenter' gap={2}>
+                                <FixedWidthBtn adb={adbCommand} command={'spotube'} title='Spotube (Spotify)'/>
+
+                            </Box>
+                        </Box>
+                    </Box>
+                </Box>
+            </Grid>
+
+            <Divider style={{ width:'100%', backgroundColor: 'white' }}/>
+
         </Grid>
     );
 };
