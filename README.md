@@ -22,7 +22,7 @@ Click [here](https://github.com/anthonygress/Android-Toolkit/releases/latest/dow
 
 # Usage
 
-1. Make sure you are on the same WiFi network as your Firestick. 
+1. Make sure you are on the same WiFi network as your android device. 
 2. Find the IP address of your device.  
 On FireTV: Firestick Settings > My Fire TV > About > Network
 3. Go to Device Settings and turn on ADB debugging and Install Apps from Unknown Sources.  
