@@ -1,6 +1,6 @@
 import path from 'path';
 import { app, ipcMain } from 'electron';
-import { LAUNCHER_MANAGER_URL, POWERSHELL_CMD, SMART_TUBE_URL, SPOTUBE_URL, TERMINAL_CMD, WOLF_LAUNCHER_URL, apkPath } from '../constants/constant';
+import { LAUNCHER_MANAGER_URL, POWERSHELL_CMD, REVANCED_URL, SMART_TUBE_URL, SPOTUBE_URL, TERMINAL_CMD, WOLF_LAUNCHER_URL, apkPath } from '../constants/constant';
 import { executeCmd, batchInstall } from '../utils';
 import { startUpdate } from '../utils/appUpdater';
 import { downloadFile } from '../utils/downloadFile';
@@ -94,6 +94,18 @@ export const routeHandler = (adbPath: string) => {
                 try {
                     await execPromise(`${adbPath}adb install -r "${apkPath}wolfLauncher.apk"`);
                     event.reply('adbResponse', 'Installed Wolf Launcher');
+                } catch (error: any) {
+                    event.reply('adbResponse', error.message);
+                }
+            });
+            break;
+
+        case 'revanced':
+            console.log('revanced');
+            downloadFile(REVANCED_URL, path.join(apkPath, 'revanced.apk')).then(async () => {
+                try {
+                    await execPromise(`${adbPath}adb install -r "${apkPath}revanced.apk"`);
+                    event.reply('adbResponse', 'Installed Revanced');
                 } catch (error: any) {
                     event.reply('adbResponse', error.message);
                 }
