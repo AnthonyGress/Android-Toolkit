@@ -1,5 +1,5 @@
 import { app, ipcMain } from 'electron';
-import { POWERSHELL_CMD } from '../constants/constant';
+import { POWERSHELL_CMD, TERMINAL_CMD } from '../constants/constant';
 import { executeCmd, batchInstall } from '../utils';
 import { startUpdate } from '../utils/appUpdater';
 
@@ -12,18 +12,42 @@ export const routeHandler = (adbPath: string) => {
 
         console.log(command);
 
-        if (command === 'powershell') {
+        switch (command) {
+        case 'powershell':
             command = POWERSHELL_CMD;
             executeCmd(command, event, 'shellResponse');
-        } else if (command === 'update') {
+            break;
+
+        case 'terminal':
+            command = TERMINAL_CMD;
+            executeCmd(command, event, 'shellResponse');
+            break;
+
+        case 'update':
             event.reply('shellResponse', 'starting update');
             startUpdate(event).then(() => {
                 if (process.platform !== 'win32')
                     event.reply('shellResponse', 'update complete');
             });
-        } else {
+            break;
+
+        default:
             executeCmd(command, event, 'shellResponse');
+            break;
         }
+
+        // if (command === 'powershell') {
+        //     command = POWERSHELL_CMD;
+        //     executeCmd(command, event, 'shellResponse');
+        // } else if (command === 'update') {
+        //     event.reply('shellResponse', 'starting update');
+        //     startUpdate(event).then(() => {
+        //         if (process.platform !== 'win32')
+        //             event.reply('shellResponse', 'update complete');
+        //     });
+        // } else {
+        //     executeCmd(command, event, 'shellResponse');
+        // }
 
     });
 

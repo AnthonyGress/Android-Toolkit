@@ -11,7 +11,7 @@ Copy and paste this into the Terminal App
 ```
 /bin/bash -c "$(curl -sL https://raw.githubusercontent.com/AnthonyGress/Android-Toolkit/main/install.sh)"
 ```
-<br><br>
+---
 
 ## Windows
 
@@ -62,7 +62,9 @@ Disables ALL unnecessary Amazon services that are not needed
 
 # System Tools
 
-Each button is pretty self explanatory as to what it does.
+Each action is performed on the connected android device with the exception of the Terminal action. This opens the terminal on your local computer in the __platform-tools__ folder where you can directly run ADB commands.  
+
+You can learn more about ADB commands on [https://developer.android.com/tools/adb](https://developer.android.com/tools/adb)
 
 <br>
 
