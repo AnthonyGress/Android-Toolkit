@@ -11,7 +11,7 @@ export const SystemActions = ({ adbCommand, shellCommand }: Props) => {
         <Grid container spacing={2} justifyContent={'center'}>
             <Grid item sm={12} md={12} lg={4} mt={2}>
                 <Box className='vcenter' gap={2}>
-                    <FixedWidthBtn adb={shellCommand} command={navigator.platform.includes('Win') ? 'powershell' : 'open -a Terminal'} title='Terminal'/>
+                    <FixedWidthBtn adb={shellCommand} command={navigator.platform.includes('Win') ? 'powershell' : 'terminal'} title='Terminal'/>
                     <FixedWidthBtn adb={adbCommand} command={'adb shell dumpsys diskstats'} title='Disk Info'/>
                     <FixedWidthBtn adb={adbCommand} command={'adb shell dumpsys wifi'} title='WiFi Info'/>
                 </Box>

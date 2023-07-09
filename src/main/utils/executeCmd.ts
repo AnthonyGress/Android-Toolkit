@@ -1,4 +1,7 @@
+import util from 'node:util';
+
 const { exec } = require('child_process');
+export const execPromise = util.promisify(exec);
 
 let count = 0;
 

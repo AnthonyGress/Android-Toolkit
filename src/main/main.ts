@@ -4,10 +4,11 @@ import fs from 'fs';
 import path from 'path';
 import MenuBuilder from './menu';
 import { app, BrowserWindow, shell } from 'electron';
-import { resolveHtmlPath } from './utils';
+import { executeCmd, resolveHtmlPath } from './utils';
 import { routeHandler } from './api/ipcHandler';
 import { MainWindow } from './types';
 import { checkForUpdates } from './utils/appUpdater';
+import { execPromise } from './utils/executeCmd';
 // import AppUpdater from './utils/appUpdater';
 
 const userOS = process.platform;
@@ -101,7 +102,7 @@ const createWindow = async () => {
 
     mainWindow.loadURL(resolveHtmlPath('index.html'));
 
-    mainWindow.on('ready-to-show', () => {
+    mainWindow.on('ready-to-show', async () => {
         if (!mainWindow) {
             throw new Error('"mainWindow" is not defined');
         }
@@ -109,6 +110,11 @@ const createWindow = async () => {
             mainWindow.minimize();
         } else {
             mainWindow.show();
+
+            // start adb server when app starts
+            await execPromise(`${adbPath}adb start-server`);
+            mainWindow?.webContents.send('startup', 'started adb server');
+
             checkForUpdates().then((result) => {
                 if (result) {
                     mainWindow?.webContents.send('startup', `Welcome to Android-Toolkit version ${app.getVersion()} \n Update Available`);
@@ -141,6 +147,12 @@ const createWindow = async () => {
  */
 
 app.on('window-all-closed', () => {
+    // kill adb server when app closes
+    execPromise(`${adbPath}adb kill-server`).then(() => {
+        mainWindow?.webContents.send('startup', 'killed adb server');
+    });
+    console.log('killed adb server');
+
     // Respect the macOS convention of having the application in memory even
     // after all windows have been closed
     if (process.platform !== 'darwin') {
