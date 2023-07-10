@@ -9,7 +9,7 @@ interface Props extends AdbProps{
 export const SystemActions = ({ adbCommand, shellCommand }: Props) => {
     return (
         <Grid container spacing={2} justifyContent={'center'}>
-            <Grid item sm={12} md={12} lg={4} mt={2}>
+            <Grid item sm={12} md={4} lg={4} mt={2}>
                 <Box className='vcenter' gap={2}>
                     <FixedWidthBtn adb={shellCommand} command={navigator.platform.includes('Win') ? 'powershell' : 'terminal'} title='Terminal'/>
                     <FixedWidthBtn adb={adbCommand} command={'adb shell dumpsys diskstats'} title='Disk Info'/>
@@ -17,7 +17,7 @@ export const SystemActions = ({ adbCommand, shellCommand }: Props) => {
                 </Box>
             </Grid>
 
-            <Grid item sm={12} md={12} lg={4} mt={2}>
+            <Grid item sm={12} md={4} lg={4} mt={2}>
                 <Box className="vcenter" gap={2}>
                     <FixedWidthBtn adb={adbCommand} command={'adb shell dumpsys cpuinfo'} title='CPU Info'/>
                     <FixedWidthBtn adb={adbCommand} command={'adb shell dumpsys usagestats'} title='Usage Info'/>
@@ -25,7 +25,7 @@ export const SystemActions = ({ adbCommand, shellCommand }: Props) => {
                 </Box>
             </Grid>
 
-            <Grid item sm={12} md={12} lg={4} mt={2}>
+            <Grid item sm={12} md={4} lg={4} mt={2}>
                 <Box className="vcenter" gap={2}>
                     <FixedWidthBtn adb={adbCommand} command={'adb shell cat /system/build.prop'} title='Hardware Info'/>
                     <FixedWidthBtn adb={adbCommand} command={'adb shell getprop ro.build.version.release'} title='OS Version'/>

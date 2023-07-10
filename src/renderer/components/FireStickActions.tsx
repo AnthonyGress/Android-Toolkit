@@ -44,7 +44,7 @@ export const FireStickActions = ({ adbCommand }: AdbProps) => {
             </Box>
 
             <Grid container spacing={2} justifyContent={'center'} mb={2}>
-                <Grid item sm={12} md={12} lg={6} mt={2}>
+                <Grid item sm={12} md={6} lg={6} mt={2}>
                     <Box className='vcenter' gap={2}>
                         <FixedWidthBtn adb={adbCommand} command={'adb shell settings get secure screensaver_components'} title='Check Screen Saver'/>
                         <FixedWidthBtn adb={adbCommand} command={'adb shell settings get secure sleep_timeout'} title='Time Until Screensaver Stops'/>
@@ -52,7 +52,7 @@ export const FireStickActions = ({ adbCommand }: AdbProps) => {
                     </Box>
                 </Grid>
 
-                <Grid item sm={12} md={12} lg={6} mt={2} >
+                <Grid item sm={12} md={6} lg={6} mt={2} >
                     <Box className='vcenter' gap={2}>
                         <FixedWidthBtn customAction={setScreensaver} title='Set Screensaver'/>
                         <FixedWidthBtn customAction={resetScreensaver} title='Reset Screensaver'/>

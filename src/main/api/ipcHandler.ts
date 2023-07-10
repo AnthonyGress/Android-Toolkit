@@ -6,7 +6,6 @@ import { startUpdate } from '../utils/appUpdater';
 import { downloadFile } from '../utils/downloadFile';
 import { execPromise } from '../utils/executeCmd';
 
-
 export const routeHandler = (adbPath: string) => {
     // listen for messages from renderer at these routes
 
