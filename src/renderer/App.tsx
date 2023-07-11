@@ -10,7 +10,7 @@ import { Route, MemoryRouter as Router, Switch } from 'react-router-dom';
 import { AccordionDropdown } from './components/AccordionDropwdown';
 import { ConnectionActions } from './components/ConnectionActions';
 import { FireStickActions } from './components/FireStickActions';
-import { SideloadAction } from './components/SideloadAction';
+import { ApkActions } from './components/ApkActions';
 import { SystemActions } from './components/SystemActions';
 import { ITerminalContext } from './context/TerminalContext';
 import { TerminalProvider } from './context/TerminalProvider';
@@ -120,8 +120,8 @@ const Main = () => {
                     <ConnectionActions adbCommand={adbCommand}/>
                 </AccordionDropdown>
 
-                <AccordionDropdown title='Sideload Tools'>
-                    <SideloadAction adbCommand={adbCommand} />
+                <AccordionDropdown title='APK Tools'>
+                    <ApkActions adbCommand={adbCommand} />
                 </AccordionDropdown>
 
                 <AccordionDropdown title='FireTV Tools'>

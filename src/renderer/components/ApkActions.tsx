@@ -5,7 +5,7 @@ import { useTerminalContext } from '../context/useTerminalContext';
 import { AdbProps } from '../types';
 import ClearIcon from '@mui/icons-material/Clear';
 
-export const SideloadAction = ({ adbCommand }: AdbProps ) => {
+export const ApkActions = ({ adbCommand }: AdbProps ) => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const terminal = useTerminalContext();
     const fileRef = useRef<any>();
@@ -19,7 +19,7 @@ export const SideloadAction = ({ adbCommand }: AdbProps ) => {
         }
     };
 
-    const sideload = () => {
+    const installApk = () => {
         if (selectedFile) {
             console.log(`Selected file - ${selectedFile.path}`);
             terminal?.setTerminalOutput(`Installing ${selectedFile.name}....`);
@@ -63,7 +63,7 @@ export const SideloadAction = ({ adbCommand }: AdbProps ) => {
                             </Box>
                         </Box>
                         <Box className='center' mt={2}>
-                            <FixedWidthBtn customAction={sideload} title='Install' disabled={!selectedFile}/>
+                            <FixedWidthBtn customAction={installApk} title='Install' disabled={!selectedFile}/>
                         </Box>
                     </Box>
                 </Grid>
