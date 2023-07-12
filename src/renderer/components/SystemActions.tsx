@@ -32,6 +32,14 @@ export const SystemActions = ({ adbCommand, shellCommand }: Props) => {
                     <FixedWidthBtn adb={adbCommand} command={'adb shell screencap -p "/sdcard/screenshot.png"'} title='Device Screenshot'/>
                 </Box>
             </Grid>
+
+            <Grid item sm={12} md={4} lg={4} mt={2}>
+                <Box className="vcenter" gap={2}>
+                    <FixedWidthBtn adb={adbCommand} command={'adb shell dumpsys battery'} title='Battery Info'/>
+                    <FixedWidthBtn adb={adbCommand} command={'adb shell cat /sys/class/power_supply/battery/cycle_count'} title='Battery Cycles'/>
+                    <FixedWidthBtn adb={adbCommand} command={'adb shell cat /sys/class/power_supply/battery/charge_full'} title='Battery Remaining'/>
+                </Box>
+            </Grid>
         </Grid>
     );
 };

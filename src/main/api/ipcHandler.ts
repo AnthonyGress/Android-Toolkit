@@ -6,7 +6,7 @@ import { LAUNCHER_MANAGER_URL, POWERSHELL_CMD, REVANCED_URL,SMART_TUBE_URL,
 import { executeCmd, batchInstall } from '../utils';
 import { startUpdate } from '../utils/appUpdater';
 import { downloadFile } from '../utils/downloadFile';
-import { execPromise } from '../utils/executeCmd';
+import { execPromise, spawnShell } from '../utils/executeCmd';
 
 export const routeHandler = () => {
     // listen for messages from renderer at these routes
@@ -44,6 +44,15 @@ export const routeHandler = () => {
     ipcMain.on('adbChannel', (event, args: string) => {
         const command = `${ADB_PATH}${args}`;
         console.log(command);
+
+        if (args.includes(',')) {
+            // adb pair with pairing closed
+            const argsArr = args.split(',');
+            const pairCommand = argsArr[0];
+            const pairingCode = argsArr[1];
+
+            spawnShell(pairCommand, event, 'adbResponse', pairingCode);
+        }
 
         switch (args) {
         case 'batchInstall':
