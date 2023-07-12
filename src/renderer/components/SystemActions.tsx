@@ -1,9 +1,9 @@
 import { Box, Grid } from '@mui/material';
 import { FixedWidthBtn } from './FixedWidthBtn';
-import { AdbProps } from '../types';
+import { AdbProps, ShellCommand } from '../types';
 
 interface Props extends AdbProps{
-    shellCommand: (command: string) => void
+    shellCommand: ShellCommand
 }
 
 export const SystemActions = ({ adbCommand, shellCommand }: Props) => {

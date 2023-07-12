@@ -1,12 +1,14 @@
 import path from 'path';
 import { app, ipcMain } from 'electron';
-import { LAUNCHER_MANAGER_URL, POWERSHELL_CMD, REVANCED_URL, SMART_TUBE_URL, SPOTUBE_URL, TERMINAL_CMD, WOLF_LAUNCHER_URL, apkPath } from '../constants/constant';
+import { LAUNCHER_MANAGER_URL, POWERSHELL_CMD, REVANCED_URL,SMART_TUBE_URL,
+    SPOTUBE_URL, TERMINAL_CMD,WOLF_LAUNCHER_URL, APK_PATH, ADB_PATH
+} from '../constants';
 import { executeCmd, batchInstall } from '../utils';
 import { startUpdate } from '../utils/appUpdater';
 import { downloadFile } from '../utils/downloadFile';
 import { execPromise } from '../utils/executeCmd';
 
-export const routeHandler = (adbPath: string) => {
+export const routeHandler = () => {
     // listen for messages from renderer at these routes
 
     ipcMain.on('shellChannel', (event, args: string) => {
@@ -40,20 +42,20 @@ export const routeHandler = (adbPath: string) => {
     });
 
     ipcMain.on('adbChannel', (event, args: string) => {
-        const command = `${adbPath}${args}`;
+        const command = `${ADB_PATH}${args}`;
         console.log(command);
 
         switch (args) {
         case 'batchInstall':
             console.log('batchInstall');
-            batchInstall(adbPath, event);
+            batchInstall(event);
             break;
 
         case 'smarttube':
             console.log('install smarttube');
-            downloadFile(SMART_TUBE_URL, path.join(apkPath, 'smartTube.apk')).then(async () => {
+            downloadFile(SMART_TUBE_URL, path.join(APK_PATH, 'smartTube.apk')).then(async () => {
                 try {
-                    await execPromise(`${adbPath}adb install -r "${apkPath}smartTube.apk"`);
+                    await execPromise(`${ADB_PATH}adb install -r "${APK_PATH}smartTube.apk"`);
                     event.reply('adbResponse', 'Installed Smart Tube');
                 } catch (error: any) {
                     event.reply('adbResponse', error.message);
@@ -64,9 +66,9 @@ export const routeHandler = (adbPath: string) => {
 
         case 'spotube':
             console.log('install spotube');
-            downloadFile(SPOTUBE_URL, path.join(apkPath, 'spotube.apk')).then(async () => {
+            downloadFile(SPOTUBE_URL, path.join(APK_PATH, 'spotube.apk')).then(async () => {
                 try {
-                    await execPromise(`${adbPath}adb install -r "${apkPath}spotube.apk"`);
+                    await execPromise(`${ADB_PATH}adb install -r "${APK_PATH}spotube.apk"`);
                     event.reply('adbResponse', 'Installed Spotube');
                 } catch (error: any) {
                     event.reply('adbResponse', error.message);
@@ -77,9 +79,9 @@ export const routeHandler = (adbPath: string) => {
 
         case 'launcher manager':
             console.log('launcher manager');
-            downloadFile(LAUNCHER_MANAGER_URL, path.join(apkPath, 'launcherManager.apk')).then(async () => {
+            downloadFile(LAUNCHER_MANAGER_URL, path.join(APK_PATH, 'launcherManager.apk')).then(async () => {
                 try {
-                    await execPromise(`${adbPath}adb install -r "${apkPath}launcherManager.apk"`);
+                    await execPromise(`${ADB_PATH}adb install -r "${APK_PATH}launcherManager.apk"`);
                     event.reply('adbResponse', 'Installed Launcher Manager');
                 } catch (error: any) {
                     event.reply('adbResponse', error.message);
@@ -89,9 +91,9 @@ export const routeHandler = (adbPath: string) => {
 
         case 'wolf launcher':
             console.log('wolf launcher');
-            downloadFile(WOLF_LAUNCHER_URL, path.join(apkPath, 'wolfLauncher.apk')).then(async () => {
+            downloadFile(WOLF_LAUNCHER_URL, path.join(APK_PATH, 'wolfLauncher.apk')).then(async () => {
                 try {
-                    await execPromise(`${adbPath}adb install -r "${apkPath}wolfLauncher.apk"`);
+                    await execPromise(`${ADB_PATH}adb install -r "${APK_PATH}wolfLauncher.apk"`);
                     event.reply('adbResponse', 'Installed Wolf Launcher');
                 } catch (error: any) {
                     event.reply('adbResponse', error.message);
@@ -101,9 +103,9 @@ export const routeHandler = (adbPath: string) => {
 
         case 'revanced':
             console.log('revanced');
-            downloadFile(REVANCED_URL, path.join(apkPath, 'revanced.apk')).then(async () => {
+            downloadFile(REVANCED_URL, path.join(APK_PATH, 'revanced.apk')).then(async () => {
                 try {
-                    await execPromise(`${adbPath}adb install -r "${apkPath}revanced.apk"`);
+                    await execPromise(`${ADB_PATH}adb install -r "${APK_PATH}revanced.apk"`);
                     event.reply('adbResponse', 'Installed Revanced');
                 } catch (error: any) {
                     event.reply('adbResponse', error.message);

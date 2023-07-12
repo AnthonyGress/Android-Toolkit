@@ -1,9 +1,10 @@
-import { IpcMainEvent, dialog } from 'electron';
 import fs from 'fs';
 import path from 'path';
+import { IpcMainEvent, dialog } from 'electron';
 import { executeCmd } from './executeCmd';
+import { ADB_PATH } from '../constants';
 
-export const batchInstall = (adbPath: string, event: IpcMainEvent) => {
+export const batchInstall = (event: IpcMainEvent) => {
     let files: string[];
     const extension = '.apk';
     const dir = dialog.showOpenDialogSync({
@@ -41,7 +42,7 @@ export const batchInstall = (adbPath: string, event: IpcMainEvent) => {
                     files.forEach((file) => {
                         const filePath = path.join(dir[0], file);
 
-                        executeCmd(`${adbPath}adb install -r "${filePath}"`, event, 'adbResponse', file, total);
+                        executeCmd(`${ADB_PATH}adb install -r "${filePath}"`, event, 'adbResponse', file, total);
                     });
                 }
 

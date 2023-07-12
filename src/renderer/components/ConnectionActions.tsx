@@ -1,10 +1,10 @@
-import React, { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import { FixedWidthBtn } from './FixedWidthBtn';
 import { AdbProps } from '../types';
 import { Box } from '@mui/material';
 
 export const ConnectionActions = ({ adbCommand }: AdbProps) => {
-    const [ipAddress, setIpAddress] = React.useState('');
+    const [ipAddress, setIpAddress] = useState('');
 
     const onSubmit = (e: FormEvent) => {
         e.preventDefault();
