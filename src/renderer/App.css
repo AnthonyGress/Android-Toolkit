@@ -165,6 +165,17 @@ a:hover {
     font-size: 0.8rem;
 }
 
+.pairing-code {
+        height: 2rem;
+        max-width: 20vw;
+        border-radius: 8px;
+        border-color: transparent;
+        appearance: none;
+        font-size: 1rem;
+        background-color: white;
+        color: black;
+}
+
 .swal2-confirm {
     background-color: #cf3886 !important;
     outline: none !important;

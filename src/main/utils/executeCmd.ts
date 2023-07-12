@@ -1,4 +1,5 @@
 import util from 'node:util';
+const { spawn } = require('node:child_process');
 
 const { exec } = require('child_process');
 export const execPromise = util.promisify(exec);
@@ -12,7 +13,7 @@ export const executeCmd = (
     filename?: string,
     total = 1
 ) => {
-    exec(command, (error: Error, stdout: string, stderr: Error) => {
+    exec(command, { shell: true }, (error: Error, stdout: string, stderr: Error) => {
         if (error) {
             console.log(`error: ${error.message}`);
             const errArr = error.message.split(/\r?\n/);
@@ -50,5 +51,34 @@ export const executeCmd = (
             }
 
         }
+    });
+};
+
+export const spawnShell = (
+    command: string,
+    event: Electron.IpcMainEvent,
+    callbackChannel: string,
+    input?: string
+) => {
+    let commandArr = command.split(' ');
+    const commandBase = commandArr[0];
+    commandArr = commandArr.slice(1);
+
+    const child = spawn(commandBase, commandArr);
+
+    child.stdout.on('data', (data: any) => {
+        child.stdin.write(input);
+        child.stdin.end(); // EOF
+
+        event.reply(callbackChannel, `${data}`);
+    });
+
+    child.stderr.on('data', (data: any) => {
+        console.error(`stderr: ${data}`);
+        event.reply(callbackChannel, `${data}`);
+    });
+
+    child.on('close', (code: number) => {
+        console.log(`Child process exited with code ${code}.`);
     });
 };

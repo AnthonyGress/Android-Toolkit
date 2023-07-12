@@ -6,12 +6,9 @@ import { Octokit } from 'octokit';
 import { downloadFile } from './downloadFile';
 import packageJson from '../../../release/app/package.json';
 import semverCompare from 'semver/functions/compare';
-import util from 'node:util';
 import fs from 'fs';
-
-const { exec } = require('child_process');
-const execPromise = util.promisify(exec);
-const userOS = process.platform;
+import { USERNAME, USER_OS } from '../constants';
+import { execPromise } from './executeCmd';
 
 // Cannot use updater unless codesigning with paid credentials for macOS
 // export default class AppUpdater {
@@ -49,17 +46,16 @@ export const checkForUpdates = async () => {
 
 
 export const startUpdate = async (event: IpcMainEvent) => {
-    if (userOS === 'win32') {
+    if (USER_OS === 'win32') {
         updateWindows(event);
-    } else if (userOS === 'darwin' || userOS === 'linux') {
+    } else if (USER_OS === 'darwin' || USER_OS === 'linux') {
         await nixUpdate();
     }
 };
 
 export const updateWindows = (event: IpcMainEvent) => {
-    const username = process.env.USERNAME;
 
-    const downloadPathWin = `C:\\Users\\${username}\\Downloads`;
+    const downloadPathWin = `C:\\Users\\${USERNAME}\\Downloads`;
     console.log('running windows update');
 
     fs.mkdir(`${downloadPathWin}\\Android-Toolkit-Update\\`, (err) => {

@@ -12,22 +12,34 @@ export const WOLF_LAUNCHER_URL = 'https://www.techdoctoruk.com/?sdm_process_down
 
 export const REVANCED_URL = 'https://github.com/revanced/revanced-manager/releases/download/v1.3.8/revanced-manager-v1.3.8.apk';
 
-export let apkPath: string;
-export const username = process.env.USERNAME;
+export const IS_WIN = process.platform === 'win32';
 
-switch (process.platform) {
+export const USERNAME= process.env.USERNAME;
+export const WINDOWS_RESOURCE_PATH = `C:\\Users\\${USERNAME}\\AppData\\Local\\Programs\\android-toolkit\\resources`;
+
+export let APK_PATH: string;
+export let ADB_PATH: string;
+export const USER_OS = process.platform;
+
+switch (USER_OS) {
 case 'darwin':
-    apkPath = '/Applications/Android Toolkit.app/Contents/apks/';
+    console.log('MacOS');
+    APK_PATH = '/Applications/Android Toolkit.app/Contents/apks/';
+    ADB_PATH = '/Applications/"Android Toolkit.app"/Contents/platform-tools/';
     break;
 
 case 'win32':
-    apkPath = `C:\\Users\\${username}\\AppData\\Local\\Programs\\android-toolkit\\apks\\`;
+    console.log('Windows operating system');
+    APK_PATH = `C:\\Users\\${USERNAME}\\AppData\\Local\\Programs\\android-toolkit\\apks\\`;
     break;
 
 case 'linux':
-    apkPath = '/usr/bin/Android-Toolkit/apks/';
+    console.log('Linux operating system');
+    APK_PATH = '/usr/bin/Android-Toolkit/apks/';
+    ADB_PATH = '/usr/bin/Android-Toolkit/platform-tools/';
     break;
 
 default:
+    console.log('other operating system');
     break;
 }

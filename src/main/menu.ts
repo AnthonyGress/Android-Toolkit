@@ -5,11 +5,8 @@ import {
     BrowserWindow,
     MenuItemConstructorOptions,
 } from 'electron';
-import { updateWindows } from './utils/appUpdater';
 import { platform } from 'os';
-import { exec } from 'node:child_process';
-import util from 'node:util';
-const execPromise = util.promisify(exec);
+import { execPromise } from './utils';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;

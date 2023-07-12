@@ -85,7 +85,9 @@ Disables ALL unnecessary Amazon services that are not needed (may break some ama
 
 Each action is performed on the connected android device with the exception of the Terminal action. This opens the terminal on your local computer in the __platform-tools__ folder where you can directly run ADB commands.  
   
-Ex. `./adb install test.apk`
+Ex. `./adb install test.apk`  
+  
+For Battery Remaining, just divide the number by 1000 to get your battery status in mAh.
 
 You can learn more about ADB commands at [https://developer.android.com/tools/adb](https://developer.android.com/tools/adb)
 
