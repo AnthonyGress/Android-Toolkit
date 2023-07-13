@@ -38,6 +38,7 @@ button {
     -webkit-user-drag: none;
     -webkit-user-select: none;
     user-select: none;
+    z-index: 10;
 }
 
 button:hover {
@@ -98,6 +99,7 @@ a:hover {
     justify-content: space-between;
     top: 96vh;
     width: 98%;
+    z-index: 0;
 }
 
 .signature {

@@ -2,10 +2,11 @@ import { ChangeEvent, useRef, useState } from 'react';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FixedWidthBtn } from './FixedWidthBtn';
 import { useTerminalContext } from '../context/useTerminalContext';
-import { AdbProps } from '../types';
-import ClearIcon from '@mui/icons-material/Clear';
 
-export const ApkActions = ({ adbCommand }: AdbProps ) => {
+import ClearIcon from '@mui/icons-material/Clear';
+import { adbCommand } from '../api';
+
+export const ApkActions =  () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const terminal = useTerminalContext();
     const fileRef = useRef<any>();
@@ -23,7 +24,7 @@ export const ApkActions = ({ adbCommand }: AdbProps ) => {
         if (selectedFile) {
             console.log(`Selected file - ${selectedFile.path}`);
             terminal?.setTerminalOutput(`Installing ${selectedFile.name}....`);
-            adbCommand(`adb install -r "${selectedFile.path}"`);
+            adbCommand(`adb install -r -d "${selectedFile.path}"`);
         }
     };
 
@@ -112,8 +113,9 @@ export const ApkActions = ({ adbCommand }: AdbProps ) => {
                         <Box>
                             <Box sx={{ display: 'flex', flexDirection:{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }, justifyContent: 'center' }}>
                                 <Box className='vcenter' gap={2}>
+                                    <FixedWidthBtn adb={adbCommand} command={'revanced'} title='YouTube Revanced'/>
                                     <FixedWidthBtn adb={adbCommand} command={'spotube'} title='Spotube (Spotify)'/>
-                                    {/* <FixedWidthBtn adb={adbCommand} command={'revanced'} title='Revanced (Youtube)'/> */}
+                                    <FixedWidthBtn adb={adbCommand} command={'revanced-reddit'} title='Reddit Revanced'/>
 
                                 </Box>
                             </Box>

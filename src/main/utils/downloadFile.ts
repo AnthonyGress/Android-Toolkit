@@ -8,6 +8,7 @@ export const downloadFile = async (fileUrl: string, outputLocationPath: string) 
         method: 'get',
         url: fileUrl,
         responseType: 'stream',
+        headers: { 'User-Agent':'OpenGApps APKMirrorCrawler/1.0' }
     }).then(response => {
         return new Promise((resolve, reject) => {
             response.data.pipe(writer);

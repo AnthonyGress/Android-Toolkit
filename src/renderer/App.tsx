@@ -17,6 +17,8 @@ import { TerminalProvider } from './context/TerminalProvider';
 import { useTerminalContext } from './context/useTerminalContext';
 import { UpdateBtn } from './components/UpdateBtn';
 import { AdbCommand, ShellCommand } from './types';
+import { adbCommand, shellCommand } from './api';
+import { RevancedActions } from './components/RevancedActions';
 
 declare global {
     interface Window {
@@ -29,14 +31,6 @@ const Main = () => {
     const [updateAvailable, setUpdateAvailable] = useState(false);
     const terminal: ITerminalContext = useTerminalContext();
     const outputRef = useRef(null);
-
-    const adbCommand: AdbCommand = (command) => {
-        window.api.adbCommand(command);
-    };
-
-    const shellCommand: ShellCommand = (command) => {
-        window.api.shellCommand(command);
-    };
 
     window.addEventListener('message', (event: MessageEvent) => {
         if (event.source === window && typeof event.data === 'string') {
@@ -104,7 +98,7 @@ const Main = () => {
                 <img width="120px" alt="icon" src={icon} className="spin" style={{ marginRight: '20px' }} />
                 <Typography variant='h3'>Android Toolkit</Typography>
             </Box>
-            {updateAvailable && <UpdateBtn shellCommand={shellCommand}/>}
+            {updateAvailable && <UpdateBtn />}
             <Box className="terminal-wrapper center">
                 <Box className="output-terminal">
                     <Box className="output-text-box">
@@ -117,19 +111,23 @@ const Main = () => {
             </Box>
             <Box>
                 <AccordionDropdown title='ADB Connection Tools' defaultExpanded>
-                    <ConnectionActions adbCommand={adbCommand}/>
+                    <ConnectionActions />
                 </AccordionDropdown>
 
                 <AccordionDropdown title='APK Tools'>
-                    <ApkActions adbCommand={adbCommand} />
+                    <ApkActions />
+                </AccordionDropdown>
+
+                <AccordionDropdown title='Revanced Tools'>
+                    <RevancedActions />
                 </AccordionDropdown>
 
                 <AccordionDropdown title='FireTV Tools'>
-                    <FireStickActions adbCommand={adbCommand} />
+                    <FireStickActions />
                 </AccordionDropdown>
 
                 <AccordionDropdown title='System Tools'>
-                    <SystemActions adbCommand={adbCommand} shellCommand={shellCommand} />
+                    <SystemActions />
                 </AccordionDropdown>
             </Box>
 
