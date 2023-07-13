@@ -1,9 +1,9 @@
 import { FormEvent, useState } from 'react';
 import { FixedWidthBtn } from './FixedWidthBtn';
-import { AdbProps } from '../types';
 import { Box, Divider, Typography } from '@mui/material';
+import { adbCommand } from '../api';
 
-export const ConnectionActions = ({ adbCommand }: AdbProps) => {
+export const ConnectionActions = () => {
     const [ipAddress, setIpAddress] = useState('');
     const [pairingIp, setPairingIp] = useState('');
     const [pairingCode, setPairingCode] = useState('');
@@ -15,7 +15,9 @@ export const ConnectionActions = ({ adbCommand }: AdbProps) => {
 
     const onSubmitPairing = (e: FormEvent) => {
         e.preventDefault();
-        adbCommand(`adb pair ${ipAddress},${pairingCode}`);
+        console.log(`adb pair ${pairingIp},${pairingCode}`);
+
+        adbCommand(`adb pair ${pairingIp},${pairingCode}`);
     };
 
     const updateIp = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {

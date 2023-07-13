@@ -1,12 +1,9 @@
 import ArrowCircleDownOutlinedIcon from '@mui/icons-material/ArrowCircleDownOutlined';
 import { Box, Typography } from '@mui/material';
-import { ShellCommand } from '../types';
+import { shellCommand } from '../api';
 
-interface Props {
-    shellCommand: ShellCommand
-}
+export const UpdateBtn = () => {
 
-export const UpdateBtn = ({ shellCommand }: Props) => {
     const handleUpdate = () => {
         shellCommand('update');
     };

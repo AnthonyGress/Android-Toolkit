@@ -1,9 +1,9 @@
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FixedWidthBtn } from './FixedWidthBtn';
-import { AdbProps } from '../types';
 import { DEBLOAT_CMDS } from '../constants/debloatCommands';
+import { adbCommand } from '../api';
 
-export const FireStickActions = ({ adbCommand }: AdbProps) => {
+export const FireStickActions = () => {
 
     const setScreensaver = () => {
         adbCommand(
@@ -23,8 +23,12 @@ export const FireStickActions = ({ adbCommand }: AdbProps) => {
         adbCommand(
             'adb shell settings put secure screensaver_components com.amazon.bueller.photos/.daydream.ScreenSaverService'
         );
-        adbCommand(
-            'sleep 1 & adb shell settings get secure screensaver_components'
+        setTimeout(
+            () =>
+                adbCommand(
+                    'adb shell settings get secure screensaver_components'
+                ),
+            1000
         );
     };
 

@@ -30,6 +30,17 @@ On FireTV: Firestick Settings > My Fire TV > About > Network
 4. Enter IP address into __ADB Connection Tools__ and click "Connect" or press the enter key.
 <br><br>
 
+## Phones/Tablets with Android 11 or higher
+
+For wired adb connection, you will need to enable developer mode, and enable usb debugging. Plug your device in via USB and tap to notification on your phone/tablet that says "charging via USB" and choose the option for File transfer / Android Auto.
+
+For wireless connection you will need to enable developer settings, usb debugging and wireless debugging.  
+Under the wireless debugging settings, you will need to tap pair device with pairing code. Enter the pairing ipAddress:port and the pairing code in Android Toolkit.  
+  
+Once paired, you will need to back out and use the ADB Connect section to connect to the IP address and port listed under wireless debugging.
+
+<br>
+
 # Sideload Tools
 
 ## Install Single APK
@@ -58,9 +69,21 @@ Wolf Launcher - [https://www.techdoctoruk.com/tutorials/block-android-tv-adverts
 ## Mobile Apps (phone/tables)
 Spotube - [https://github.com/KRTirtho/spotube/blob/master/README.md](https://github.com/KRTirtho/spotube/blob/master/README.md) 
 
-<!-- Revanced - [https://revanced.app/](https://revanced.app/)  -->
+Revanced - [https://revanced.app/](https://revanced.app/) 
 
 <br> 
+
+# ReVanced Tools  
+  
+Download each of the apps in the list. Then open ReVanced and patch your youtube app. To revert at any time, simply uninstall the app and use the original youtube app from the play store.  
+  
+You can get links to open in the ReVanced app by going into settings > apps > youtube > open by default and unchecking all the options. Then delete data, disable/delete the app, then restart.
+
+To enable links to open in Youtube ReVanced, go to settings > apps > Youtube ReVanced > open by default and select all the options, then restart.
+
+> NOTE: On my pixel device it seems any youtube links from google chrome will try to open in the stock youtube app, or take you to the play store to install/enable it. This doesn't seem to happen from the google app.
+
+<br>
 
 # FireTV Tools
 

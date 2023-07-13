@@ -13,7 +13,7 @@ export const executeCmd = (
     filename?: string,
     total = 1
 ) => {
-    exec(command, { shell: true }, (error: Error, stdout: string, stderr: Error) => {
+    exec(command, { maxBuffer: 1024 * 5000 }, (error: Error, stdout: string, stderr: Error) => {
         if (error) {
             console.log(`error: ${error.message}`);
             const errArr = error.message.split(/\r?\n/);
