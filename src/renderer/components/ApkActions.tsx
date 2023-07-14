@@ -113,9 +113,11 @@ export const ApkActions =  () => {
                         <Box>
                             <Box sx={{ display: 'flex', flexDirection:{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }, justifyContent: 'center' }}>
                                 <Box className='vcenter' gap={2}>
-                                    <FixedWidthBtn adb={adbCommand} command={'revanced'} title='YouTube Revanced'/>
-                                    <FixedWidthBtn adb={adbCommand} command={'spotube'} title='Spotube (Spotify)'/>
+                                    <FixedWidthBtn adb={adbCommand} command={'revanced-youtube'} title='YouTube Revanced'/>
+                                    <FixedWidthBtn adb={adbCommand} command={'revanced-spotify'} title='Spotify Revanced'/>
                                     <FixedWidthBtn adb={adbCommand} command={'revanced-reddit'} title='Reddit Revanced'/>
+                                    <FixedWidthBtn adb={adbCommand} command={'revanced-tiktok'} title='TikTok Revanced'/>
+                                    <FixedWidthBtn adb={adbCommand} command={'revanced-ytmusic'} title='Youtube Music Revanced'/>
 
                                 </Box>
                             </Box>
