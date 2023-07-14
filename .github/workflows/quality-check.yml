@@ -1,0 +1,33 @@
+name: Code Quality Check
+
+on:
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  run-quality-check:
+    runs-on: ubuntu-latest
+    env:
+      CI: false
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies run Lint and Test
+        run: |
+          npm install
+          npm run lint
+          npm run build
+          npm test
+
+      - name: Get all git tags
+        run: git fetch --all --tags
+
+      - name: Version Check
+        uses: thebongy/version-check@v1
+        with:
+          file: release/app/package.json
+          tagFormat: v${version}
+        id: version_check

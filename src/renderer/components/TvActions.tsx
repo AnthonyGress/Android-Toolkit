@@ -2,35 +2,48 @@ import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FixedWidthBtn } from './FixedWidthBtn';
 import { DEBLOAT_CMDS } from '../constants/debloatCommands';
 import { adbCommand } from '../api';
+import { useTerminalContext } from '../context/useTerminalContext';
 
-export const FireStickActions = () => {
+export const TvActions = () => {
+    const terminal = useTerminalContext();
 
-    const setScreensaver = () => {
-        adbCommand(
-            'adb shell settings put secure screensaver_components uk.co.liamnewmarch.daydream/uk.co.liamnewmarch.daydream.WebsiteDaydreamService '
-        );
-
-        setTimeout(
-            () =>
-                adbCommand(
-                    'adb shell settings get secure screensaver_components'
-                ),
-            2000
-        );
+    const screensaverTimeOn = () => {
+        adbCommand('adb shell settings put system screen_off_timeout 120000');
+        terminal?.setTerminalOutput('Set screensaver to start after 2 mins');
     };
 
-    const resetScreensaver = () => {
-        adbCommand(
-            'adb shell settings put secure screensaver_components com.amazon.bueller.photos/.daydream.ScreenSaverService'
-        );
-        setTimeout(
-            () =>
-                adbCommand(
-                    'adb shell settings get secure screensaver_components'
-                ),
-            1000
-        );
+    const screensaverTimeOff = () => {
+        adbCommand('adb shell settings put secure sleep_timeout 18000000');
+        terminal?.setTerminalOutput('Set screensaver to stop after 5 hrs');
+
     };
+
+    // const setScreensaver = () => {
+    //     adbCommand(
+    //         'adb shell settings put secure screensaver_components uk.co.liamnewmarch.daydream/uk.co.liamnewmarch.daydream.WebsiteDaydreamService '
+    //     );
+
+    //     setTimeout(
+    //         () =>
+    //             adbCommand(
+    //                 'adb shell settings get secure screensaver_components'
+    //             ),
+    //         2000
+    //     );
+    // };
+
+    // const resetScreensaver = () => {
+    //     adbCommand(
+    //         'adb shell settings put secure screensaver_components com.amazon.bueller.photos/.daydream.ScreenSaverService'
+    //     );
+    //     setTimeout(
+    //         () =>
+    //             adbCommand(
+    //                 'adb shell settings get secure screensaver_components'
+    //             ),
+    //         1000
+    //     );
+    // };
 
     const screensaverDemo = () => {
         window.open('https://clients3.google.com/cast/chromecast/home/v/c9541b08');
@@ -58,8 +71,10 @@ export const FireStickActions = () => {
 
                 <Grid item sm={12} md={6} lg={6} mt={2} >
                     <Box className='vcenter' gap={2}>
-                        <FixedWidthBtn customAction={setScreensaver} title='Set Screensaver'/>
-                        <FixedWidthBtn customAction={resetScreensaver} title='Reset Screensaver'/>
+                        <FixedWidthBtn customAction={screensaverTimeOn} title='Start after 2 Mins'/>
+                        <FixedWidthBtn customAction={screensaverTimeOff} title='Stop after 5 Hrs'/>
+                        {/* <FixedWidthBtn customAction={setScreensaver} title='Set Screensaver'/>
+                        <FixedWidthBtn customAction={resetScreensaver} title='Reset Screensaver'/> */}
                         <FixedWidthBtn customAction={screensaverDemo} title='Google Screensaver Demo'/>
                     </Box>
                 </Grid>
@@ -68,7 +83,7 @@ export const FireStickActions = () => {
             <Divider style={{ width:'100%', backgroundColor: 'white' }}/>
 
             <Box className="vcenter" mt={2}>
-                <Typography fontSize={24} color='white'>Debloat Tools</Typography>
+                <Typography fontSize={24} color='white'>FireOS Debloat Tools</Typography>
                 <Box mt={4}>
                     <FixedWidthBtn customAction={debloat} title='Run Debloat Commands'/>
                 </Box>
