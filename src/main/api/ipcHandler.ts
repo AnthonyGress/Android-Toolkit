@@ -1,7 +1,7 @@
 import path from 'path';
 import { app, ipcMain } from 'electron';
-import { LAUNCHER_MANAGER_URL, POWERSHELL_CMD, REVANCED_URL,SMART_TUBE_URL,
-    SPOTUBE_URL, TERMINAL_CMD,WOLF_LAUNCHER_URL, APK_PATH, ADB_PATH, MICRO_G_URL, REVANCED_MANAGER_URL, YOUTUBE_URL, REDDIT_URL, REVANCED_REDDIT_URL
+import { LAUNCHER_MANAGER_URL, POWERSHELL_CMD, REVANCED_YOUTUBE_URL,SMART_TUBE_URL,
+    REVANCED_SPOTIFY_URL, TERMINAL_CMD,WOLF_LAUNCHER_URL, APK_PATH, ADB_PATH, MICRO_G_URL, REVANCED_MANAGER_URL, YOUTUBE_URL, REDDIT_URL, REVANCED_REDDIT_URL, REVANCED_YTMUSIC_URL, REVANCED_TIKTOK_URL
 } from '../constants';
 import { executeCmd, batchInstall } from '../utils';
 import { startUpdate } from '../utils/appUpdater';
@@ -73,11 +73,11 @@ export const routeHandler = () => {
             });
             break;
 
-        case 'spotube':
-            console.log('install spotube');
-            downloadFile(SPOTUBE_URL, path.join(APK_PATH, 'spotube.apk')).then(async () => {
-                await execPromise(`${ADB_PATH}adb install -r -d "${APK_PATH}spotube.apk"`);
-                event.reply('adbResponse', 'Installed Spotube');
+        case 'revanced-spotify':
+            console.log('install revanced-spotify');
+            downloadFile(REVANCED_SPOTIFY_URL, path.join(APK_PATH, 'revanced-spotify.apk')).then(async () => {
+                await execPromise(`${ADB_PATH}adb install -r -d "${APK_PATH}revanced-spotify.apk"`);
+                event.reply('adbResponse', 'Installed Spotify Revanced');
             }).catch((error) => {
                 event.reply('adbResponse', error.message);
                 console.log(error.message);
@@ -106,16 +106,38 @@ export const routeHandler = () => {
             });
             break;
 
-        case 'revanced':
+        case 'revanced-youtube':
             console.log('install revanced');
 
             downloadFile(MICRO_G_URL, path.join(APK_PATH, 'microg.apk')).then(async () => {
                 await execPromise(`${ADB_PATH}adb install -r -d "${APK_PATH}microg.apk"`);
                 event.reply('adbResponse', 'Installed microg (for login), please wait for revanced...');
 
-                downloadFile(REVANCED_URL, path.join(APK_PATH, 'revanced.apk')).then(async () => {
-                    await execPromise(`${ADB_PATH}adb install -r -d "${APK_PATH}revanced.apk"`);
-                    event.reply('adbResponse', 'Installed Revanced');
+                downloadFile(REVANCED_YOUTUBE_URL, path.join(APK_PATH, 'revanced-youtube.apk')).then(async () => {
+                    await execPromise(`${ADB_PATH}adb install -r -d "${APK_PATH}revanced-youtube.apk"`);
+                    event.reply('adbResponse', 'Installed Youtube Revanced');
+                }).catch((error) => {
+                    event.reply('adbResponse', error.message);
+                    console.log(error.message);
+                });
+
+            }).catch((error) => {
+                event.reply('adbResponse', error.message);
+                console.log(error.message);
+            });
+
+            break;
+
+        case 'revanced-ytmusic':
+            console.log('install ytmusic');
+
+            downloadFile(MICRO_G_URL, path.join(APK_PATH, 'microg.apk')).then(async () => {
+                await execPromise(`${ADB_PATH}adb install -r -d "${APK_PATH}microg.apk"`);
+                event.reply('adbResponse', 'Installed microg (for login), please wait for revanced...');
+
+                downloadFile(REVANCED_YTMUSIC_URL, path.join(APK_PATH, 'revanced-ytmusic.apk')).then(async () => {
+                    await execPromise(`${ADB_PATH}adb install -r -d "${APK_PATH}revanced-ytmusic.apk"`);
+                    event.reply('adbResponse', 'Installed Youtube Music Revanced');
                 }).catch((error) => {
                     event.reply('adbResponse', error.message);
                     console.log(error.message);
@@ -134,6 +156,20 @@ export const routeHandler = () => {
             downloadFile(REVANCED_REDDIT_URL, path.join(APK_PATH, 'revanced-reddit.apk')).then(async () => {
                 await execPromise(`${ADB_PATH}adb install -r -d "${APK_PATH}revanced-reddit.apk"`);
                 event.reply('adbResponse', 'Installed revanced-reddit');
+
+            }).catch((error) => {
+                event.reply('adbResponse', error.message);
+                console.log(error.message);
+            });
+
+            break;
+
+        case 'revanced-tiktok':
+            console.log('install revanced reddit');
+
+            downloadFile(REVANCED_TIKTOK_URL, path.join(APK_PATH, 'revanced-tiktok.apk')).then(async () => {
+                await execPromise(`${ADB_PATH}adb install -r -d "${APK_PATH}revanced-tiktok.apk"`);
+                event.reply('adbResponse', 'Installed revanced-tiktok');
 
             }).catch((error) => {
                 event.reply('adbResponse', error.message);

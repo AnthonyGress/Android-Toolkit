@@ -79,9 +79,13 @@ Wolf Launcher - [https://www.techdoctoruk.com/tutorials/block-android-tv-adverts
 <br>
 
 ## Mobile Apps (phone/tables)
-Spotube - [https://github.com/KRTirtho/spotube/blob/master/README.md](https://github.com/KRTirtho/spotube/blob/master/README.md) 
+> Note: Delete the original play store app before installing
 
 Revanced - [https://revanced.app/](https://revanced.app/) 
+  
+Simply click the button to download and install the app directly on your device.  
+  
+For spotify/reddit you may need to login with your username and password if signing in with google doesn't work. Youtube and Youtube Music need MicroG installed to login to your google account.
 
 <br> 
 
@@ -94,6 +98,8 @@ You can get links to open in the ReVanced app by going into settings > apps > yo
 To enable links to open in Youtube ReVanced, go to settings > apps > Youtube ReVanced > open by default and select all the options, then restart.
 
 > NOTE: On my pixel device it seems any youtube links from google chrome will try to open in the stock youtube app, or take you to the play store to install/enable it. This doesn't seem to happen from the google app.
+
+Prebuilt apks - [Revanced APKs](https://github.com/revanced-apks/build-apps/releases)
 
 <br>
 
