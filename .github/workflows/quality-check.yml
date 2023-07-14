@@ -28,6 +28,6 @@ jobs:
       - name: Version Check
         uses: thebongy/version-check@v1
         with:
-          file: package.json
+          file: release/app/package.json
           tagFormat: v${version}
         id: version_check
