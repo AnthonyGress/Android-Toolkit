@@ -10,7 +10,7 @@ export const TvActions = () => {
     };
 
     const screensaverTimeOff = () => {
-        adbCommand('adb shell settings put secure sleep_timeout 10800000');
+        adbCommand('adb shell settings put secure sleep_timeout 18000000');
     };
 
     const setScreensaver = () => {
@@ -67,7 +67,7 @@ export const TvActions = () => {
                 <Grid item sm={12} md={6} lg={6} mt={2} >
                     <Box className='vcenter' gap={2}>
                         <FixedWidthBtn customAction={screensaverTimeOn} title='Start after 2 Mins'/>
-                        <FixedWidthBtn customAction={screensaverTimeOff} title='Stop after 3 Hrs'/>
+                        <FixedWidthBtn customAction={screensaverTimeOff} title='Stop after 5 Hrs'/>
                         {/* <FixedWidthBtn customAction={setScreensaver} title='Set Screensaver'/>
                         <FixedWidthBtn customAction={resetScreensaver} title='Reset Screensaver'/> */}
                         <FixedWidthBtn customAction={screensaverDemo} title='Google Screensaver Demo'/>
