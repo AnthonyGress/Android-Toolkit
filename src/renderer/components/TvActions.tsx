@@ -18,32 +18,32 @@ export const TvActions = () => {
 
     };
 
-    const setScreensaver = () => {
-        adbCommand(
-            'adb shell settings put secure screensaver_components uk.co.liamnewmarch.daydream/uk.co.liamnewmarch.daydream.WebsiteDaydreamService '
-        );
+    // const setScreensaver = () => {
+    //     adbCommand(
+    //         'adb shell settings put secure screensaver_components uk.co.liamnewmarch.daydream/uk.co.liamnewmarch.daydream.WebsiteDaydreamService '
+    //     );
 
-        setTimeout(
-            () =>
-                adbCommand(
-                    'adb shell settings get secure screensaver_components'
-                ),
-            2000
-        );
-    };
+    //     setTimeout(
+    //         () =>
+    //             adbCommand(
+    //                 'adb shell settings get secure screensaver_components'
+    //             ),
+    //         2000
+    //     );
+    // };
 
-    const resetScreensaver = () => {
-        adbCommand(
-            'adb shell settings put secure screensaver_components com.amazon.bueller.photos/.daydream.ScreenSaverService'
-        );
-        setTimeout(
-            () =>
-                adbCommand(
-                    'adb shell settings get secure screensaver_components'
-                ),
-            1000
-        );
-    };
+    // const resetScreensaver = () => {
+    //     adbCommand(
+    //         'adb shell settings put secure screensaver_components com.amazon.bueller.photos/.daydream.ScreenSaverService'
+    //     );
+    //     setTimeout(
+    //         () =>
+    //             adbCommand(
+    //                 'adb shell settings get secure screensaver_components'
+    //             ),
+    //         1000
+    //     );
+    // };
 
     const screensaverDemo = () => {
         window.open('https://clients3.google.com/cast/chromecast/home/v/c9541b08');
