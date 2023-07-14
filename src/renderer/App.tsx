@@ -116,12 +116,12 @@ const Main = () => {
                     <ApkActions />
                 </AccordionDropdown>
 
-                <AccordionDropdown title='Revanced Tools'>
-                    <RevancedActions />
-                </AccordionDropdown>
-
                 <AccordionDropdown title='TV Tools'>
                     <TvActions />
+                </AccordionDropdown>
+
+                <AccordionDropdown title='Revanced Tools'>
+                    <RevancedActions />
                 </AccordionDropdown>
 
                 <AccordionDropdown title='System Tools'>

@@ -2,15 +2,20 @@ import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FixedWidthBtn } from './FixedWidthBtn';
 import { DEBLOAT_CMDS } from '../constants/debloatCommands';
 import { adbCommand } from '../api';
+import { useTerminalContext } from '../context/useTerminalContext';
 
 export const TvActions = () => {
+    const terminal = useTerminalContext();
 
     const screensaverTimeOn = () => {
         adbCommand('adb shell settings put system screen_off_timeout 120000');
+        terminal?.setTerminalOutput('Set screensaver to start after 2 mins');
     };
 
     const screensaverTimeOff = () => {
         adbCommand('adb shell settings put secure sleep_timeout 18000000');
+        terminal?.setTerminalOutput('Set screensaver to stop after 5 hrs');
+
     };
 
     const setScreensaver = () => {
