@@ -6,7 +6,7 @@
 
 ## Mac & Linux
 
-Copy and paste this into the Terminal App
+Copy and paste this into the Terminal App to install.
 
 ```
 /bin/bash -c "$(curl -sL https://raw.githubusercontent.com/AnthonyGress/Android-Toolkit/main/install.sh)"
@@ -15,33 +15,45 @@ Copy and paste this into the Terminal App
 
 ## Windows
 
-Use the installer under the Releases tab named `Android-Toolkit-Setup.exe`
+## Download Latest: [Release](https://github.com/anthonygress/Android-Toolkit/releases/latest/download/Android-toolkit-setup.exe)  
+<br>
 
-Click [here](https://github.com/anthonygress/Android-Toolkit/releases/latest/download/Android-toolkit-setup.exe) to install the latest version.
+Use the latest released installer named `Android-Toolkit-Setup.exe` to get started.
+
 <br><br>
 
 # Usage
-
+## Android TV / FireTV
 1. Make sure you are on the same WiFi network as your android device. 
 2. Find the IP address of your device.  
 On FireTV: Firestick Settings > My Fire TV > About > Network
 3. Go to Device Settings and turn on ADB debugging and Install Apps from Unknown Sources.  
     On FireTV: Settings > My Fire TV > Developer Options
 4. Enter IP address into __ADB Connection Tools__ and click "Connect" or press the enter key.
-<br><br>
+<br>
 
 ## Phones/Tablets with Android 11 or higher
 
-For wired adb connection, you will need to enable developer mode, and enable usb debugging. Plug your device in via USB and tap to notification on your phone/tablet that says "charging via USB" and choose the option for File transfer / Android Auto.
+### For wired adb connection, you will need to:
+1. enable developer mode by tapping on the build number in the about settings
+2. enable usb debugging. 
 
-For wireless connection you will need to enable developer settings, usb debugging and wireless debugging.  
-Under the wireless debugging settings, you will need to tap pair device with pairing code. Enter the pairing ipAddress:port and the pairing code in Android Toolkit.  
-  
-Once paired, you will need to back out and use the ADB Connect section to connect to the IP address and port listed under wireless debugging.
+### For wireless connection you will need to:
+1. enable developer mode
+2. enable usb debugging 
+3. wireless debugging.  
+4. Under the wireless debugging settings, you will need to tap pair device with pairing code. 
+5. Enter the pairing ipAddress:port and the pairing code in Android Toolkit.  
+6. Once paired, you will need to back out and use the ADB Connect section to connect to the IP address and port listed under wireless debugging.
+
+### To enable file transfer with your connected computer: 
+1. Plug your device in via USB 
+2. Tap to notification on your phone/tablet that says "charging via USB" 
+3. Choose the option for File transfer / Android Auto.
 
 <br>
 
-# Sideload Tools
+# APK Tools
 
 ## Install Single APK
 
