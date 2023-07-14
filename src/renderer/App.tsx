@@ -9,15 +9,13 @@ import { useRef, useState } from 'react';
 import { Route, MemoryRouter as Router, Switch } from 'react-router-dom';
 import { AccordionDropdown } from './components/AccordionDropwdown';
 import { ConnectionActions } from './components/ConnectionActions';
-import { FireStickActions } from './components/FireStickActions';
+import { TvActions } from './components/TvActions';
 import { ApkActions } from './components/ApkActions';
 import { SystemActions } from './components/SystemActions';
 import { ITerminalContext } from './context/TerminalContext';
 import { TerminalProvider } from './context/TerminalProvider';
 import { useTerminalContext } from './context/useTerminalContext';
 import { UpdateBtn } from './components/UpdateBtn';
-import { AdbCommand, ShellCommand } from './types';
-import { adbCommand, shellCommand } from './api';
 import { RevancedActions } from './components/RevancedActions';
 
 declare global {
@@ -122,8 +120,8 @@ const Main = () => {
                     <RevancedActions />
                 </AccordionDropdown>
 
-                <AccordionDropdown title='FireTV Tools'>
-                    <FireStickActions />
+                <AccordionDropdown title='TV Tools'>
+                    <TvActions />
                 </AccordionDropdown>
 
                 <AccordionDropdown title='System Tools'>

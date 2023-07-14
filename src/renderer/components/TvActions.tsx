@@ -3,7 +3,15 @@ import { FixedWidthBtn } from './FixedWidthBtn';
 import { DEBLOAT_CMDS } from '../constants/debloatCommands';
 import { adbCommand } from '../api';
 
-export const FireStickActions = () => {
+export const TvActions = () => {
+
+    const screensaverTimeOn = () => {
+        adbCommand('adb shell settings put system screen_off_timeout 120000');
+    };
+
+    const screensaverTimeOff = () => {
+        adbCommand('adb shell settings put secure sleep_timeout 10800000');
+    };
 
     const setScreensaver = () => {
         adbCommand(
@@ -58,8 +66,10 @@ export const FireStickActions = () => {
 
                 <Grid item sm={12} md={6} lg={6} mt={2} >
                     <Box className='vcenter' gap={2}>
-                        <FixedWidthBtn customAction={setScreensaver} title='Set Screensaver'/>
-                        <FixedWidthBtn customAction={resetScreensaver} title='Reset Screensaver'/>
+                        <FixedWidthBtn customAction={screensaverTimeOn} title='Start after 2 Mins'/>
+                        <FixedWidthBtn customAction={screensaverTimeOff} title='Stop after 3 Hrs'/>
+                        {/* <FixedWidthBtn customAction={setScreensaver} title='Set Screensaver'/>
+                        <FixedWidthBtn customAction={resetScreensaver} title='Reset Screensaver'/> */}
                         <FixedWidthBtn customAction={screensaverDemo} title='Google Screensaver Demo'/>
                     </Box>
                 </Grid>
@@ -68,7 +78,7 @@ export const FireStickActions = () => {
             <Divider style={{ width:'100%', backgroundColor: 'white' }}/>
 
             <Box className="vcenter" mt={2}>
-                <Typography fontSize={24} color='white'>Debloat Tools</Typography>
+                <Typography fontSize={24} color='white'>FireOS Debloat Tools</Typography>
                 <Box mt={4}>
                     <FixedWidthBtn customAction={debloat} title='Run Debloat Commands'/>
                 </Box>
