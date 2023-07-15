@@ -84,6 +84,10 @@ Wolf Launcher - [https://www.techdoctoruk.com/tutorials/block-android-tv-adverts
 
 Revanced - [https://revanced.app/](https://revanced.app/) 
   
+To learn more about what each patch does, open the ReVanced Manager app and select your application, or visit the website for [ReVanced Patches](https://revanced.app/patches)  
+  
+The Infinity for Reddit patch is from [https://github.com/KhoalaS/Infinity-For-Reddit](https://github.com/KhoalaS/Infinity-For-Reddit)
+  
 Simply click the button to download and install the app directly on your device.  
   
 For spotify/reddit you may need to login with your username and password if signing in with google doesn't work. Youtube and Youtube Music need MicroG installed to login to your google account.
