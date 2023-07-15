@@ -1,7 +1,7 @@
 import path from 'path';
 import { app, ipcMain } from 'electron';
 import { LAUNCHER_MANAGER_URL, POWERSHELL_CMD, REVANCED_YOUTUBE_URL,SMART_TUBE_URL,
-    REVANCED_SPOTIFY_URL, TERMINAL_CMD,WOLF_LAUNCHER_URL, APK_PATH, ADB_PATH, MICRO_G_URL, REVANCED_MANAGER_URL, YOUTUBE_URL, REDDIT_URL, REVANCED_REDDIT_URL, REVANCED_YTMUSIC_URL, REVANCED_TIKTOK_URL
+    REVANCED_SPOTIFY_URL, TERMINAL_CMD,WOLF_LAUNCHER_URL, APK_PATH, ADB_PATH, MICRO_G_URL, REVANCED_MANAGER_URL, YOUTUBE_URL, REDDIT_URL, REVANCED_REDDIT_URL, REVANCED_YTMUSIC_URL, REVANCED_TIKTOK_URL, INFINITY_REDDIT_URL, SPOTIFY_MOD_URL
 } from '../constants';
 import { executeCmd, batchInstall } from '../utils';
 import { startUpdate } from '../utils/appUpdater';
@@ -73,11 +73,22 @@ export const routeHandler = () => {
             });
             break;
 
-        case 'revanced-spotify':
-            console.log('install revanced-spotify');
-            downloadFile(REVANCED_SPOTIFY_URL, path.join(APK_PATH, 'revanced-spotify.apk')).then(async () => {
-                await execPromise(`${ADB_PATH}adb install -r -d "${APK_PATH}revanced-spotify.apk"`);
-                event.reply('adbResponse', 'Installed Spotify Revanced');
+        case 'spotify-mod':
+            console.log('install spotify-mod');
+            downloadFile(SPOTIFY_MOD_URL, path.join(APK_PATH, 'spotify-mod.apk')).then(async () => {
+                await execPromise(`${ADB_PATH}adb install -r -d "${APK_PATH}spotify-mod.apk"`);
+                event.reply('adbResponse', 'Installed Spotify Mod');
+            }).catch((error) => {
+                event.reply('adbResponse', error.message);
+                console.log(error.message);
+            });
+            break;
+
+        case 'infinity-reddit':
+            console.log('install infinity-reddit');
+            downloadFile(INFINITY_REDDIT_URL, path.join(APK_PATH, 'infinity-reddit.apk')).then(async () => {
+                await execPromise(`${ADB_PATH}adb install -r -d "${APK_PATH}infinity-reddit.apk"`);
+                event.reply('adbResponse', 'Installed Infinity Reddit');
             }).catch((error) => {
                 event.reply('adbResponse', error.message);
                 console.log(error.message);

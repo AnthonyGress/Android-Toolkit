@@ -4,7 +4,11 @@ export const TERMINAL_CMD = 'open -a Terminal /Applications/"Android Toolkit.app
 
 export const SMART_TUBE_URL = 'https://github.com/yuliskov/SmartTubeNext/releases/download/18.28s/STube_ststable_v18.28_r_armeabi-v7a.apk';
 
-export const REVANCED_SPOTIFY_URL = 'https://github.com/revanced-apks/build-apps/releases/download/147/spotify-revanced-v8.8.50.466-all.apk';
+export const INFINITY_REDDIT_URL = 'https://github.com/KhoalaS/Infinity-For-Reddit/releases/latest/download/app-release.apk';
+
+// export const REVANCED_SPOTIFY_URL = 'https://github.com/revanced-apks/build-apps/releases/download/147/spotify-revanced-v8.8.50.466-all.apk';
+
+export const SPOTIFY_MOD_URL = 'https://download1638.mediafire.com/0v6od0nd94igErtLtm0n0SwFMuey5Z5IYupzNi6OTmYLBnH9d1dLTLSTd3e7Zg8DI0excUlRWfczeWNNkBh-2sH7emd7Ui10dDBf1aw5PLd1jaiE4WnGhi6fyHZMTA9XWAzvq3fuOZjT5-nieQ5hGuSxNC8TFFb56VdgAb0WNZzuCg/7u9cy8xs8lo79v8/Spotify-v8.8.52.458-Premium-Mod.apk';
 
 export const REVANCED_TIKTOK_URL = 'https://github.com/revanced-apks/build-apps/releases/download/147/tiktok-revanced-v30.3.4-all.apk';
 
