@@ -20,7 +20,7 @@ Copy and paste this into the Terminal App to install.
 
 Use the latest released installer named `Android-Toolkit-Setup.exe` to get started.
 
-<br><br>
+<br>
 
 # Usage
 ## Android TV / FireTV
