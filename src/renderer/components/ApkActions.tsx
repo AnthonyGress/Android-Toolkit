@@ -115,9 +115,10 @@ export const ApkActions =  () => {
                                 <Box className='vcenter' gap={2}>
                                     <FixedWidthBtn adb={adbCommand} command={'revanced-youtube'} title='YouTube Revanced'/>
                                     <FixedWidthBtn adb={adbCommand} command={'revanced-ytmusic'} title='YT Music Revanced'/>
-                                    {/* <FixedWidthBtn adb={adbCommand} command={'revanced-spotify'} title='Spotify Revanced'/> */}
                                     <FixedWidthBtn adb={adbCommand} command={'revanced-reddit'} title='Reddit Revanced'/>
                                     <FixedWidthBtn adb={adbCommand} command={'revanced-tiktok'} title='TikTok Revanced'/>
+                                    <FixedWidthBtn adb={adbCommand} command={'spotify-mod'} title='Spotify Mod'/>
+                                    <FixedWidthBtn adb={adbCommand} command={'infinity-reddit'} title='Infinity Reddit'/>
 
                                 </Box>
                             </Box>
