@@ -20,7 +20,7 @@ Copy and paste this into the Terminal App to install.
 
 Use the latest released installer named `Android-Toolkit-Setup.exe` to get started.
 
-<br><br>
+<br>
 
 # Usage
 ## Android TV / FireTV
@@ -36,7 +36,8 @@ On FireTV: Firestick Settings > My Fire TV > About > Network
 
 ### For wired adb connection, you will need to:
 1. enable developer mode by tapping on the build number in the about settings
-2. enable usb debugging. 
+2. enable usb debugging.
+3. plug in your device via usb
 
 ### For wireless connection you will need to:
 1. enable developer mode
@@ -65,7 +66,7 @@ Installs ALL files with .apk extension in the selected directory onto your devic
 <br><br>
 
 ## Quick Install Apps
-One click install for selected free apps. Click each link below to learn more about what the app does.
+One click install for selected popular modded apps.
 
 <br>
 
