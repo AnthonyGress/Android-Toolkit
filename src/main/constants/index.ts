@@ -51,6 +51,7 @@ case 'darwin':
 case 'win32':
     console.log('Windows operating system');
     APK_PATH = `C:\\Users\\${USERNAME}\\AppData\\Local\\Programs\\android-toolkit\\apks\\`;
+    ADB_PATH = `C:\\Users\\${USERNAME}\\AppData\\Local\\Programs\\android-toolkit\\platform-tools\\`;
     break;
 
 case 'linux':
