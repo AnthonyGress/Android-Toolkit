@@ -22,7 +22,7 @@ export const WOLF_LAUNCHER_URL = 'https://www.techdoctoruk.com/?sdm_process_down
 
 export const MICRO_G_URL ='https://github.com/inotia00/VancedMicroG/releases/download/v0.2.27.230755/microg.apk';
 
-const BUFF = Buffer.from('aHR0cHM6Ly9kb3dubG9hZDkzOS5tZWRpYWZpcmUuY29tL2Z0NHh6Yno2cThkZ1M4ajl1V2s5dktkRTdyQ3llWU1ydjJyaW1ueUN5UzVYemY2SFJ2MHVTOUlrOTJqQ3ZUTXpFWWVOclI5OFFvSWJpdjlZTmJ0NDVNUTBhQzNMRFUzVXo3SWRiNXM4NlRORm1EVlROZVRZUjJPMDlfYjdzTHV0Z0dnbzJEYVZFOFlEZG5Uc1hkU3RnbnhEdW5EOThrd0pjd2J3RTYyQm1nL3Frd3luZjhpM2Q4ZGRlNi9ydi10eS5hcGs=', 'base64');
+const BUFF = Buffer.from('aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL3VjP2lkPTFBYWFpVXhWc2pIVmZ4d2V2dk1MOUZRekpzZmtOdjBLYSZleHBvcnQ9ZG93bmxvYWQmY29uZmlybT10', 'base64');
 
 export const REVANCED_MANAGER_URL = 'https://github.com/revanced/revanced-manager/releases/download/v1.4.0/revanced-manager-v1.4.0.apk';
 
