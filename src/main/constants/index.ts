@@ -14,17 +14,17 @@ export const REVANCED_TIKTOK_URL = 'https://github.com/revanced-apks/build-apps/
 
 export const REVANCED_YTMUSIC_URL = 'https://github.com/revanced-apks/build-apps/releases/download/147/music-revanced-v6.10.51-arm64-v8a.apk';
 
-export const YOUTUBE_URL = 'https://d.apkpure.com/b/APK/com.google.android.youtube?versionCode=1538252224';
+export const YOUTUBE_URL = 'https://d.apkpure.com/b/APK/com.google.android.youtube?versionCode=1545084352';
 
 export const LAUNCHER_MANAGER_URL = 'https://forum.xda-developers.com/attachments/lm-fos-1-1-8-apk.5862251/';
 
 export const WOLF_LAUNCHER_URL = 'https://www.techdoctoruk.com/?sdm_process_download=1&download_id=4471';
 
-export const MICRO_G_URL ='https://github.com/inotia00/VancedMicroG/releases/download/v0.2.27.230755/microg.apk';
+export const MICRO_G_URL ='https://github.com/ReVanced/GmsCore/releases/download/v0.3.1.4.240913/app.revanced.android.gms-240913008-signed.apk';
 
-const BUFF = Buffer.from('aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL3VjP2lkPTFBYWFpVXhWc2pIVmZ4d2V2dk1MOUZRekpzZmtOdjBLYSZleHBvcnQ9ZG93bmxvYWQmY29uZmlybT10', 'base64');
+const BUFF = Buffer.from('aHR0cHM6Ly9kcml2ZS51c2VyY29udGVudC5nb29nbGUuY29tL2Rvd25sb2FkP2lkPTE5U0dZYXVSa2FBSHZlc1J5VGFNUEhHeWpRQU5jWVdWZSZleHBvcnQ9ZG93bmxvYWQmY29uZmlybT15ZXM=', 'base64');
 
-export const REVANCED_MANAGER_URL = 'https://github.com/revanced/revanced-manager/releases/download/v1.4.0/revanced-manager-v1.4.0.apk';
+export const REVANCED_MANAGER_URL = 'https://github.com/ReVanced/revanced-manager/releases/download/v1.20.1/revanced-manager-v1.20.1.apk';
 
 export const REVANCED_YOUTUBE_URL = BUFF.toString('ascii');
 

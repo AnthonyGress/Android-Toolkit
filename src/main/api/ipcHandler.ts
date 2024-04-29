@@ -118,7 +118,8 @@ export const routeHandler = () => {
             break;
 
         case 'revanced-youtube':
-            console.log('install revanced');
+            console.log('install revanced youtube');
+            // console.log('url', REVANCED_YOUTUBE_URL);
 
             downloadFile(MICRO_G_URL, path.join(APK_PATH, 'microg.apk')).then(async () => {
                 await execPromise(`${ADB_PATH}adb install -r -d "${APK_PATH}microg.apk"`);
