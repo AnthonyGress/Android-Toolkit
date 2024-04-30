@@ -1,6 +1,8 @@
+import { exec } from "node:child_process";
+
 export const POWERSHELL_CMD = 'start powershell -noexit -command "[console]::windowwidth=80; [console]::windowheight=35; [console]::bufferwidth=[console]::windowwidth; cd .\\platform-tools; Get-Content -Raw ..\\resources\\assets\\art.txt; Write-Host "Run ADB commands here" -nonewline; Write-Host "`n";Write-Host "Ex: .\\adb COMMAND"; Write-Host "`n""';
 
-export const TERMINAL_CMD = 'open -a Terminal /Applications/"Android Toolkit.app"/Contents/platform-tools';
+export const TERMINAL_CMD = 'adb shell';
 
 export const SMART_TUBE_URL = 'https://github.com/yuliskov/SmartTube/releases/download/21.54s/SmartTube_stable_21.54_armeabi-v7a.apk';
 
@@ -37,15 +39,23 @@ export const IS_WIN = process.platform === 'win32';
 export const USERNAME= process.env.USERNAME;
 export const WINDOWS_RESOURCE_PATH = `C:\\Users\\${USERNAME}\\AppData\\Local\\Programs\\android-toolkit\\resources`;
 
-export let APK_PATH: string;
-export let ADB_PATH: string;
+export let APK_PATH: string = "./apks";
+export let ADB_PATH: string = "";
 export const USER_OS = process.platform;
 
 switch (USER_OS) {
 case 'darwin':
     console.log('MacOS');
-    APK_PATH = '/Applications/Android Toolkit.app/Contents/apks/';
-    ADB_PATH = '/Applications/"Android Toolkit.app"/Contents/platform-tools/';
+    //APK_PATH = './apks';
+    exec("which adb", (error, stdout, stderr) => {
+        if (error) {
+        console.error(`exec error: ${error}`);
+        console.log(stderr);
+        return;
+        }
+        ADB_PATH = stdout.toString(); 
+    });
+    console.log(ADB_PATH); 	
     break;
 
 case 'win32':
@@ -56,8 +66,16 @@ case 'win32':
 
 case 'linux':
     console.log('Linux operating system');
-    APK_PATH = '/usr/bin/Android-Toolkit/apks/';
-    ADB_PATH = '/usr/bin/Android-Toolkit/platform-tools/';
+    //APK_PATH = './apks/';
+    exec("which adb", (error, stdout, stderr) => {
+	if (error) {
+        console.error(`exec error: ${error}`);
+	console.log(stderr);
+        return;
+    	}
+    	ADB_PATH = stdout.toString(); 
+    });    	
+    console.log(ADB_PATH);
     break;
 
 default:
