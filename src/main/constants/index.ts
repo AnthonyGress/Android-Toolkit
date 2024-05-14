@@ -1,8 +1,8 @@
+import { exec } from 'child_process';
+
 export const POWERSHELL_CMD = 'start powershell -noexit -command "[console]::windowwidth=80; [console]::windowheight=35; [console]::bufferwidth=[console]::windowwidth; cd .\\platform-tools; Get-Content -Raw ..\\resources\\assets\\art.txt; Write-Host "Run ADB commands here" -nonewline; Write-Host "`n";Write-Host "Ex: .\\adb COMMAND"; Write-Host "`n""';
 
-export const TERMINAL_CMD = 'open -a Terminal /Applications/"Android Toolkit.app"/Contents/platform-tools';
-
-export const SMART_TUBE_URL = 'https://github.com/yuliskov/SmartTube/releases/download/21.54s/SmartTube_stable_21.54_armeabi-v7a.apk';
+export const SMART_TUBE_URL = 'https://github.com/yuliskov/SmartTube/releases/download/21.82/SmartTube_beta_21.82_armeabi-v7a.apk';
 
 export const INFINITY_REDDIT_URL = 'https://github.com/KhoalaS/Infinity-For-Reddit/releases/latest/download/app-release.apk';
 
@@ -37,15 +37,34 @@ export const IS_WIN = process.platform === 'win32';
 export const USERNAME= process.env.USERNAME;
 export const WINDOWS_RESOURCE_PATH = `C:\\Users\\${USERNAME}\\AppData\\Local\\Programs\\android-toolkit\\resources`;
 
+
+const getAdbPath = () => {
+    console.log('using dev adb path');
+
+    let path = '';
+    exec('which adb', (error, stdout, stderr) => {
+        if (error) {
+            console.error(`exec error: ${error}`);
+            console.log(stderr);
+            return;
+        }
+        path = stdout.toString();
+    });
+    return path;
+};
+
+export const isDevelopment = process.env.NODE_ENV === 'development';
 export let APK_PATH: string;
 export let ADB_PATH: string;
+export let TERMINAL_CMD: string;
 export const USER_OS = process.platform;
 
 switch (USER_OS) {
 case 'darwin':
     console.log('MacOS');
-    APK_PATH = '/Applications/Android Toolkit.app/Contents/apks/';
-    ADB_PATH = '/Applications/"Android Toolkit.app"/Contents/platform-tools/';
+    APK_PATH = isDevelopment ? './apks' : '/Applications/Android Toolkit.app/Contents/apks/';
+    ADB_PATH = isDevelopment ? getAdbPath() : '/Applications/"Android Toolkit.app"/Contents/platform-tools/';
+    TERMINAL_CMD = 'open -a Terminal /Applications/"Android Toolkit.app"/Contents/platform-tools';
     break;
 
 case 'win32':
@@ -56,8 +75,9 @@ case 'win32':
 
 case 'linux':
     console.log('Linux operating system');
-    APK_PATH = '/usr/bin/Android-Toolkit/apks/';
-    ADB_PATH = '/usr/bin/Android-Toolkit/platform-tools/';
+    APK_PATH = isDevelopment ? './apks' : '/usr/bin/Android-Toolkit/apks/';
+    ADB_PATH = isDevelopment ? getAdbPath() : '/usr/bin/Android-Toolkit/platform-tools/';
+    TERMINAL_CMD = isDevelopment ? 'x-terminal-emulator' : 'x-terminal-emulator -w /usr/bin/Android-Toolkit/platform-tools/';
     break;
 
 default:
