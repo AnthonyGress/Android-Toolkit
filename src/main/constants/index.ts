@@ -2,7 +2,7 @@ import { exec } from 'child_process';
 
 export const POWERSHELL_CMD = 'start powershell -noexit -command "[console]::windowwidth=80; [console]::windowheight=35; [console]::bufferwidth=[console]::windowwidth; cd .\\platform-tools; Get-Content -Raw ..\\resources\\assets\\art.txt; Write-Host "Run ADB commands here" -nonewline; Write-Host "`n";Write-Host "Ex: .\\adb COMMAND"; Write-Host "`n""';
 
-export const SMART_TUBE_URL = 'https://github.com/yuliskov/SmartTube/releases/download/21.82/SmartTube_beta_21.82_armeabi-v7a.apk';
+export const SMART_TUBE_URL = 'https://github.com/yuliskov/SmartTube/releases/download/25.24s/SmartTube_stable_25.24_armeabi-v7a.apk';
 
 export const INFINITY_REDDIT_URL = 'https://github.com/KhoalaS/Infinity-For-Reddit/releases/latest/download/app-release.apk';
 
