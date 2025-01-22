@@ -75,7 +75,7 @@
       "publish": "github"
     },
     "linux": {
-      "artifactName": "Android-Toolkit.${ext}",
+      "artifactName": "Android-Toolkit-${arch}.${ext}",
       "target": [
         "AppImage"
       ],
