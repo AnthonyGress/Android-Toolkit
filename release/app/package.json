@@ -1,6 +1,6 @@
 {
   "name": "android-toolkit",
-  "version": "1.5.23",
+  "version": "1.5.24",
   "description": "Universal app with gui for simple adb connection",
   "main": "./dist/main/main.js",
   "author": {

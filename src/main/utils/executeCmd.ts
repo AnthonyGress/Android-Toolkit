@@ -1,5 +1,5 @@
-import util from 'node:util';
 const { spawn } = require('node:child_process');
+import util from 'node:util';
 
 const { exec } = require('child_process');
 export const execPromise = util.promisify(exec);
