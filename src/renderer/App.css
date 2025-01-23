@@ -131,7 +131,7 @@ a:hover {
     height: 2rem;
     min-width: 30vw;
     border-radius: 8px;
-    border-color: transparent;
+    border-color: transparent !important;
     appearance: none;
     font-size: 1rem;
     background-color: white;

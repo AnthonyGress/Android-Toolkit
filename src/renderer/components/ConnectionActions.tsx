@@ -1,15 +1,42 @@
 import { FormEvent, useState } from 'react';
 import { FixedWidthBtn } from './FixedWidthBtn';
-import { Box, Divider, Typography } from '@mui/material';
+import { Autocomplete, Box, createFilterOptions, Divider, FilterOptionsState, InputAdornment, TextField, Typography } from '@mui/material';
 import { adbCommand } from '../api';
+import { styles } from '../theme';
+import { v4 } from 'uuid';
 
 export const ConnectionActions = () => {
     const [ipAddress, setIpAddress] = useState('');
     const [pairingIp, setPairingIp] = useState('');
     const [pairingCode, setPairingCode] = useState('');
 
+    const handleChange = (_event: any, newValue: string | null) => setIpAddress(newValue ? newValue : '');
+
+    const recentlyConnected = localStorage.getItem('recentlyConnected');
+    console.log('recentlyConnected', recentlyConnected);
+
+    const recentlyConnectedArr: string[] | undefined = recentlyConnected && JSON.parse(recentlyConnected);
+    console.log('recentlyConnectedArr', recentlyConnectedArr);
+
+    if (recentlyConnectedArr && recentlyConnectedArr.length > 5) {
+        for (let i = 0; i < recentlyConnectedArr.length - 5; i++) {
+            recentlyConnectedArr.pop();
+        }
+    }
+
     const onSubmitConnect = (e: FormEvent) => {
         e.preventDefault();
+
+        if (recentlyConnectedArr) {
+            const existingIp = recentlyConnectedArr.find((e: string) => e === ipAddress);
+            if (!existingIp && ipAddress) {
+                recentlyConnectedArr.unshift(ipAddress);
+                localStorage.setItem('recentlyConnected', JSON.stringify(recentlyConnectedArr));
+            }
+        } else {
+            localStorage.setItem('recentlyConnected', JSON.stringify([ipAddress]));
+        }
+
         adbCommand(`adb connect ${ipAddress}`);
     };
 
@@ -43,15 +70,50 @@ export const ConnectionActions = () => {
 
                 <form onSubmit={onSubmitConnect}>
                     <Box display={'flex'} justifyContent={'center'} sx={{ flexDirection: { xs: 'column', sm: 'column', md: 'row', lg: 'row' } }} >
-                        <input
+                        {/* <input
                             type="text"
                             value={ipAddress}
                             onChange={updateIp}
                             placeholder="Device ip:port"
                             className="ip-input"
                             required
-                        />
-                        <Box ml={{ xs: 0, md:1 }} sx={{ marginTop: { xs: 2, sm: 2, md: 0 } }} display={'flex'} justifyContent={'center'}>
+                        /> */}
+
+                        <Box sx={styles.center}>
+                            <Autocomplete
+                                freeSolo
+                                options={recentlyConnectedArr && recentlyConnectedArr.length > 0 ? recentlyConnectedArr : []}
+                                renderOption={(props, option: string) => (
+                                    <li {...props} key={v4()}>
+                                        {option}
+                                    </li>
+                                )}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        InputProps={{
+                                            ...params.InputProps,
+                                            type: 'text',
+                                        }}
+                                        placeholder={'Device ip:port'}
+                                        sx={{ backgroundColor: 'white', borderRadius: '8px', borderColor: 'white', minWidth: '30vw' }}
+                                        onChange={updateIp}
+                                    />
+                                )}
+                                onChange={handleChange}
+                                sx={{ width: '95%', borderRadius: '8px', borderColor: 'white',  '& .MuiOutlinedInput-root': {
+                                    border: 'none',
+                                    borderRadius: '8px',
+                                    padding: '0'
+                                },
+                                '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+                                    border: '1px solid #eee'
+                                }
+                                }}
+                            />
+                        </Box>
+
+                        <Box ml={{ xs: 0, md:2 }} sx={{ marginTop: { xs: 2, sm: 2, md: 0 } }} display={'flex'} justifyContent={'center'}>
                             <FixedWidthBtn title='Connect' command={`adb connect ${ipAddress}`}/>
                         </Box>
                     </Box>
