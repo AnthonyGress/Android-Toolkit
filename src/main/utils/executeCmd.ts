@@ -64,21 +64,36 @@ export const spawnShell = (
     const commandBase = commandArr[0];
     commandArr = commandArr.slice(1);
 
-    const child = spawn(commandBase, commandArr);
+    try {
+        const child = spawn(commandBase, commandArr);
 
-    child.stdout.on('data', (data: any) => {
-        child.stdin.write(input);
-        child.stdin.end(); // EOF
+        child.on('error', (error: NodeJS.ErrnoException) => {
+            console.error(`spawn error: ${error.message}`);
+            if (error.code === 'ENOENT') {
+                event.reply(callbackChannel, `Error: Command failed to execute. This may be due to:\n- Invalid IP format (missing port, e.g., should be 192.168.1.1:5555)\n- ADB not found or not properly installed\n- Malformed command\n\nDetails: ${error.message}`);
+            } else {
+                event.reply(callbackChannel, `Error: ${error.message}`);
+            }
+        });
 
-        event.reply(callbackChannel, `${data}`);
-    });
+        child.stdout.on('data', (data: Buffer) => {
+            child.stdin.write(input);
+            child.stdin.end(); // EOF
 
-    child.stderr.on('data', (data: any) => {
-        console.error(`stderr: ${data}`);
-        event.reply(callbackChannel, `${data}`);
-    });
+            event.reply(callbackChannel, `${data}`);
+        });
 
-    child.on('close', (code: number) => {
-        console.log(`Child process exited with code ${code}.`);
-    });
+        child.stderr.on('data', (data: Buffer) => {
+            console.error(`stderr: ${data}`);
+            event.reply(callbackChannel, `${data}`);
+        });
+
+        child.on('close', (code: number) => {
+            console.log(`Child process exited with code ${code}.`);
+        });
+    } catch (error) {
+        const err = error as Error;
+        console.error(`Exception in spawnShell: ${err.message}`);
+        event.reply(callbackChannel, `Error: ${err.message}`);
+    }
 };

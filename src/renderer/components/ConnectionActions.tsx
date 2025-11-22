@@ -13,10 +13,10 @@ export const ConnectionActions = () => {
     const handleChange = (_event: any, newValue: string | null) => setIpAddress(newValue ? newValue : '');
 
     const recentlyConnected = localStorage.getItem('recentlyConnected');
-    console.log('recentlyConnected', recentlyConnected);
+    // console.log('recentlyConnected', recentlyConnected);
 
     const recentlyConnectedArr: string[] | undefined = recentlyConnected && JSON.parse(recentlyConnected);
-    console.log('recentlyConnectedArr', recentlyConnectedArr);
+    // console.log('recentlyConnectedArr', recentlyConnectedArr);
 
     if (recentlyConnectedArr && recentlyConnectedArr.length > 5) {
         for (let i = 0; i < recentlyConnectedArr.length - 5; i++) {
@@ -156,7 +156,7 @@ export const ConnectionActions = () => {
                         </Box>
                     </Box>
                     <Box sx={{ marginTop: { xs: 2, sm: 2, md: 2 } }} display={'flex'} justifyContent={'center'}>
-                        <FixedWidthBtn title='Pair' command={`adb pair ${ipAddress},${pairingCode}`}/>
+                        <FixedWidthBtn title='Pair' command={`adb pair ${pairingIp},${pairingCode}`}/>
                     </Box>
                 </form>
             </Box>
