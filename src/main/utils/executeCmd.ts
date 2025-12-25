@@ -65,7 +65,7 @@ export const spawnShell = (
     commandArr = commandArr.slice(1);
 
     try {
-        const child = spawn(commandBase, commandArr);
+        const child = spawn(commandBase, commandArr, { shell: true });
 
         child.on('error', (error: NodeJS.ErrnoException) => {
             console.error(`spawn error: ${error.message}`);

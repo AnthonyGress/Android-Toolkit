@@ -47,13 +47,16 @@ export const routeHandler = () => {
 
         if (args.includes(',')) {
 
-            // adb pair with pairing closed
+            // adb pair with pairing code
             const argsArr = args.split(',');
             console.log(argsArr);
             const pairCommand = argsArr[0];
             const pairingCode = argsArr[1];
 
-            spawnShell(pairCommand, event, 'adbResponse', pairingCode);
+            // Use the full command path for pairing
+            const fullPairCommand = `${ADB_PATH}${pairCommand}`;
+            spawnShell(fullPairCommand, event, 'adbResponse', pairingCode);
+            return;
         }
 
         switch (args) {
